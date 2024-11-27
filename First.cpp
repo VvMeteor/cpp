@@ -50,15 +50,97 @@ using namespace std;
 //}
 
 //输入数据
-int  main()
-{
-	int a = 0;
-	cout << "请输入a的值：" << endl;
-	cin >> a;
-	cout << "变量a的值为：" << a<<endl;
+//int  main()
+//{
+//	int a = 0;
+//	cout << "请输入a的值：" << endl;
+//	cin >> a;
+//	cout << "变量a的值为：" << a<<endl;
+//
+//	string str = "";
+//	cin >> str;
+//	cout << str << endl;
+//	return 0;
+//}
 
-	string str = "";
-	cin >> str;
-	cout << str << endl;
-	return 0;
+//三个小猪称体重
+
+//int main()
+//{
+//	int pig1w = 0;
+//	int pig2w = 0;
+//	int pig3w = 0;
+//	cin >> pig1w;
+//	cin >> pig2w;
+//	cin >> pig3w;
+//
+//	int maxweight = pig1w;
+//	if (pig2w >= maxweight)
+//	{
+//		if (pig2w >= pig3w)
+//		{
+//			maxweight = pig2w;
+//		}
+//		else
+//		{
+//			maxweight = pig3w;
+//		}
+//	}
+//	else if (pig3w >= maxweight)
+//	{
+//		maxweight = pig3w;
+//	}
+//	cout << maxweight << endl;
+//}
+
+//猜数字
+//#include<cstdlib>
+//#include<ctime>
+//
+//int main()
+//{
+//	srand((unsigned int)time(NULL));
+//	int a = 0;
+//	a = rand() % 100 + 1;
+//	int b = 0;
+//	while (1)
+//	{
+//		cout << "猜数字：" << endl;
+//		cin >> b;
+//		if (a == b)
+//		{
+//			cout << "猜对了" << endl;
+//			break;
+//		}
+//		else if (a > b)
+//		{
+//			cout << "猜小了" << endl;
+//		}
+//		else
+//		{
+//			cout << "猜大了" << endl;
+//		}
+//	}
+//	return 0;
+//}
+
+//找出三位数的水仙花数
+#include<cmath>
+int main()
+{
+	int i = 100;
+	double sum = 0;
+	do
+	{
+		int a = i % 10;
+		int b = (i / 10) % 10;
+		int c = (i / 100) % 10;
+
+		double sum = pow(a, 3)+pow(b, 3)+ pow(c, 3);
+		if (sum == i)
+		{
+			cout << i <<" ";
+		}
+		i++;
+	} while (i < 1000);
 }
