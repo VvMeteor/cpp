@@ -125,22 +125,53 @@ using namespace std;
 //}
 
 //找出三位数的水仙花数
-#include<cmath>
-int main()
-{
-	int i = 100;
-	double sum = 0;
-	do
-	{
-		int a = i % 10;
-		int b = (i / 10) % 10;
-		int c = (i / 100) % 10;
+//#include<cmath>
+//int main()
+//{
+//	int i = 100;
+//	double sum = 0;
+//	do
+//	{
+//		int a = i % 10;
+//		int b = (i / 10) % 10;
+//		int c = (i / 100) % 10;
+//
+//		double sum = pow(a, 3)+pow(b, 3)+ pow(c, 3);
+//		if (sum == i)
+//		{
+//			cout << i <<" ";
+//		}
+//		i++;
+//	} while (i < 1000);
+//}
 
-		double sum = pow(a, 3)+pow(b, 3)+ pow(c, 3);
-		if (sum == i)
-		{
-			cout << i <<" ";
-		}
-		i++;
-	} while (i < 1000);
-}
+//敲桌子
+
+//int main()
+//{
+//	for (int i = 1; i <= 100; i++)
+//	{
+//		if (i % 10 == 7 || i / 10 == 7 || i % 7 == 0)
+//		{
+//			cout << "敲桌子" << endl;
+//			continue;
+//		}
+//		cout << i << endl;
+//	}
+//	return 0;
+//}
+
+//乘法口诀表
+//#include <iomanip>
+//int  main()
+//{
+//	for (int i = 1; i <= 9; i++)
+//	{
+//		for (int j = 1; j <= i; j++)
+//		{
+//			cout << i << "*" << j << "=" << i * j << " ";
+//		}
+//		cout << endl;
+//	}
+//	return 0;
+//}
