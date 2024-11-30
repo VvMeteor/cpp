@@ -175,3 +175,65 @@ using namespace std;
 //	}
 //	return 0;
 //}
+
+//数组
+
+//int main()
+//{
+//	int arr[10];
+//	cout << arr << endl;//输出数组首元素地址
+//	cout << &arr[0] << endl;
+//	return 0;
+//}
+
+//数组元素逆置
+
+//int main()
+//{
+//	int arr[5] = { 2,5,4,3,1 };
+//	int left = 0;
+//	int right = sizeof(arr)/sizeof(arr[0])-1;
+//	while (left <= right)
+//	{
+//		int tmp = arr[left];
+//		arr[left] = arr[right];
+//		arr[right] = tmp;
+//		left++,right--;
+//	}
+//	for (int i = 0; i < sizeof(arr) / sizeof(arr[0]); i++)
+//	{
+//		cout << arr[i] << " ";
+//	}
+//	return 0;
+//}
+
+//数组元素排序
+
+//int main()
+//{
+//	int arr[] = { 5,3,7,1,5,6,4,9,2,0,4,1 };
+//	int size = sizeof(arr) / sizeof(arr[0]);
+//	for (int i = 0; i < size - 1; i++)
+//	{
+//		int count = 0;
+//		for (int j = 0; j < size - 1 - i; j++)
+//		{
+//			if (arr[j] < arr[j + 1])
+//			{
+//				int tmp = arr[j];
+//				arr[j] = arr[j + 1];
+//				arr[j + 1] = tmp;
+//				count = 1;
+//			}
+//		}
+//		if (count == 0)
+//		{
+//			break;
+//		}
+//	}
+//	for (int i = 0; i < size; i++)
+//	{
+//		cout << arr[i] << " ";
+//	}
+//	return 0;
+//}
