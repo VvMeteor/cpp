@@ -258,3 +258,72 @@ using namespace std;
 //	//指针指向不能变，指向值可以改变
 //	return 0;
 //}
+
+//嵌套结构体
+//typedef struct student {
+//	string name;
+//	int age;
+//}stu;
+//typedef struct teacher
+//{
+//	int id;
+//	string name;
+//	int age;
+//	struct student s1;
+//}tcher;
+//int main()
+//{
+//	string tname = "teacher_";
+//	tname += "A";//字符串直接追加
+//	cout << tname << endl;
+//	tcher t1;
+//	t1.id = 0000012;
+//	t1.age = 46;
+//	t1.name = "老王";
+//	t1.s1.age = 15;
+//	t1.s1.name = "小明";
+//	tcher t2 = { 0000013,"李",34,{"小刚",16} };
+//	cout << "老师名字为：" << t2.name<<" "<< "老师学生姓名为：" << t2.s1.name << endl;
+//	return 0;
+//}
+
+//排序结构体元素
+
+struct hero
+{
+	string name;
+	int age;
+};
+int main()
+{
+	struct hero h1[] = { 
+		{"liubei",23},
+		{"guanyu",22},
+		{"zhangfei",20},
+		{"zhaoyun",21},
+		{"diaochan",19} 
+	};
+	for (int i = 0; i < 5 - 1; i++)
+	{
+		int count = 0;
+		for (int j = 0; j < 5 - 1 - i; j++)
+		{
+			if (h1[j].age > h1[j + 1].age)
+			{
+				struct hero tmp = h1[j];
+				h1[j]= h1[j + 1];
+				h1[j + 1]= tmp;
+				count = 1;
+			}
+		}
+		if (count == 0)
+		{
+			break;
+		}
+	}
+	for (int n = 0; n < 5; n++)
+	{
+		cout << h1[n].name << " " << h1[n].age<<" ";
+	}
+	return 0;
+}
