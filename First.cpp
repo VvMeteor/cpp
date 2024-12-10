@@ -330,319 +330,389 @@ using namespace std;
 
 //通讯录
 
-#include<iostream>
-#include<string>
-#include<cassert>
-using namespace std;
+//#include<iostream>
+//#include<string>
+//#include<cassert>
+//using namespace std;
+//
+//#define MAX 1000
+//
+////联系人结构体
+//typedef struct person
+//{
+//	string name;
+//	int sex;//1-男；2-女
+//	int age;
+//	string tel;
+//	string place;
+//}person;
+//
+////通讯录结构体
+//typedef struct conotact
+//{
+//	person peo[MAX];
+//	int count;
+//}contact;
+//
+////显示菜单
+//void showmenu()
+//{
+//	cout << "************************" << endl;
+//	cout << "***** 1.添加联系人 *****" << endl;
+//	cout << "***** 2.显示联系人 *****" << endl;
+//	cout << "***** 3.删除联系人 *****" << endl;
+//	cout << "***** 4.查找联系人 *****" << endl;
+//	cout << "***** 5.修改联系人 *****" << endl;
+//	cout << "***** 6.清空通讯录 *****" << endl;
+//	cout << "***** 0.退出通讯录 *****" << endl;
+//	cout << "************************" << endl;
+//}
+//
+////添加联系人
+//void addperson(contact* con)
+//{
+//	assert(con);
+//	if (con->count == MAX)
+//	{
+//		cout << "通讯录已满，无法添加联系人！" << endl;
+//		return;
+//	}
+//	else
+//	{
+//		//输入姓名
+//		cout << "请输入联系人姓名：" << endl;
+//		cin >> (con->peo[con->count]).name;
+//		//输入性别
+//		while (1)
+//		{
+//			cout << "请输入联系人性别：" << endl;
+//			cout << "1-男;2-女" << endl;
+//			cin >> (con->peo[con->count]).sex;
+//			if ((con->peo[con->count]).sex != 1 && con->peo[con->count].sex != 2)
+//			{
+//				cout << "输入有误，请重新输入性别！" << endl;
+//			}
+//			else {
+//				break;
+//			}
+//		}
+//		//输入年龄
+//		while (1)
+//		{
+//			cout << "请输入联系人年龄：" << endl;
+//			cin >> con->peo[con->count].age;
+//			if (cin.fail()) {
+//				// 清除错误标志
+//				cin.clear();
+//				// 忽略错误输入直到下一个换行符
+//				cin.ignore(numeric_limits<streamsize>::max(), '\n');
+//				cout << "输入有误，请输入一个有效的数字年龄！" << endl;
+//			}
+//			else if ((con->peo[con->count]).age <= 0 || (con->peo[con->count]).age > 100)
+//			{
+//				cout << "输入有误，请重新输入年龄！" << endl;
+//			}
+//			else {
+//				break;
+//			}
+//		}
+//		//输入电话
+//		cout << "请输入联系人号码：" << endl;
+//		cin >> (con->peo[con->count]).tel;
+//		//输入住址
+//		cout << "请输入联系人住址：" << endl;
+//		cin >> (con->peo[con->count]).place;
+//		//更新通讯录人数
+//		con->count++;
+//		cout << "添加联系人成功！" << endl;
+//		//清屏操作
+//		system("pause");
+//		system("cls");
+//	}
+//}
+//
+////显示联系人
+//void showperson(contact* con)
+//{
+//	assert(con);
+//	if (con->count == 0)
+//	{
+//		cout << "当前通讯录为空。" << endl;
+//		return;
+//	}
+//	else
+//	{
+//		for (int i = 0; i < con->count; i++)
+//		{
+//			cout << "姓名：" << con->peo[i].name << "\t";
+//			cout << "性别：" << (con->peo[i].sex == 1 ? "男" : "女") << "\t";
+//			cout << "年龄：" << con->peo[i].age << "\t";
+//			cout << "电话：" << con->peo[i].tel << "\t";
+//			cout << "住址：" << con->peo[i].place << "\t";
+//			cout << endl;
+//		}
+//	}
+//	system("pause");
+//	system("cls");
+//}
+//
+////查询联系人是否存在
+//int isexist(contact* con, string name)
+//{
+//	assert(con);
+//	for (int i = 0; i < con->count; i++)
+//	{
+//		if (con->peo[i].name == name)
+//		{
+//			return i;
+//		}
+//	}
+//	return -1;
+//}
+//
+////删除联系人
+//void delperson(contact* con, int ret, string name)
+//{
+//	assert(con);
+//	for (int i = ret; i < con->count; i++)
+//	{
+//		con->peo[i].name = con->peo[i + 1].name;
+//	}
+//	con->count--;
+//	cout << "删除联系人成功！" << endl;
+//	system("pause");
+//	system("cls");
+//}
+//
+////查找联系人
+//void findperson(contact* con)
+//{
+//	string name;
+//	cout << "请输入查找联系人姓名：" << endl;
+//	cin >> name;
+//	int ret = isexist(con, name);
+//	if (ret == -1)
+//	{
+//		cout << "联系人不存在！" << endl;
+//	}
+//	else
+//	{
+//		cout << "姓名：" << con->peo[ret].name << "\t";
+//		cout << "性别：" << (con->peo[ret].sex == 1 ? "男" : "女") << "\t";
+//		cout << "年龄：" << con->peo[ret].age << "\t";
+//		cout << "电话：" << con->peo[ret].tel << "\t";
+//		cout << "住址：" << con->peo[ret].place << "\t";
+//		cout << endl;
+//	}
+//	system("pause");
+//	system("cls");
+//}
+//
+////修改联系人
+//void modifyperson(contact* con)
+//{
+//	assert(con);
+//	string name;
+//	cout << "请输入修改联系人姓名：" << endl;
+//	cin >> name;
+//	int ret = isexist(con, name);
+//	if (ret == -1)
+//	{
+//		cout << "联系人不存在！" << endl;
+//	}
+//	else
+//	{
+//		//输入姓名
+//		cout << "请输入联系人姓名：" << endl;
+//		cin >> (con->peo[ret]).name;
+//		//输入性别
+//		while (1)
+//		{
+//			cout << "请输入联系人性别：" << endl;
+//			cout << "1-男;2-女" << endl;
+//			cin >> (con->peo[ret]).sex;
+//			if ((con->peo[ret]).sex != 1 && con->peo[ret].sex != 2)
+//			{
+//				cout << "输入有误，请重新输入性别！" << endl;
+//			}
+//			else {
+//				break;
+//			}
+//		}
+//		//输入年龄
+//		while (1)
+//		{
+//			cout << "请输入联系人年龄：" << endl;
+//			cin >> con->peo[ret].age;
+//			if (cin.fail()) {
+//				// 清除错误标志
+//				cin.clear();
+//				// 忽略错误输入直到下一个换行符
+//				cin.ignore(numeric_limits<streamsize>::max(), '\n');
+//				cout << "输入有误，请输入一个有效的数字年龄！" << endl;
+//			}
+//			else if ((con->peo[ret]).age <= 0 || (con->peo[ret]).age > 100)
+//			{
+//				cout << "输入有误，请重新输入年龄！" << endl;
+//			}
+//			else {
+//				break;
+//			}
+//		}
+//		//输入电话
+//		cout << "请输入联系人号码：" << endl;
+//		cin >> (con->peo[ret]).tel;
+//		//输入住址
+//		cout << "请输入联系人住址：" << endl;
+//		cin >> (con->peo[ret]).place;
+//	}
+//	system("pause");
+//	system("cls");
+//}
+//
+////清空联系人
+//void cleancon(contact* con)
+//{
+//	assert(con);
+//	int input = 0;
+//	cout << "是否要清空通讯录？（1.YES/0.NO）"<<endl;
+//	cin >> input;
+//	if (input)
+//	{
+//		con->count = 0;
+//		cout << "通讯录已清空。" << endl;
+//	}
+//	system("pause");
+//	system("cls");
+//}
+//
+//int main()
+//{
+//	contact con;
+//	con.count = 0;
+//	int input = 0;
+//	while (1)
+//	{
+//		showmenu();
+//		cout << "请选择功能：" << endl;
+//		cin >> input;
+//		switch(input)
+//		{
+//		case 1://添加联系人
+//			addperson(&con);
+//			break;
+//		case 2://显示联系人
+//			showperson(&con);
+//			break;
+//		case 3://删除联系人
+//		{
+//			cout << "请输入要删除的联系人：" << endl;
+//			string name;
+//			cin >> name;
+//			if (isexist(&con, name) == -1)
+//			{
+//				cout << "联系人不存在！" << endl;
+//				system("pause");
+//				system("cls");
+//			}
+//			else
+//			{
+//				delperson(&con, isexist(&con, name), name);
+//			}
+//			break;
+//		}
+//		case 4://查找联系人
+//		{
+//			findperson(&con);
+//			break;
+//		}
+//		case 5://修改联系人
+//		{
+//			modifyperson(&con);
+//			break;
+//		}
+//		case 6://清空通讯录
+//			cleancon(&con);
+//			break;
+//		case 0://退出通讯录
+//			cout << "欢迎下次使用！" << endl;
+//			system("pause");
+//			return  0;
+//		default://选择错误
+//			cout << "选择错误，请重新输入！" << endl;
+//			break;
+//		}
+//	}
+//	system("pause");
+//	return 0;
+//}
 
-#define MAX 1000
+//C++程序存在4个区域：代码区，全局区，栈区，堆区
 
-//联系人结构体
-typedef struct person
-{
-	string name;
-	int sex;//1-男；2-女
-	int age;
-	string tel;
-	string place;
-}person;
+//1.代码区：只读，共享
 
-//通讯录结构体
-typedef struct conotact
-{
-	person peo[MAX];
-	int count;
-}contact;
+//2.全局区：存放全局变量，静态变量，常量（字符串常量和const修饰的全局常量）
 
-//显示菜单
-void showmenu()
-{
-	cout << "************************" << endl;
-	cout << "***** 1.添加联系人 *****" << endl;
-	cout << "***** 2.显示联系人 *****" << endl;
-	cout << "***** 3.删除联系人 *****" << endl;
-	cout << "***** 4.查找联系人 *****" << endl;
-	cout << "***** 5.修改联系人 *****" << endl;
-	cout << "***** 6.清空通讯录 *****" << endl;
-	cout << "***** 0.退出通讯录 *****" << endl;
-	cout << "************************" << endl;
-}
+//3.栈区：存放局部变量和形参；不要把局部变量的地址作为参数返回
 
-//添加联系人
-void addperson(contact* con)
-{
-	assert(con);
-	if (con->count == MAX)
-	{
-		cout << "通讯录已满，无法添加联系人！" << endl;
-		return;
-	}
-	else
-	{
-		//输入姓名
-		cout << "请输入联系人姓名：" << endl;
-		cin >> (con->peo[con->count]).name;
-		//输入性别
-		while (1)
-		{
-			cout << "请输入联系人性别：" << endl;
-			cout << "1-男;2-女" << endl;
-			cin >> (con->peo[con->count]).sex;
-			if ((con->peo[con->count]).sex != 1 && con->peo[con->count].sex != 2)
-			{
-				cout << "输入有误，请重新输入性别！" << endl;
-			}
-			else {
-				break;
-			}
-		}
-		//输入年龄
-		while (1)
-		{
-			cout << "请输入联系人年龄：" << endl;
-			cin >> con->peo[con->count].age;
-			if (cin.fail()) {
-				// 清除错误标志
-				cin.clear();
-				// 忽略错误输入直到下一个换行符
-				cin.ignore(numeric_limits<streamsize>::max(), '\n');
-				cout << "输入有误，请输入一个有效的数字年龄！" << endl;
-			}
-			else if ((con->peo[con->count]).age <= 0 || (con->peo[con->count]).age > 100)
-			{
-				cout << "输入有误，请重新输入年龄！" << endl;
-			}
-			else {
-				break;
-			}
-		}
-		//输入电话
-		cout << "请输入联系人号码：" << endl;
-		cin >> (con->peo[con->count]).tel;
-		//输入住址
-		cout << "请输入联系人住址：" << endl;
-		cin >> (con->peo[con->count]).place;
-		//更新通讯录人数
-		con->count++;
-		cout << "添加联系人成功！" << endl;
-		//清屏操作
-		system("pause");
-		system("cls");
-	}
-}
+//4.堆区：由程序员自主开辟和释放
 
-//显示联系人
-void showperson(contact* con)
-{
-	assert(con);
-	if (con->count == 0)
-	{
-		cout << "当前通讯录为空。" << endl;
-		return;
-	}
-	else
-	{
-		for (int i = 0; i < con->count; i++)
-		{
-			cout << "姓名：" << con->peo[i].name << "\t";
-			cout << "性别：" << (con->peo[i].sex == 1 ? "男" : "女") << "\t";
-			cout << "年龄：" << con->peo[i].age << "\t";
-			cout << "电话：" << con->peo[i].tel << "\t";
-			cout << "住址：" << con->peo[i].place << "\t";
-			cout << endl;
-		}
-	}
-	system("pause");
-	system("cls");
-}
+//int* func()
+//{
+//	int* p = new int(10);//new是开辟堆区内存的关键字，开辟类型为int，数值为10，返回的是地址
+//	int a = 10;
+//	return p;//p的本质还是存放在栈区上的局部变量，该指针变量存放的是指向堆区的一个内存编号
+//	//但是这里返回的不是p变量本身，而是p中存放的内容（即地址），第3点是指不要返回局部变量的地址，没说不能返回局部变量
+//	//如果是return a；那么就会返回a的值，不会有问题
+//}
+//int main()
+//{
+//	int* p = func();
+//	cout << *p << endl;
+//	delete p;//释放堆区上的内存
+//	system("pause");
+//	return 0;
+//}
 
-//查询联系人是否存在
-int isexist(contact* con, string name)
-{
-	assert(con);
-	for (int i = 0; i < con->count; i++)
-	{
-		if (con->peo[i].name == name)
-		{
-			return i;
-		}
-	}
-	return -1;
-}
+//int* test1()
+//{
+//	int* p = new int(10);
+//	return p;
+//}
+//void test2()
+//{
+//	int* p1 = test1();
+//	cout << *p1 << endl;
+//	cout << *p1 << endl;
+//	delete p1;
+//}
+//int main()
+//{
+//	test2();
+//	return 0;
+//}
 
-//删除联系人
-void delperson(contact* con, int ret, string name)
-{
-	assert(con);
-	for (int i = ret; i < con->count; i++)
-	{
-		con->peo[i].name = con->peo[i + 1].name;
-	}
-	con->count--;
-	cout << "删除联系人成功！" << endl;
-	system("pause");
-	system("cls");
-}
-
-//查找联系人
-void findperson(contact* con)
-{
-	string name;
-	cout << "请输入查找联系人姓名：" << endl;
-	cin >> name;
-	int ret = isexist(con, name);
-	if (ret == -1)
-	{
-		cout << "联系人不存在！" << endl;
-	}
-	else
-	{
-		cout << "姓名：" << con->peo[ret].name << "\t";
-		cout << "性别：" << (con->peo[ret].sex == 1 ? "男" : "女") << "\t";
-		cout << "年龄：" << con->peo[ret].age << "\t";
-		cout << "电话：" << con->peo[ret].tel << "\t";
-		cout << "住址：" << con->peo[ret].place << "\t";
-		cout << endl;
-	}
-	system("pause");
-	system("cls");
-}
-
-//修改联系人
-void modifyperson(contact* con)
-{
-	assert(con);
-	string name;
-	cout << "请输入修改联系人姓名：" << endl;
-	cin >> name;
-	int ret = isexist(con, name);
-	if (ret == -1)
-	{
-		cout << "联系人不存在！" << endl;
-	}
-	else
-	{
-		//输入姓名
-		cout << "请输入联系人姓名：" << endl;
-		cin >> (con->peo[ret]).name;
-		//输入性别
-		while (1)
-		{
-			cout << "请输入联系人性别：" << endl;
-			cout << "1-男;2-女" << endl;
-			cin >> (con->peo[ret]).sex;
-			if ((con->peo[ret]).sex != 1 && con->peo[ret].sex != 2)
-			{
-				cout << "输入有误，请重新输入性别！" << endl;
-			}
-			else {
-				break;
-			}
-		}
-		//输入年龄
-		while (1)
-		{
-			cout << "请输入联系人年龄：" << endl;
-			cin >> con->peo[ret].age;
-			if (cin.fail()) {
-				// 清除错误标志
-				cin.clear();
-				// 忽略错误输入直到下一个换行符
-				cin.ignore(numeric_limits<streamsize>::max(), '\n');
-				cout << "输入有误，请输入一个有效的数字年龄！" << endl;
-			}
-			else if ((con->peo[ret]).age <= 0 || (con->peo[ret]).age > 100)
-			{
-				cout << "输入有误，请重新输入年龄！" << endl;
-			}
-			else {
-				break;
-			}
-		}
-		//输入电话
-		cout << "请输入联系人号码：" << endl;
-		cin >> (con->peo[ret]).tel;
-		//输入住址
-		cout << "请输入联系人住址：" << endl;
-		cin >> (con->peo[ret]).place;
-	}
-	system("pause");
-	system("cls");
-}
-
-//清空联系人
-void cleancon(contact* con)
-{
-	assert(con);
-	int input = 0;
-	cout << "是否要清空通讯录？（1.YES/0.NO）"<<endl;
-	cin >> input;
-	if (input)
-	{
-		con->count = 0;
-		cout << "通讯录已清空。" << endl;
-	}
-	system("pause");
-	system("cls");
-}
-
-int main()
-{
-	contact con;
-	con.count = 0;
-	int input = 0;
-	while (1)
-	{
-		showmenu();
-		cout << "请选择功能：" << endl;
-		cin >> input;
-		switch(input)
-		{
-		case 1://添加联系人
-			addperson(&con);
-			break;
-		case 2://显示联系人
-			showperson(&con);
-			break;
-		case 3://删除联系人
-		{
-			cout << "请输入要删除的联系人：" << endl;
-			string name;
-			cin >> name;
-			if (isexist(&con, name) == -1)
-			{
-				cout << "联系人不存在！" << endl;
-				system("pause");
-				system("cls");
-			}
-			else
-			{
-				delperson(&con, isexist(&con, name), name);
-			}
-			break;
-		}
-		case 4://查找联系人
-		{
-			findperson(&con);
-			break;
-		}
-		case 5://修改联系人
-		{
-			modifyperson(&con);
-			break;
-		}
-		case 6://清空通讯录
-			cleancon(&con);
-			break;
-		case 0://退出通讯录
-			cout << "欢迎下次使用！" << endl;
-			system("pause");
-			return  0;
-		default://选择错误
-			cout << "选择错误，请重新输入！" << endl;
-			break;
-		}
-	}
-	system("pause");
-	return 0;
-}
+//int* test1()
+//{
+//	int* arr = new int[5];//开辟数组类型
+//	for (int i = 0; i < 5; i++)
+//	{
+//		arr[i] = i + 100;
+//	}
+//	return arr;
+//}
+//void test2()
+//{
+//	int* arr1 = test1();
+//	for (int i = 0; i < 5; i++)
+//	{
+//		cout << arr1[i] << endl;
+//	}
+//	delete[] arr1;//数组类型的堆区内存释放要加[]
+//}
+//int main()
+//{
+//	test2();
+//	system("pause");
+//	return 0;
+//}
