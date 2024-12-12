@@ -716,3 +716,120 @@ using namespace std;
 //	system("pause");
 //	return 0;
 //}
+
+//引用
+//1.引用必须初始化，并且初始化过后就不能更改
+//int main()
+//{
+//	//赋值
+//	int a = 10;
+//	int b = a;
+//	cout << "a " << &a << endl;
+//	cout << "b " << &b << endl;
+//	//引用
+//	int c = 10;
+//	int &d = c;//意味着d这个符号和c等价，指向同一地址同一值
+//	cout << "c " << &c << endl;
+//	cout << "d " << &d << endl;
+//	int e = 100;
+//	d = e;
+//	cout << "c " << c << endl;
+//	cout << "d " << d << endl;
+//
+//	system("pause");
+//	return 0;
+//}
+
+//2.利用引用实现通过形参修饰实参
+//void exchange(int& a, int& b)//利用引用（别名）的形式接收实参，别名也是指向实参地址，和实参等效的
+//{
+//	int tmp = a;
+//	a = b;
+//	b = tmp;
+//}
+//int main()
+//{
+//	int a = 10;
+//	int b = 20;
+//	exchange(a, b);
+//	cout << "a=" << a << endl;
+//	cout << "b=" << b << endl;
+//
+//	system("pause");
+//	return 0;
+//}
+
+////3.不能返回局部变量的引用
+//int& test1()
+//{
+//	int a = 10;
+//	return a;
+//}
+//int main()
+//{
+//	int& ret = test1();
+//	cout << "ret=" << ret << endl;
+//	cout << "ret=" << ret << endl;
+//
+//	system("pause");
+//	return 0;
+//}
+
+//4.函数调用作为左值
+//int& test2()
+//{
+//	static int a = 10;//静态变量不会因为出函数而被销毁
+//	return a;
+//}
+//int main()
+//{
+//	int& ret = test2();
+//	cout << "ret=" << ret << endl;
+//	cout << "ret=" << ret << endl;
+//	//ret,test2()和a都是一样的
+//	test2() = 1000;
+//	cout << "ret=" << ret << endl;
+//	cout << "ret=" << ret << endl;
+//
+//	system("pause");
+//	return 0;
+//}
+
+//5.引用的本质：是一个指针常量
+//void func(int& ref)
+//{
+//	ref = 100;//ref是引用，编译器自动转化为*ref
+//}
+//int main()
+//{
+//	int a = 10;
+//	//自动转化为int* const ref = &a;指针常量的指向不能变
+//	int& ref = a;
+//	//内部发现ref是引用，所以会自动转换为*ref = 20;
+//	ref = 20;
+//
+//	cout << "a=" << a << endl;
+//	cout << "ref=" << ref << endl;//ref自动转化为*ref
+//
+//	func(a);
+//
+//	system("pause");
+//	return 0;
+//}
+
+//6.常量引用：修饰形参
+//void func(const int& ref)
+//{
+//	//ref = 100;const修饰形参，函数内不得改变形参来影响实参
+//	cout << "ref=" << ref << endl;
+//}
+//int main()
+//{
+//	int a = 10;
+//	//int& ref = 10;是不合法的
+//	const int& ref = 10;//const的作用是将其转化为：int tmp = 10;const int& ref = tmp;
+//
+//	func(a);
+//	system("pause");
+//	return 0;
+//}
