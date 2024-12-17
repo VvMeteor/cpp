@@ -833,3 +833,108 @@ using namespace std;
 //	system("pause");
 //	return 0;
 //}
+
+//函数高级使用
+//1.函数默认参数
+//int add(int a, int b, int c);//函数的声明和实现只能有一处设置默认参数
+//int add(int a = 10 ,int b = 20 , int c = 30 )//设置函数默认参数值，如果函数调用时传了相应的参数那就覆盖，没传那就采用默认值
+//{
+//	return a + b + c;
+//}//采用默认参数的位置往后都必须采用默认参数
+//int main()
+//{
+//	cout << add(20,30) << endl;
+//	system("pause");
+//	return 0;
+//}
+
+//2.函数占位参数
+//int add(int a = 10, int b = 20,int , int = 30)//int就是占位参数，只用写一个数据类型，也可以采用默认参数
+//{
+//	return a + b;
+//}
+//int main()
+//{
+//	cout << add(20, 30,10) << endl;//占位参数必须填补
+//	system("pause");
+//	return 0;
+//}
+
+//3.函数重载
+//可以让函数名相同，提高复用性
+//函数重载满足的条件
+//1、同一个作用域下
+//2、函数名称相同
+//3、函数参数类型不同，或者个数不同，顺序不同
+//4、函数的返回值类型不能作为函数重载的条件
+//void func()
+//{
+//	cout << "func()" << endl;
+//}
+//void func(int a)
+//{
+//	cout << "func(int a)" << endl;
+//}
+//void func(char a)
+//{
+//	cout << "func(char a)" << endl;
+//}
+//void func(char a,int  b)
+//{
+//	cout << "func(char a,int b)" << endl;
+//}
+//void func(int a,char b)
+//{
+//	cout << "func(int a,char b)" << endl;
+//}
+//
+//int main()
+//{
+//	func();
+//	func(1);
+//	func('a');
+//	func('a', 1);
+//	func(1, 'a');
+//
+//	system("pause");
+//	return 0;
+//}
+
+//函数重载碰到引用
+
+//void func(int& a)
+//{
+//	cout << "func(int& a)" << endl;
+//}
+//void func(const int& a)
+//{
+//	cout << "func(const int& a)" << endl;
+//}
+//
+//int main()
+//{
+//	int a = 10;
+//	const int b = 20;
+//	func(a);//a本身是int类型变量，偏向走可读可写的func(int& a)路径
+//	func(b);//b本身是const int类型变量，偏向走仅可读的func(const int& a)路径
+//	func(10);//10如果走func(int& a),那就是int& a = 10,这是不合语法的,而走func(const int& a)，const int& a = 10是合法的
+//	system("pause");
+//	return 0;
+//}
+
+//函数重载遇到默认参数
+void func(int a)
+{
+	cout << "func(int a)" << endl;
+}
+void func(int a,int b = 10)
+{
+	cout << "func(int a,int b)" << endl;
+}
+
+int main()
+{
+	//func(10);//这里报错的原因是函数调用出现二义性，两个函数都能走，编译器报错
+	system("pause");
+	return 0;
+}
