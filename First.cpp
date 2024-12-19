@@ -923,18 +923,21 @@ using namespace std;
 //}
 
 //函数重载遇到默认参数
-void func(int a)
-{
-	cout << "func(int a)" << endl;
-}
-void func(int a,int b = 10)
-{
-	cout << "func(int a,int b)" << endl;
-}
+//void func(int a)
+//{
+//	cout << "func(int a)" << endl;
+//}
+//void func(int a,int b = 10)
+//{
+//	cout << "func(int a,int b)" << endl;
+//}
+//
+//int main()
+//{
+//	//func(10);//这里报错的原因是函数调用出现二义性，两个函数都能走，编译器报错
+//	system("pause");
+//	return 0;
+//}
 
-int main()
-{
-	//func(10);//这里报错的原因是函数调用出现二义性，两个函数都能走，编译器报错
-	system("pause");
-	return 0;
-}
+//类和对象
+//C++面向对象三大特性：封装、继承、多态
