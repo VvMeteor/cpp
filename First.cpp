@@ -941,3 +941,93 @@ using namespace std;
 
 //类和对象
 //C++面向对象三大特性：封装、继承、多态
+
+//1.封装的意义
+//class是设计一个类，class后跟的就是类的名称
+//类中的属性和行为统一称为成员
+//属性：成员属性，成员变量
+//行为：成员函数，成员方法
+
+//设计一个圆，可以计算其周长
+//const double pi = 3.1415;
+//class circle
+//{
+//	//访问权限
+//	//公共权限：不管是类内还是类外都可以访问
+//public:
+//	//属性
+//	double r;
+//	//行为
+//	double zc()
+//	{
+//		return 2 * pi * r;
+//	}
+//};
+////通过圆类来创建一个圆对象
+//int main()
+//{
+//	circle c1;
+//	c1.r = 10;
+//	cout << "圆的周长为:" << c1.zc() << endl;
+//	system("pause");
+//	return 0;
+//}
+
+//设计一个学生类
+//class stu
+//{
+//public:
+//	string name;
+//	string id;
+//	void print()
+//	{
+//		cout << "学生姓名为：" << name << endl;
+//		cout << "学生学号为：" << id << endl;
+//	}
+//	void set(string _name,string _id)//通过行为给属性赋值
+//	{
+//		name = _name;
+//		id = _id;
+//	}
+//};
+//
+//int main()
+//{
+//	stu s1;
+//	s1.name = "张三";
+//	s1.id = "5556782";
+//	s1.print();
+//
+//	stu s2;
+//	s2.set("李四", "654654");
+//	s2.print();
+//
+//	system("pause");
+//	return 0;
+//}
+
+//访问权限
+//三种访问权限：
+//公共权限 public 成员在类内可以访问，在类外也可以访问
+//保护权限 protected 成员在类内可以访问，在类外不可以访问
+//私有权限 private 成员在类内可以访问，在类外不可以访问
+
+class person
+{
+public:
+	string name;
+protected:
+	string car;
+private:
+	string password;
+};
+
+int main()
+{
+	person p1;
+	p1.name = "zhangsan";
+	//p1.car;类外不可访问
+	//p1.password;类外不可访问，会报错
+	system("pause");
+	return 0;
+}
