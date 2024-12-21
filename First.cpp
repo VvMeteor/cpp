@@ -1012,22 +1012,252 @@ using namespace std;
 //保护权限 protected 成员在类内可以访问，在类外不可以访问
 //私有权限 private 成员在类内可以访问，在类外不可以访问
 
-class person
+//class person
+//{
+//public:
+//	string name;
+//protected:
+//	string car;
+//private:
+//	string password;
+//};
+//
+//int main()
+//{
+//	person p1;
+//	p1.name = "zhangsan";
+//	//p1.car;类外不可访问
+//	//p1.password;类外不可访问，会报错
+//	system("pause");
+//	return 0;
+//}
+
+//class和struct的区别
+//class默认权限是私有的，struct默认权限是公共的
+//class c1
+//{
+//	int a;
+//};
+//struct s1
+//{
+//	int b;
+//};
+//
+//int main()
+//{
+//	c1 _c;
+//	//_c.a = 10;//私有不可访问
+//
+//	s1 _s;
+//	_s.b = 10;//公共可以访问
+//	return 0;
+//}
+
+//成员属性设置私有化
+//可以有效控制读写权限
+//方便检测数据有效性
+
+//class person
+//{
+//public:
+//	//读写姓名
+//	void readname()
+//	{
+//		cout << name << endl;
+//	}
+//	void setname(string _name)
+//	{
+//		name = _name;
+//	}
+//	//写年龄
+//	void setage(int _age)
+//	{
+//		age = _age;
+//	}
+//	//读id
+//	void readid()
+//	{
+//		cout << id << endl;
+//	}
+//private:
+//	//类外无法访问，所以通过类内访问并提供相应的读写函数
+//	string name;//可读可写
+//	int age;//仅可写
+//	string id = "599x";//仅可读
+//};
+//
+//int main()
+//{
+//	person p1;
+//	p1.setname("zhangsan");
+//	p1.readname();
+//
+//	p1.setage(18);
+//
+//	p1.readid();
+//
+//	system("pause");
+//	return 0;
+//}
+
+//设计一个长方体计算其面积体积，并用全局函数和成员函数来判断两个长方体是否相同
+
+//class cube
+//{
+//public:
+//	//设置长宽高
+//	void setnums(int lenth, int width, int hight)
+//	{
+//		l = lenth, w = width, h = hight;
+//	}
+//	//获取长宽高
+//	int getl()
+//	{
+//		return l;
+//	}
+//	int getw()
+//	{
+//		return w;
+//	}
+//	int geth()
+//	{
+//		return h;
+//	}
+//	//求面积函数
+//	int msize()
+//	{
+//		return 2 * (l * w + l * h + w * h);
+//	}
+//	//求体积函数
+//	int tsize()
+//	{
+//		return l * w * h;
+//	}
+//	//成员函数判断两个长方体是否相同
+//	bool judge(cube &c)
+//	{
+//		if (l == c.getl() && w == c.getw() && h == c.geth())
+//		{
+//			return true;
+//		}
+//		return false;
+//	}
+//private:
+//	//属性
+//	int l;
+//	int w;
+//	int h;
+//};
+////全局函数判断
+//bool cubejudge(cube &c1,cube &c2)
+//{
+//	if (c1.getl() == c2.getl() && c1.getw() == c2.getw() && c1.geth() == c2.geth())
+//	{
+//		return true;
+//	}
+//	return false;
+//}
+//
+//int main()
+//{
+//	cube c1;
+//	c1.setnums(5, 4, 6);
+//	cout << "msize:" << c1.msize() << endl;
+//	cout << "tsize:" << c1.tsize() << endl;
+//
+//	//全局函数判断
+//	cube c2;
+//	c2.setnums(5, 4, 6);
+//	if (cubejudge(c1, c2))
+//	{
+//		cout << "same" << endl;
+//	}
+//	else
+//	{
+//		cout << "different" << endl;
+//	}
+//
+//	//成员函数判断
+//	if (c1.judge(c2))
+//	{
+//		cout << "same" << endl;
+//	}
+//	else
+//	{
+//		cout << "different" << endl;
+//	}
+//
+//	system("pause");
+//	return 0;
+//}
+
+//设计一个判断点与圆的位置关系的封装
+class point
 {
 public:
-	string name;
-protected:
-	string car;
+	//设置点坐标
+	void setpoint(int _x, int _y)
+	{
+		x1 = _x;
+		y1 = _y;
+	}
+	//获取点坐标
+	int getx()
+	{
+		return x1;
+	}
+	int gety()
+	{
+		return y1;
+	}
 private:
-	string password;
+	//点坐标
+	int x1;
+	int y1;
+};
+class circle
+{
+public:
+	//设置圆心坐标和半径
+	void setcore(int xc, int yc,int _r)
+	{
+		x = xc;
+		y = yc;
+		r = _r;
+	}
+	//判断关系
+	int judge(point& p1)
+	{
+		return ((p1.getx() - x)* (p1.getx() - x)) + ((p1.gety() - y)* (p1.gety() - y)) - (r*r);
+	}
+private:
+	//圆心坐标
+	int x;
+	int y;
+	//半径
+	int r;
 };
 
 int main()
 {
-	person p1;
-	p1.name = "zhangsan";
-	//p1.car;类外不可访问
-	//p1.password;类外不可访问，会报错
+	circle c1;
+	point p1;
+	p1.setpoint(10, 5);
+	c1.setcore(5, 5, 5);
+	int ret;
+	ret = c1.judge(p1);
+	if (c1.judge(p1) == 0)
+	{
+		cout << "点在圆上" << endl;
+	}
+	else if (c1.judge(p1) < 0)
+	{
+		cout << "点在圆内" << endl;
+	}
+	else
+	{
+		cout << "点在圆外" << endl;
+	}
 	system("pause");
 	return 0;
 }
