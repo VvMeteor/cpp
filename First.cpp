@@ -1192,72 +1192,192 @@ using namespace std;
 //}
 
 //设计一个判断点与圆的位置关系的封装
-class point
-{
-public:
-	//设置点坐标
-	void setpoint(int _x, int _y)
-	{
-		x1 = _x;
-		y1 = _y;
-	}
-	//获取点坐标
-	int getx()
-	{
-		return x1;
-	}
-	int gety()
-	{
-		return y1;
-	}
-private:
-	//点坐标
-	int x1;
-	int y1;
-};
-class circle
-{
-public:
-	//设置圆心坐标和半径
-	void setcore(int xc, int yc,int _r)
-	{
-		x = xc;
-		y = yc;
-		r = _r;
-	}
-	//判断关系
-	int judge(point& p1)
-	{
-		return ((p1.getx() - x)* (p1.getx() - x)) + ((p1.gety() - y)* (p1.gety() - y)) - (r*r);
-	}
-private:
-	//圆心坐标
-	int x;
-	int y;
-	//半径
-	int r;
-};
+//class point
+//{
+//public:
+//	//设置点坐标
+//	void setpoint(int _x, int _y)
+//	{
+//		x1 = _x;
+//		y1 = _y;
+//	}
+//	//获取点坐标
+//	int getx()
+//	{
+//		return x1;
+//	}
+//	int gety()
+//	{
+//		return y1;
+//	}
+//private:
+//	//点坐标
+//	int x1;
+//	int y1;
+//};
+//class circle
+//{
+//public:
+//	//设置圆心坐标和半径
+//	void setcore(int xc, int yc,int _r)
+//	{
+//		x = xc;
+//		y = yc;
+//		r = _r;
+//	}
+//	//判断关系
+//	int judge(point& p1)
+//	{
+//		return ((p1.getx() - x)* (p1.getx() - x)) + ((p1.gety() - y)* (p1.gety() - y)) - (r*r);
+//	}
+//private:
+//	//圆心坐标
+//	int x;
+//	int y;
+//	//半径
+//	int r;
+//};
+//
+//int main()
+//{
+//	circle c1;
+//	point p1;
+//	p1.setpoint(10, 5);
+//	c1.setcore(5, 5, 5);
+//	int ret;
+//	ret = c1.judge(p1);
+//	if (c1.judge(p1) == 0)
+//	{
+//		cout << "点在圆上" << endl;
+//	}
+//	else if (c1.judge(p1) < 0)
+//	{
+//		cout << "点在圆内" << endl;
+//	}
+//	else
+//	{
+//		cout << "点在圆外" << endl;
+//	}
+//	system("pause");
+//	return 0;
+//}
 
-int main()
+//对象的初始化和清除
+//一个对象或者变量没有初始状态，对其使用后果是未知
+//同样的使用完一个对象或变量，没有及时清理，也会造成一定的安全问题
+
+//c++利用了构造函数和析构函数解决上述问题，这两个函数将会被编译器自动调用，完成对象初始化和清理工作。
+//对象的初始化和清理工作是编译器强制要我们做的事情，因此如果我们不提供构造和析构，编译器会提供编译器提供的构造函数和析构函数是空实现
+
+//构造函数:主要作用在于创建对象时为对象的成员属性赋值，构造函数由编译器自动调用，无须手动调用；
+//析构函数:主要作用在于对象销毁前系统自动调用，执行一些清理工作。
+
+//构造函数语法:类名(){}
+//1.构造函数，没有返回值也不写void
+//2.函数名称与类名相同
+//3.构造函数可以有参数，因此可以发生重载
+//4.程序在调用对象时候会自动调用构造，无须手动调用, 而且只会调用一次
+
+//析构函数语法:~类名(){}
+//1.析构函数，没有返回值也不写void
+//2.函数名称与类名相同, 在名称前加上符号~
+//3.析构函数不可以有参数，因此不可以发生重载
+//4.程序在对象销毁前会自动调用析构，无须手动调用, 而且只会调用一次
+
+//class person
+//{
+//public:
+//	//构造函数
+//	person()
+//	{
+//		cout << "构造函数的调用" << endl;
+//	}
+//	//析构函数
+//	~person()
+//	{
+//		cout << "析构函数的调用" << endl;
+//	}
+//};
+//void test()
+//{
+//	person p;
+//}
+//
+//int main()
+//{
+//	test();//调用这个函数时，出函数对象被销毁
+//	person p1;//对象没有销毁直到return 0;
+//	system("pause");
+//	return 0;
+//}
+
+//构造函数的分类
+//1.有参构造和无参构造
+//2.普通构造和拷贝构造
+
+//三种调用方式
+//1.括号法
+//2.显示法
+//3.隐式转换法
+
+class person
 {
-	circle c1;
-	point p1;
-	p1.setpoint(10, 5);
-	c1.setcore(5, 5, 5);
-	int ret;
-	ret = c1.judge(p1);
-	if (c1.judge(p1) == 0)
+public:
+	//1.无参构造（默认构造）和有参构造 —（普通构造）
+	person()
 	{
-		cout << "点在圆上" << endl;
+		cout << "无参构造函数调用" << endl;
 	}
-	else if (c1.judge(p1) < 0)
+	person(int a)
 	{
-		cout << "点在圆内" << endl;
+		age = a;
+		cout << "有参构造函数调用" << endl;
 	}
-	else
+	//2.拷贝构造
+	person(const person& p)
 	{
-		cout << "点在圆外" << endl;
+		age = p.age;
+		cout << "拷贝构造函数调用" << endl;
 	}
-	system("pause");
-	return 0;
-}
+	int age;
+	~person()
+	{
+		cout << "析构函数调用" << endl;
+	}
+};
+//调用
+void test()
+{
+	//1.括号法
+	//person p1;//默认构造函数的调用
+	//person p2(10);//有参函数调用
+	//person p3(p2);//拷贝构造函数调用
+
+	//cout << "p2.age:" << p2.age << endl;
+	//cout << "p3.age:" << p3.age << endl;
+
+	//注意事项：默认（无参）构造函数调用不要加(),否则编译器会视为函数的声明
+
+	//2.显示法
+	//person p4;//默认构造函数的调用
+	//person p5 = person(10);//有参函数调用
+	//person p6 = person(p5);//拷贝构造函数调用
+
+	//person(10);//为匿名对象，使用结束后会被立即回收
+	//cout << "aaaa" << endl;
+
+	//注意事项：不要使用拷贝构造函数来初始化匿名对象
+	//person(p3);//这里会和上文发生重定义，等价于person p3;
+
+	//3.隐式转换法
+//	person p7;
+//	person p8 = 10;//等价于person p8 = person(10);
+//	person p9 = p8;//等价于person p9 = person(p8);
+//}
+//
+//int main()
+//{
+//	test();
+//	system("pause");
+//	return 0;
+//}
