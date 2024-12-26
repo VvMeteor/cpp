@@ -1320,34 +1320,34 @@ using namespace std;
 //2.显示法
 //3.隐式转换法
 
-class person
-{
-public:
-	//1.无参构造（默认构造）和有参构造 —（普通构造）
-	person()
-	{
-		cout << "无参构造函数调用" << endl;
-	}
-	person(int a)
-	{
-		age = a;
-		cout << "有参构造函数调用" << endl;
-	}
-	//2.拷贝构造
-	person(const person& p)
-	{
-		age = p.age;
-		cout << "拷贝构造函数调用" << endl;
-	}
-	int age;
-	~person()
-	{
-		cout << "析构函数调用" << endl;
-	}
-};
+//class person
+//{
+//public:
+//	//1.无参构造（默认构造）和有参构造 —（普通构造）
+//	person()
+//	{
+//		cout << "无参构造函数调用" << endl;
+//	}
+//	person(int a)
+//	{
+//		age = a;
+//		cout << "有参构造函数调用" << endl;
+//	}
+//	//2.拷贝构造
+//	person(const person& p)
+//	{
+//		age = p.age;
+//		cout << "拷贝构造函数调用" << endl;
+//	}
+//	int age;
+//	~person()
+//	{
+//		cout << "析构函数调用" << endl;
+//	}
+//};
 //调用
-void test()
-{
+//void test()
+//{
 	//1.括号法
 	//person p1;//默认构造函数的调用
 	//person p2(10);//有参函数调用
@@ -1381,3 +1381,63 @@ void test()
 //	system("pause");
 //	return 0;
 //}
+
+//拷贝构造函数的使用时机
+//class person
+//{
+//public:
+//	person(int _age)
+//	{
+//		age = _age;
+//		cout << "有参构造函数调用" << endl;
+//	}
+//	person(const person &p)
+//	{
+//		cout << "拷贝构造函数调用" << endl;
+//	}
+//	~person()
+//	{
+//		cout << "析构函数的调用" << endl;
+//	}
+//private:
+//	int age;
+//};
+////1.使用一个已经创建完毕的对象来初始化一个新对象
+//void test()
+//{
+//	person p1(10);
+//	person p2(p1);
+//}
+////2.值传递的方式给函数参数传值
+//void func(person p)
+//{
+//	;
+//}
+//void test1()
+//{
+//	person p3(100);
+//	func(p3);//这里之所以调用了拷贝函数是因为p3传递给形参p是需要拷贝过程的，且形参的改变不会影响实参
+//}
+////用值的方式返回局部对象
+//person& func1()
+//{
+//	person _p(50);
+//	return _p;
+//}
+//void test2()
+//{
+//	person p4(func1());
+//}
+//
+//int  main()
+//{
+//	//test();
+//	//test1();
+//	test2();
+//	system("pause");
+//	return 0;
+//}
+
+//构造函数调用规则
+//1.默认的情况下，c++编译器会至少给一个类提供三个函数：默认无参，默认有参，默认拷贝
+//如果用户自定义了有参，那默认无参将不被提供，如果自定义了拷贝，默认无参和有参都不会被提供
