@@ -1441,3 +1441,95 @@ using namespace std;
 //构造函数调用规则
 //1.默认的情况下，c++编译器会至少给一个类提供三个函数：默认无参，默认有参，默认拷贝
 //如果用户自定义了有参，那默认无参将不被提供，如果自定义了拷贝，默认无参和有参都不会被提供
+
+//深拷贝和浅拷贝
+//1.浅拷贝：简单的赋值拷贝操作
+//2.深拷贝：在堆区重新申请空间，进行拷贝操作
+
+//class person
+//{
+//public:
+//	person()
+//	{
+//		cout << "无参构造函数调用" << endl;
+//	}
+//	person(int _age, int _hight)
+//	{
+//		age = _age;
+//		hight = new int(_hight);
+//		cout << "有参构造函数调用" << endl;
+//	}
+//	person(const person& p)
+//	{
+//		age = p.age;
+//		hight = new int(*p.hight);//重新开辟一个堆区空间指向hight数值，这样析构函数释放空间就不会重复
+//	}
+//	~person()//析构代码，将在堆区上开辟的空间进行释放，遵循先进后释放原则
+//	{
+//		if (hight != NULL)
+//		{
+//			delete hight;
+//			hight = NULL;
+//		}
+//		cout << "析构构造函数调用" << endl;
+//	}
+//	int age;
+//	int* hight;
+//};
+//void test()
+//{
+//	person p1(10,140);
+//	person p2(p1);//这里涉及浅拷贝，浅拷贝会存在堆区空间的重复释放，自定义一个深拷贝函数即可解决
+//	cout << "p1age:" << p1.age << endl;
+//	cout << "p2age:" << p2.age << endl;
+//
+//	cout << "p1hight:" << *p1.hight << endl;
+//	cout << "p2hight:" << *p2.hight << endl;
+//
+//}
+//int main()
+//{
+//	test();
+//	system("pause");
+//	return 0;
+//}
+
+//初始化列表
+class person
+{
+public:
+	//传统方法初始化
+	//person(int _age, int _hight)
+	//{
+	//	age = _age;
+	//	hight = _hight;
+	//}
+	//初始化列表方法
+	person(int _age, int _hight) :age(_age), hight(_hight)
+	{
+
+	}
+	~person()
+	{
+		cout << "析构构造函数调用" << endl;
+	}
+	int age;
+	int hight;
+};
+void test()
+{
+	person p1(10, 140);
+	person p2(p1);
+	cout << "p1age:" << p1.age << endl;
+	cout << "p2age:" << p2.age << endl;
+
+	cout << "p1hight:" << p1.hight << endl;
+	cout << "p2hight:" << p2.hight << endl;
+
+}
+int main()
+{
+	test();
+	system("pause");
+	return 0;
+}
