@@ -1495,41 +1495,160 @@ using namespace std;
 //}
 
 //初始化列表
+//class person
+//{
+//public:
+//	//传统方法初始化
+//	//person(int _age, int _hight)
+//	//{
+//	//	age = _age;
+//	//	hight = _hight;
+//	//}
+//	//初始化列表方法
+//	person(int _age, int _hight) :age(_age), hight(_hight)
+//	{
+//
+//	}
+//	~person()
+//	{
+//		cout << "析构构造函数调用" << endl;
+//	}
+//	int age;
+//	int hight;
+//};
+//void test()
+//{
+//	person p1(10, 140);
+//	person p2(p1);
+//	cout << "p1age:" << p1.age << endl;
+//	cout << "p2age:" << p2.age << endl;
+//
+//	cout << "p1hight:" << p1.hight << endl;
+//	cout << "p2hight:" << p2.hight << endl;
+//
+//}
+//int main()
+//{
+//	test();
+//	system("pause");
+//	return 0;
+//}
+
+//C++类中的成员可以是另一个类的对象，称为对象成员
+//先调用成员对象phone的构造函数，搭建部位，再调用person类的构造函数
+//析构时，person先析构，组件phone类再析构
+//class phone
+//{
+//public:
+//	phone(string name)
+//	{
+//		_pname = name;
+//		cout << "phone构造函数调用" << endl;
+//	}
+//	~phone()
+//	{
+//		cout << "phone析构函数调用" << endl;
+//	}
+//	string _pname;
+//};
+//
+//class person
+//{
+//public:
+//	person(string _name, phone _p) :name(_name), pname(_p._pname)//这里就没有下面的问题
+//	{
+//		cout << "person1构造函数调用" << endl;;
+//	}
+//	person(string _name, string _pname) :name(_name), pname(_pname)//这里pname和_pname的数据类型不一样，这里的的代码类似于phone pname = _pname(隐式转换法)
+//	{
+//		cout << "person2构造函数调用" << endl;;
+//	}
+//	~person()
+//	{
+//		cout << "person析构函数的调用" << endl;
+//	}
+//	string name;
+//	phone pname;
+//};
+//
+//void test()
+//{
+//	phone p1("apple");
+//	person p2("zhangsan",p1);
+//	person p3("lisi", "huawei");
+//	cout << "姓名：" << p2.name << endl;
+//	cout << "手机名称：" << p2.pname._pname << endl;
+//
+//	cout << "姓名：" << p3.name << endl;
+//	cout << "手机名称：" << p3.pname._pname << endl;
+//
+//}
+//int main()
+//{
+//	test();
+//	system("pause");
+//	return 0;
+//}
+
+//静态成员
+//1.静态成员变量：所有对象共享一份数据，且在编译阶段完成内存分配，类内声明，类外初始化
+//class person
+//{
+//public:
+//	//类内声明
+//	static int num;
+//};
+////类外初始化
+//int person::num = 100;
+//
+//void test1()//测试静态成员数据共享
+//{
+//	person p;
+//	cout << p.num << endl;
+//	person p1;
+//	p1.num = 200;
+//	cout << p.num << endl;
+//}
+//
+//void test2()//测试静态成员变量的两种访问方式，静态成员变量并不属于某一个特定的对象，是共享的
+//{
+//	//1.通过对象访问(非静态成员变量只能这样访问)
+//	person p;
+//	cout << p.num << endl;
+//	//2.通过类名访问
+//	cout << person::num << endl;
+//}
+//
+//int main()
+//{
+//	test1();
+//	test2();
+//	system("pause");
+//	return 0;
+//}
+//2.静态成员函数：所有对象共享一个函数，该函数只能访问静态成员变量
+
 class person
 {
 public:
-	//传统方法初始化
-	//person(int _age, int _hight)
-	//{
-	//	age = _age;
-	//	hight = _hight;
-	//}
-	//初始化列表方法
-	person(int _age, int _hight) :age(_age), hight(_hight)
+	static void func()
 	{
-
+		num1 = 100;
+		cout << num1 << endl;
+		//num2 = 200;调用该函数时，该函数无法分辨num2是来自于哪一个对象，因此静态成员函数不能访问非静态成员变量，和静态成员变量一样具有访问权限和两种访问方式
 	}
-	~person()
-	{
-		cout << "析构构造函数调用" << endl;
-	}
-	int age;
-	int hight;
+	static int num1;
+	int num2;
 };
+int person::num1 = 0;
 void test()
 {
-	person p1(10, 140);
-	person p2(p1);
-	cout << "p1age:" << p1.age << endl;
-	cout << "p2age:" << p2.age << endl;
-
-	cout << "p1hight:" << p1.hight << endl;
-	cout << "p2hight:" << p2.hight << endl;
-
+	person p;
+	p.func();
+	person::func();
 }
 int main()
 {
 	test();
-	system("pause");
 	return 0;
 }
