@@ -1628,27 +1628,82 @@ using namespace std;
 //}
 //2.静态成员函数：所有对象共享一个函数，该函数只能访问静态成员变量
 
+//class person
+//{
+//public:
+//	static void func()
+//	{
+//		num1 = 100;
+//		cout << num1 << endl;
+//		//num2 = 200;调用该函数时，该函数无法分辨num2是来自于哪一个对象，因此静态成员函数不能访问非静态成员变量，和静态成员变量一样具有访问权限和两种访问方式
+//	}
+//	static int num1;
+//	int num2;
+//};
+//int person::num1 = 0;
+//void test()
+//{
+//	person p;
+//	p.func();
+//	person::func();
+//}
+//int main()
+//{
+//	test();
+//	return 0;
+//}
+
+//成员变量和成员函数是分开储存的
+
+//class person
+//{
+//public:
+//	int a;//非静态成员变量属于类对象
+//	static int b;//静态成员变量不属于某个类对象
+//	void func(){}//成员函数不属于某个类对象
+//	static void func1(){}//静态成员函数不属于某个类对象
+//};
+//int person::b = 0;
+//
+//class human
+//{
+//	;
+//};
+//int main()
+//{
+//	person p;
+//	human h;
+//	cout << "sizeof(p)=" << sizeof(p) << endl;
+//	cout << "sizeof(h)=" << sizeof(h) << endl;//空对象占1个字节，目的是区分不同的空对象，不同空对象所占内存地址不同
+//
+//	return 0;
+//}
+
+//this指针：指向被调用的成员函数所属的对象
+//无需定义，直接用就可以
 class person
 {
 public:
-	static void func()
+	//1.解决名称冲突问题（形参和成员变量重名）
+	person(int age)
 	{
-		num1 = 100;
-		cout << num1 << endl;
-		//num2 = 200;调用该函数时，该函数无法分辨num2是来自于哪一个对象，因此静态成员函数不能访问非静态成员变量，和静态成员变量一样具有访问权限和两种访问方式
+		this->age = age;
 	}
-	static int num1;
-	int num2;
+	int age;
+	//2.返回对象本身
+	person& func(person& p)//返回类型如果改成person，那么就会对传入的对象进行拷贝，将拷贝好的新对象返回
+	//而引用的方式则不会创建新对象，而是返回一个原传入对象的一个别名，其他的都一样，这样做的好处是可以实现链式编程
+	{
+		this->age += p.age;
+		return *this;
+	}
 };
-int person::num1 = 0;
-void test()
-{
-	person p;
-	p.func();
-	person::func();
-}
 int main()
 {
-	test();
+	person p1(10);
+	person p2(10);
+
+	cout << "p.func(p).func(p).func(p).age=" << p2.func(p1).func(p1).func(p1).age << endl;
+
 	return 0;
 }
