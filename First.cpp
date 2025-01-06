@@ -1681,29 +1681,96 @@ using namespace std;
 
 //this指针：指向被调用的成员函数所属的对象
 //无需定义，直接用就可以
+//class person
+//{
+//public:
+//	//1.解决名称冲突问题（形参和成员变量重名）
+//	person(int age)
+//	{
+//		this->age = age;
+//	}
+//	int age;
+//	//2.返回对象本身
+//	person& func(person& p)//返回类型如果改成person，那么就会对传入的对象进行拷贝，将拷贝好的新对象返回
+//	//而引用的方式则不会创建新对象，而是返回一个原传入对象的一个别名，其他的都一样，这样做的好处是可以实现链式编程
+//	{
+//		this->age += p.age;
+//		return *this;
+//	}
+//};
+//int main()
+//{
+//	person p1(10);
+//	person p2(10);
+//
+//	cout << "p.func(p).func(p).func(p).age=" << p2.func(p1).func(p1).func(p1).age << endl;
+//
+//	return 0;
+//}
+
+//空指针访问成员函数
+
+//class person
+//{
+//public:
+//	void func()
+//	{
+//		cout << "classname:person" << endl;
+//	}
+//	void showage()
+//	{
+//		if (this == NULL)
+//		{
+//			return;
+//		}
+//		cout << "age:" << age << endl;
+//		//等价于下面的代码
+//		cout << "age:" << this->age << endl;//如果创建的是空指针那就会存在问题，解决方法是在前面加上判断语句
+//	}
+//	int age = 10;
+//};
+//
+//int main()
+//{
+//	person* p = NULL;
+//	p->func();//没问题
+//	p->showage();//有问题，这里没有创建具体的对象，而showage函数需要输出具体的age，一个空指针是无法做到的
+//	system("pause");
+//	return 0;
+//}
+
+//const修饰成员函数
+//1.常函数
+//成员函数后加const就称该函数为常函数
+//常函数内不可以修改成员属性
+//成员属性声明时加关键字mutable后，在常函数中可进行修改
+
 class person
 {
 public:
-	//1.解决名称冲突问题（形参和成员变量重名）
-	person(int age)
+	//this指针的本质一个指针常量，指向的对象不能变
+	//下面成员函数后面加个const相当于const person* const this，指向对象的属性也不能变了
+	void func1()const
 	{
-		this->age = age;
+		//age = 100;error
+		_age = 200;//correct
+	}
+	void func2()
+	{
+		;
 	}
 	int age;
-	//2.返回对象本身
-	person& func(person& p)//返回类型如果改成person，那么就会对传入的对象进行拷贝，将拷贝好的新对象返回
-	//而引用的方式则不会创建新对象，而是返回一个原传入对象的一个别名，其他的都一样，这样做的好处是可以实现链式编程
-	{
-		this->age += p.age;
-		return *this;
-	}
+	mutable int _age;//加关键字在常对象和常函数里都可以被改变
 };
+//2.常对象
+//声明对象前加const后称该对象为常对象，常对象属性不能改变
+//常对象只能调用常函数，因为如果可以调用普通函数的话，在普通函数内部可以改成员属性，这会与常对象的性质冲突
 int main()
 {
-	person p1(10);
-	person p2(10);
-
-	cout << "p.func(p).func(p).func(p).age=" << p2.func(p1).func(p1).func(p1).age << endl;
-
+	const person p;
+	p.func1();
+	p._age = 1000;
+	//p.func2();error
+	system("pause");
 	return 0;
 }
