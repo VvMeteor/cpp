@@ -1745,32 +1745,167 @@ using namespace std;
 //常函数内不可以修改成员属性
 //成员属性声明时加关键字mutable后，在常函数中可进行修改
 
-class person
-{
-public:
-	//this指针的本质一个指针常量，指向的对象不能变
-	//下面成员函数后面加个const相当于const person* const this，指向对象的属性也不能变了
-	void func1()const
-	{
-		//age = 100;error
-		_age = 200;//correct
-	}
-	void func2()
-	{
-		;
-	}
-	int age;
-	mutable int _age;//加关键字在常对象和常函数里都可以被改变
-};
+//class person
+//{
+//public:
+//	//this指针的本质一个指针常量，指向的对象不能变
+//	//下面成员函数后面加个const相当于const person* const this，指向对象的属性也不能变了
+//	void func1()const
+//	{
+//		//age = 100;error
+//		_age = 200;//correct
+//	}
+//	void func2()
+//	{
+//		;
+//	}
+//	int age;
+//	mutable int _age;//加关键字在常对象和常函数里都可以被改变
+//};
 //2.常对象
 //声明对象前加const后称该对象为常对象，常对象属性不能改变
 //常对象只能调用常函数，因为如果可以调用普通函数的话，在普通函数内部可以改成员属性，这会与常对象的性质冲突
+//int main()
+//{
+//	const person p;
+//	p.func1();
+//	p._age = 1000;
+//	//p.func2();error
+//	system("pause");
+//	return 0;
+//}
+
+//友元
+//在程序里，有些私有属性 也想让类外特殊的一些函数或者类进行访问，就需要用到友元的技术
+//友元的目的就是让一个函数或者类 访问另一个类中私有成员
+//友元的关键字为 friend
+//1.全局函数做友元
+
+//class building
+//{
+//	//声明全局函数友元
+//	friend void test1(building& b);
+//public:
+//	building()
+//	{
+//		livingroom = "客厅";
+//		bedroom = "卧室";
+//	}
+//public:
+//	string livingroom;
+//private:
+//	string bedroom;
+//};
+//void test1(building& b)
+//{
+//	cout << "客人进入：" << b.livingroom << endl;
+//	cout << "朋友进入：" << b.bedroom << endl;
+//}
+//int main()
+//{
+//	building b;
+//	test1(b);
+//	system("pause");
+//	return 0;
+//}
+
+//2.类做友元
+
+//class building
+//{
+//	//声明goodfriend类为友元
+//	friend class goodfriend;
+//public:
+//	building();
+//public:
+//	string livingroom;
+//private:
+//	string bedroom;
+//};
+//class goodfriend
+//{
+//public:
+//	goodfriend();
+//	void visit();
+//	building* build;
+//};
+//
+//building::building()//无参构造函数的类外定义方式
+//{
+//	livingroom = "客厅";
+//	bedroom = "卧室";
+//}
+//
+//goodfriend::goodfriend()
+//{
+//	build = new building;
+//}
+//
+//void goodfriend::visit()
+//{
+//	cout << "拜访:" << build->livingroom << endl;
+//	cout << "拜访:" << build->bedroom << endl;
+//}
+//
+//int main()
+//{
+//	goodfriend f;
+//	f.visit();
+//	system("pause");
+//	return 0;
+//}
+
+//3.成员函数做友元
+class building;
+class goodfriend
+{
+public:
+	goodfriend();
+	void visit1();//可访问building里的私有成员属性
+	void visit2();//不可访问building里的私有成员属性
+	building* build;
+};
+class building
+{
+	//声明goodfriend类中的void visit1()为友元
+	friend void goodfriend::visit1();
+public:
+	building();
+public:
+	string livingroom;
+private:
+	string bedroom;
+};
+
+building::building()//无参构造函数的类外定义方式
+{
+	livingroom = "客厅";
+	bedroom = "卧室";
+}
+
+goodfriend::goodfriend()
+{
+	build = new building;
+}
+
+void goodfriend::visit1()
+{
+	cout << "拜访:" << build->livingroom << endl;
+	//cout << "拜访:" << build->bedroom << endl;
+}
+
+void goodfriend::visit2()
+{
+	cout << "拜访:" << build->livingroom << endl;
+	//cout << "拜访:" << build->bedroom << endl;
+}
+
 int main()
 {
-	const person p;
-	p.func1();
-	p._age = 1000;
-	//p.func2();error
+	goodfriend f;
+	f.visit1();
+	f.visit2();
+
 	system("pause");
 	return 0;
 }
