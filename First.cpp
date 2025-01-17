@@ -1856,56 +1856,114 @@ using namespace std;
 //}
 
 //3.成员函数做友元
-class building;
-class goodfriend
+//class building;
+//class goodfriend
+//{
+//public:
+//	goodfriend();
+//	void visit1();//可访问building里的私有成员属性
+//	void visit2();//不可访问building里的私有成员属性
+//	building* build;
+//};
+//class building
+//{
+//	//声明goodfriend类中的void visit1()为友元
+//	friend void goodfriend::visit1();
+//public:
+//	building();
+//public:
+//	string livingroom;
+//private:
+//	string bedroom;
+//};
+//
+//building::building()//无参构造函数的类外定义方式
+//{
+//	livingroom = "客厅";
+//	bedroom = "卧室";
+//}
+//
+//goodfriend::goodfriend()
+//{
+//	build = new building;
+//}
+//
+//void goodfriend::visit1()
+//{
+//	cout << "拜访:" << build->livingroom << endl;
+//	//cout << "拜访:" << build->bedroom << endl;
+//}
+//
+//void goodfriend::visit2()
+//{
+//	cout << "拜访:" << build->livingroom << endl;
+//	//cout << "拜访:" << build->bedroom << endl;
+//}
+//
+//int main()
+//{
+//	goodfriend f;
+//	f.visit1();
+//	f.visit2();
+//
+//	system("pause");
+//	return 0;
+//}
+
+//运算符重载
+
+//1.加号运算符重载
+//以实现两个类相加为例
+
+class person
 {
 public:
-	goodfriend();
-	void visit1();//可访问building里的私有成员属性
-	void visit2();//不可访问building里的私有成员属性
-	building* build;
+	//1.成员函数实现+重载
+	person operator+(person& p)//operator+是编译器统一起的名字，便于后续代码可以简化为直接相加
+	{
+		person tmp;
+		tmp.m_a = this->m_a + p.m_a;
+		tmp.m_b = this->m_b + p.m_b;
+		return tmp;
+	}
+	int m_a = 10;
+	int m_b = 10;
 };
-class building
+//2.全局函数实现+重载
+person operator+(person& p1,person& p2)
 {
-	//声明goodfriend类中的void visit1()为友元
-	friend void goodfriend::visit1();
-public:
-	building();
-public:
-	string livingroom;
-private:
-	string bedroom;
-};
-
-building::building()//无参构造函数的类外定义方式
-{
-	livingroom = "客厅";
-	bedroom = "卧室";
+	person tmp;
+	tmp.m_a = p1.m_a + p2.m_a;
+	tmp.m_b = p1.m_b + p2.m_b;
+	return tmp;
 }
-
-goodfriend::goodfriend()
+//3.运算符重载也可以发生函数重载
+person operator+(person & p, int num)
 {
-	build = new building;
+	person tmp;
+	tmp.m_a = p.m_a + num;
+	tmp.m_b = p.m_b + num;
+	return tmp;
 }
-
-void goodfriend::visit1()
-{
-	cout << "拜访:" << build->livingroom << endl;
-	//cout << "拜访:" << build->bedroom << endl;
-}
-
-void goodfriend::visit2()
-{
-	cout << "拜访:" << build->livingroom << endl;
-	//cout << "拜访:" << build->bedroom << endl;
-}
-
 int main()
 {
-	goodfriend f;
-	f.visit1();
-	f.visit2();
+	person p1;
+	person p2;
+	person p3 = p1.operator+(p2);//和p1+p2等价
+	cout << "p3.m_a=" << p3.m_a << endl;
+	cout << "p3.m_b=" << p3.m_b << endl;
 
+	//person p4 = p1 + p2;
+	//cout << "p4.m_a=" << p4.m_a << endl;
+	//cout << "p4.m_b=" << p4.m_b << endl;
+
+	person p5 = operator+(p1, p2);
+	cout << "p5.m_a=" << p5.m_a << endl;
+	cout << "p5.m_b=" << p5.m_b << endl;
+
+	person p6 = p1 + 100;//不同类型相加
+	cout << "p6.m_a=" << p6.m_a << endl;
+	cout << "p6.m_b=" << p6.m_b << endl;
 	system("pause");
 	return 0;
 }
