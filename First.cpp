@@ -1915,55 +1915,282 @@ using namespace std;
 //1.加号运算符重载
 //以实现两个类相加为例
 
-class person
+//class person
+//{
+//public:
+//	//1.成员函数实现+重载
+//	person operator+(person& p)//operator+是编译器统一起的名字，便于后续代码可以简化为直接相加
+//	{
+//		person tmp;
+//		tmp.m_a = this->m_a + p.m_a;
+//		tmp.m_b = this->m_b + p.m_b;
+//		return tmp;
+//	}
+//	int m_a = 10;
+//	int m_b = 10;
+//};
+////2.全局函数实现+重载
+//person operator+(person& p1,person& p2)
+//{
+//	person tmp;
+//	tmp.m_a = p1.m_a + p2.m_a;
+//	tmp.m_b = p1.m_b + p2.m_b;
+//	return tmp;
+//}
+////3.运算符重载也可以发生函数重载
+//person operator+(person & p, int num)
+//{
+//	person tmp;
+//	tmp.m_a = p.m_a + num;
+//	tmp.m_b = p.m_b + num;
+//	return tmp;
+//}
+//int main()
+//{
+//	person p1;
+//	person p2;
+//	person p3 = p1.operator+(p2);//和p1+p2等价
+//	cout << "p3.m_a=" << p3.m_a << endl;
+//	cout << "p3.m_b=" << p3.m_b << endl;
+//
+//	//person p4 = p1 + p2;
+//	//cout << "p4.m_a=" << p4.m_a << endl;
+//	//cout << "p4.m_b=" << p4.m_b << endl;
+//
+//	person p5 = operator+(p1, p2);
+//	cout << "p5.m_a=" << p5.m_a << endl;
+//	cout << "p5.m_b=" << p5.m_b << endl;
+//
+//	person p6 = p1 + 100;//不同类型相加
+//	cout << "p6.m_a=" << p6.m_a << endl;
+//	cout << "p6.m_b=" << p6.m_b << endl;
+//	system("pause");
+//	return 0;
+//}
+
+//2.左移运算符重载
+//实现自定义数据类型的输出
+
+//class person
+//{
+//	friend ostream& operator<<(ostream& cout, person p);
+//private:
+//	int m_age;
+//	int n_age;
+//public:
+//	//成员函数不能实现左移运算符重载
+//	void operator<<(ostream& cout);//重载<<，需要两个参数分别放在<<的左右，成员函数的第一个参数总是隐式地指向类实例的 this 指针，
+//	//所以还剩下一个参数位置，上代码简化来写就是p.operator(cout)即p<<cout，显然是无法实现cout在左侧的要求
+//	person(int a,int b)
+//	{
+//		this->m_age = a;
+//		this->n_age = b;
+//	}
+//};
+////通过全局函数来实现
+////全局函数没有默认第一参数
+//ostream& operator<<(ostream& cout, person p)//cout输出流只有一个，所以采用引用的方式，为实现链式编程，返回类型为ostream&
+//{
+//	cout << p.m_age << " " << p.n_age << endl;
+//}
+//void test()
+//{
+//	person p(10, 10);
+//	cout << p << endl;
+//}
+
+//3.递增运算符重载
+
+//class myclass
+//{
+//	friend ostream& operator<<(ostream& cout, myclass c);
+//public:
+//	myclass()
+//	{
+//		m_a = 0;
+//	}
+//	//实现前置递增运算符重载
+//	myclass& operator++()
+//	{
+//		++m_a;
+//		return *this;
+//	}
+//	//实现后置递增运算符重载
+//	myclass operator++(int)//int占位参数以此来区分前置和后置递增，其他的不好使
+//	{
+//		//先记录原先的值
+//		myclass tmp = *this;
+//		//处理数据
+//		m_a++;
+//		//返回tmp的值，不能返回引用方式，因为tmp为局部变量
+//		return tmp;
+//	}
+//private:
+//	int m_a;
+//
+//};
+//ostream& operator<<(ostream& cout, myclass c)//这里返回引用的目的是对同一个值进行更改
+//{
+//	cout << "m_a=" << c.m_a << endl;
+//	return cout;
+//}
+//void test1()
+//{
+//	myclass c1;
+//	cout << ++c1 << endl;
+//
+//}
+//void test2()
+//{
+//	myclass c2;
+//	cout << c2++ << endl;
+//	cout << c2 << endl;
+//}
+//int main()
+//{
+//	test1();
+//	test2();
+//	system("pause");
+//	return 0;
+//}
+
+//4.赋值运算符重载
+//解决浅拷贝带来的堆区内存重复释放的问题
+
+//class person
+//{
+//public:
+//	//有参构造函数
+//	person(int a)
+//	{
+//		m_a = new int(a);//堆区创建内存存放a值，m_a指向其
+//	}
+//	//创建析构函数，释放堆区上开辟的空间
+//	~person()
+//	{
+//		if (m_a != NULL)
+//		{
+//			delete m_a;
+//			m_a = NULL;
+//		}
+//	}
+//	//重载赋值运算符
+//	person& operator=(person& p)
+//	{
+//		//先检查自身指向空间是否释放
+//		if (m_a != NULL)
+//		{
+//			delete m_a;
+//			m_a = NULL;
+//		}
+//		//开辟新的空间进行深拷贝
+//		m_a = new int(*p.m_a);
+//		//返回可实现链式编程的person&类型
+//		return *this;
+//	}
+//	int *m_a;
+//};
+//ostream& operator<<(ostream& cout, person& p)
+//{
+//	cout << *p.m_a << endl;
+//	return cout;
+//}
+//void test()
+//{
+//	person p1(16);
+//	person p2(18);
+//	person p3(20);
+//	p3 = p2 = p1;//链式赋值
+//	cout << p3 << p2 << p1 << endl;
+//}
+//int main()
+//{
+//	test();
+//	system("pause");
+//	return 0;
+//}
+
+//5.关系运算符重载（== !=）
+//用于比较自定义类型
+
+//class person
+//{
+//public:
+//	person(string name, int age)
+//	{
+//		m_name = name;
+//		m_age = age;
+//	}
+//	string m_name;
+//	int m_age;
+//	//重载==
+//	bool operator==(person& p)
+//	{
+//		if (m_name == p.m_name && m_age == p.m_age)
+//		{
+//			return true;
+//		}
+//		else
+//			return false;
+//	}
+//	//重载!=
+//	bool operator!=(person& p)
+//	{
+//		if (m_name == p.m_name && m_age == p.m_age)
+//		{
+//			return false;
+//		}
+//		else
+//			return true;
+//	}
+//};
+//void test()
+//{
+//	person p1("tom", 8);
+//	person p2("jerry", 8);
+//	if (p1 == p2)
+//	{
+//		cout << "相等" << endl;
+//	}
+//	else
+//		cout << "不相等" << endl;
+//	if (p1 != p2)
+//	{
+//		cout << "不相等" << endl;
+//	}
+//	else
+//		cout << "相等" << endl;
+//}
+//int main()
+//{
+//	test();
+//	system("pause");
+//	return 0;
+//}
+
+//6.函数调用运算符重载()
+//因为使用起来很像函数，也称为仿函数
+
+class myfunc
 {
 public:
-	//1.成员函数实现+重载
-	person operator+(person& p)//operator+是编译器统一起的名字，便于后续代码可以简化为直接相加
+	void operator()(string text)
 	{
-		person tmp;
-		tmp.m_a = this->m_a + p.m_a;
-		tmp.m_b = this->m_b + p.m_b;
-		return tmp;
+		cout << text << endl;
 	}
-	int m_a = 10;
-	int m_b = 10;
+	int operator()(int a, int b)
+	{
+		return a + b;
+	}
 };
-//2.全局函数实现+重载
-person operator+(person& p1,person& p2)
+void test()
 {
-	person tmp;
-	tmp.m_a = p1.m_a + p2.m_a;
-	tmp.m_b = p1.m_b + p2.m_b;
-	return tmp;
-}
-//3.运算符重载也可以发生函数重载
-person operator+(person & p, int num)
-{
-	person tmp;
-	tmp.m_a = p.m_a + num;
-	tmp.m_b = p.m_b + num;
-	return tmp;
+	myfunc()("hello world!");//myprint()为创建一个匿名函数对象，一次用完即销毁
+	cout << myfunc()(10, 20) << endl;
 }
 int main()
 {
-	person p1;
-	person p2;
-	person p3 = p1.operator+(p2);//和p1+p2等价
-	cout << "p3.m_a=" << p3.m_a << endl;
-	cout << "p3.m_b=" << p3.m_b << endl;
-
-	//person p4 = p1 + p2;
-	//cout << "p4.m_a=" << p4.m_a << endl;
-	//cout << "p4.m_b=" << p4.m_b << endl;
-
-	person p5 = operator+(p1, p2);
-	cout << "p5.m_a=" << p5.m_a << endl;
-	cout << "p5.m_b=" << p5.m_b << endl;
-
-	person p6 = p1 + 100;//不同类型相加
-	cout << "p6.m_a=" << p6.m_a << endl;
-	cout << "p6.m_b=" << p6.m_b << endl;
+	test();
 	system("pause");
 	return 0;
 }
