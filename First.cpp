@@ -2171,26 +2171,313 @@ using namespace std;
 //6.函数调用运算符重载()
 //因为使用起来很像函数，也称为仿函数
 
-class myfunc
+//class myfunc
+//{
+//public:
+//	void operator()(string text)
+//	{
+//		cout << text << endl;
+//	}
+//	int operator()(int a, int b)
+//	{
+//		return a + b;
+//	}
+//};
+//void test()
+//{
+//	myfunc()("hello world!");//myprint()为创建一个匿名函数对象，一次用完即销毁
+//	cout << myfunc()(10, 20) << endl;
+//}
+//int main()
+//{
+//	test();
+//	system("pause");
+//	return 0;
+//}
+
+
+//继承
+//可以减少重复代码
+//语法：class 子类: 继承方式 父类
+//子类也称为派生类
+//父类也称为基类
+
+//class base
+//{
+//public:
+//	void header()
+//	{
+//		cout << "首页、公开课、登录、注册...（公共头部）" << endl;
+//	}
+//	void left()
+//	{
+//		cout << "python、cpp、java...（公共分类列表）" << endl;
+//	}
+//	void footer()
+//	{
+//		cout << "帮助中心、合作交流、站内地图...（公共底部）" << endl;
+//	}
+//};
+//class java :public base//继承，在base的基础上添加新的成员
+//{
+//public:
+//	void ja()
+//	{
+//		cout << "java的学习视频" << endl;
+//	}
+//};
+//class python :public base
+//{
+//public:
+//	void py()
+//	{
+//		cout << "python的学习视频" << endl;
+//	}
+//};
+//class cpp :public base//继承，在base的基础上添加新的成员
+//{
+//public:
+//	void c()
+//	{
+//		cout << "cpp的学习视频" << endl;
+//	}
+//};
+//void test()
+//{
+//	java j;
+//	python p;
+//	cpp c;
+//
+//	j.header();
+//	j.footer();
+//	j.left();
+//	j.ja();
+//	p.py();
+//	c.c();
+//}
+//int main()
+//{
+//	test();
+//	system("pause");
+//	return 0;
+//}
+
+//继承有三种方式：公共继承、保护继承和私有继承
+//class base
+//{
+//public:
+//	int a;
+//protected:
+//	int b;
+//private:
+//	int c;
+//};
+//class son1 :public base
+//{
+//public:
+//	void s1()
+//	{
+//		a = 100;//依然是公共
+//		b = 100;//依然是保护
+//	}
+//	//父类的私有内容访问不到
+//};
+//
+//class son2 :protected base
+//{
+//public:
+//	void s2()
+//	{
+//		a = 100;//权限变为保护
+//		b = 100;//依然是保护
+//	}
+//	//父类的私有内容访问不到
+//};
+//
+//class son3 :private base
+//{
+//public:
+//	void s3()
+//	{
+//		a = 100;//权限变为私有
+//		b = 100;//权限变为私有
+//	}
+//	//父类的私有内容访问不到
+//};
+
+//继承的构造和析构顺序
+//现有父亲后有儿子，先父类构造，再子类构造，析构顺序相反
+//class father
+//{
+//public:
+//	father()
+//	{
+//		cout << "father的构造函数" << endl;
+//	}
+//	~father()
+//	{
+//		cout << "father的析构函数" << endl;
+//	}
+//};
+//
+//class son:public father
+//{
+//public:
+//	son()
+//	{
+//		cout << "son的构造函数" << endl;
+//	}
+//	~son()
+//	{
+//		cout << "son的析构函数" << endl;
+//	}
+//};
+//
+//void test()
+//{
+//	son s;
+//}
+//int main()
+//{
+//	test();
+//	system("pause");
+//	return 0;
+//}
+
+//继承中出现同名成员的处理方式
+//子类直接调用即可，调用父类成员需要加作用域
+//原因是一旦子类中的成员和父类成员同名，会自动隐藏父类中所有的同名成员
+
+//class base
+//{
+//public:
+//	int m_a;
+//	base()
+//	{
+//		m_a = 1;
+//	}
+//	void func()
+//	{
+//		cout << "base func()" << endl;
+//	}
+//	void func(int a)
+//	{
+//		cout << "base func(int a)" << endl;
+//	}
+//};
+//class son:public base
+//{
+//public:
+//	int m_a;
+//	son()
+//	{
+//		m_a = 0;
+//	}
+//	void func()
+//	{
+//		cout << "son func()" << endl;
+//	}
+//};
+//void test()
+//{
+//	cout << "son下的m_a=" << son().m_a << endl;
+//	cout << "base下的m_a=" << son().base::m_a << endl;
+//	son().func();//子类成员函数
+//	son().base::func();//父类成员函数
+//	son().base::func(100);
+//
+//}
+//int main()
+//{
+//	test();
+//	system("pause");
+//	return 0;
+//}
+
+//继承中同名静态成员处理
+//和上述一致
+//class base
+//{
+//public:
+//	static int m_a;
+//};
+//int base::m_a = 100;
+//
+//class son:public base
+//{
+//public:
+//	static int m_a;
+//};
+//int son::m_a = 100;
+//
+//void test()
+//{
+//	son s;
+//	//通过对象访问
+//	cout << "son下的m_a=" << s.m_a << endl;
+//	cout << "base下的m_a=" << s.base::m_a << endl;
+//	//通过类名访问
+//	cout << "son下的m_a=" << son::m_a << endl;
+//	//第一个::是通过类名访问的意思，第二个::是在base的作用域下的意思
+//	cout << "base下的m_a=" << son::base::m_a << endl;
+//
+//}
+////成员函数的完全一样
+//int main()
+//{
+//	test();
+//	system("pause");
+//	return 0;
+//}
+
+//多继承语法：class 子类名:继承方式 父类1名,继承方式 父类2名...
+
+//菱形继承：子类所继承的两个父类拥有同一个父类
+//如羊和驼都继承动物，而羊驼继承了羊和驼
+//问题1：羊驼在使用数据时会出现二义性
+//问题2：羊驼的数据会有两份
+
+class animal
 {
 public:
-	void operator()(string text)
-	{
-		cout << text << endl;
-	}
-	int operator()(int a, int b)
-	{
-		return a + b;
-	}
+	int m_Age;
 };
-void test()
+
+class sheep:public animal{};
+
+class tuo:public animal{};
+
+class sheeptuo:public sheep,public tuo{};
+
+void test1()
 {
-	myfunc()("hello world!");//myprint()为创建一个匿名函数对象，一次用完即销毁
-	cout << myfunc()(10, 20) << endl;
+	sheeptuo st;
+	st.sheep::m_Age = 8;
+	st.tuo::m_Age = 10;
+	//可以解决二义性的问题，但是存在两个年龄，两份数据终究是不合理的。
+	cout << "st.sheep::m_Age=" << st.sheep::m_Age << endl;
+	cout << "st.tuo::m_Age=" << st.tuo::m_Age << endl;
+}
+//采用关键字virtual，虚继承来解决问题，animal称为虚基类
+class yang:virtual public animal{};
+
+class tuoo:virtual public animal{};
+
+class shtuo:public yang,public tuoo{};
+
+void test2()
+{
+	shtuo sto;
+	sto.yang::m_Age = 8;
+	sto.tuoo::m_Age = 10;
+	//原理是虚拟继承，分别继承虚拟基类指针，该指针指向虚拟基类表格，表格记录着对应的偏移量，使能够准确地找到唯一的m_Age并进行修改
+	cout << "sp.yang::m_Age=" << sto.yang::m_Age << endl;
+	cout << "sp.tuo0::m_Age=" << sto.tuoo::m_Age << endl;
+	//故无论是通过yang还是tuoo，都只是对同一个m_Age修改，输出的结果也是一样的
 }
 int main()
 {
-	test();
+	test2();
 	system("pause");
 	return 0;
 }
