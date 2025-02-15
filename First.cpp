@@ -2437,47 +2437,352 @@ using namespace std;
 //问题1：羊驼在使用数据时会出现二义性
 //问题2：羊驼的数据会有两份
 
-class animal
+//class animal
+//{
+//public:
+//	int m_Age;
+//};
+//
+//class sheep:public animal{};
+//
+//class tuo:public animal{};
+//
+//class sheeptuo:public sheep,public tuo{};
+//
+//void test1()
+//{
+//	sheeptuo st;
+//	st.sheep::m_Age = 8;
+//	st.tuo::m_Age = 10;
+//	//可以解决二义性的问题，但是存在两个年龄，两份数据终究是不合理的。
+//	cout << "st.sheep::m_Age=" << st.sheep::m_Age << endl;
+//	cout << "st.tuo::m_Age=" << st.tuo::m_Age << endl;
+//}
+////采用关键字virtual，虚继承来解决问题，animal称为虚基类
+//class yang:virtual public animal{};
+//
+//class tuoo:virtual public animal{};
+//
+//class shtuo:public yang,public tuoo{};
+//
+//void test2()
+//{
+//	shtuo sto;
+//	sto.yang::m_Age = 8;
+//	sto.tuoo::m_Age = 10;
+//	//原理是虚拟继承，分别继承虚拟基类指针，该指针指向虚拟基类表格，表格记录着对应的偏移量，使能够准确地找到唯一的m_Age并进行修改
+//	cout << "sp.yang::m_Age=" << sto.yang::m_Age << endl;
+//	cout << "sp.tuo0::m_Age=" << sto.tuoo::m_Age << endl;
+//	//故无论是通过yang还是tuoo，都只是对同一个m_Age修改，输出的结果也是一样的
+//}
+//int main()
+//{
+//	test2();
+//	system("pause");
+//	return 0;
+//}
+
+//继承的多态
+//多态分为静态多态和动态多态
+//静态多态包括函数重载和运算符重载
+//动态多态为派生类和虚函数实现运行时多态
+
+//区别：前者函数地址早绑定-编译阶段确定函数地址；后者函数地址晚绑定-运行阶段确定函数地址。
+
+//class animal
+//{
+//public:
+//	virtual void speak()
+//	{
+//		cout << "animal speak" << endl;
+//	}
+//};
+//class cat :public animal
+//{
+//	void speak()
+//	{
+//		cout << "cat speak" << endl;
+//	}
+//};
+////地址早绑定，不管输入什么都是animal speak，这里对于父类参数，是可以传子类对象的
+////地址晚绑定就可以解决问题，在animal类下的成员函数前加关键字virtual，使animal speak（）函数称为虚函数，暂时不分配地址
+//void dospeak(animal& anim)
+//{
+//	anim.speak();
+//}
+//void test()
+//{
+//	cat ct;
+//	dospeak(ct);
+//}
+//int main()
+//{
+//	test();
+//	system("pause");
+//	return 0;
+//}
+//动态多态满足的条件
+//1.有继承关系
+//2.子类重写父类的虚函数（子类中的关键字virtual可有可无），重写：函数返回值类型 函数名 参数列表完全一致
+//3.动态多态使用：父类的指针或引用指向子类对象
+
+//多态的原理见文档
+
+//纯虚函数和抽象类
+//在多态中，通常父类中虚函数的实现是毫无意义的，主要都是调用子类重写的内容，因此可以将虚函数改为纯虚函数
+//纯虚函数语法: virtual 返回值类型 函数名(参数列表)=0;当类中有了纯虚函数，这个类也称为抽象类
+//抽象类特点:无法实例化对象；子类必须重写抽象类中的纯虚函数，否则也属于抽象类
+
+//class Base//抽象类
+//{
+//public:
+//	virtual void func() = 0;//纯虚函数
+//};
+//class Son :public Base
+//{
+//public:
+//	void func()
+//	{
+//		cout << "Son下的func" << endl;
+//	}
+//};
+//void test()
+//{
+//	//Base base;抽象类无法实例化
+//	Base* base = new Son;
+//	base->func();
+//}
+//int main()
+//{
+//	test();
+//	system("pause");
+//	return 0;
+//}
+
+//实例应用
+
+//class Base
+//{
+//public:
+//	virtual void process() = 0;
+//};
+//class Tea :public Base
+//{
+//public:
+//	void process()
+//	{
+//		cout << "煮水+冲泡茶叶+倒入杯中+加柠檬" << endl;
+//	}
+//};
+//class Coffee :public Base
+//{
+//public:
+//	void process()
+//	{
+//		cout << "煮水+冲泡咖啡+倒入杯中+加糖和牛奶" << endl;
+//	}
+//};
+//void makedrink(Base* base)
+//{
+//	base->process();
+//	delete base;
+//}
+//void test()
+//{
+//	makedrink(new Coffee);
+//}
+//int main()
+//{
+//	test();
+//	system("pause");
+//	return 0;
+//}
+
+//多态中的虚析构和纯虚析构
+//总结:
+//1.虚析构或纯虚析构就是用来解决通过父类指针释放子类对象
+//2.如果子类中没有堆区数据，可以坏写为虚析构或纯虚析构
+//3.拥有纯虚析构函数的类也属于抽象类
+//class Animal
+//{
+//public:
+//	Animal()
+//	{
+//		cout << "animal构造函数的调用" << endl;
+//	}
+//	//加上关键字virtual形成虚析构，就会执行子类析构函数
+//	//virtual ~Animal()
+//	//{
+//	//	cout << "animal析构函数的调用" << endl;
+//
+//	//}
+//	//纯虚析构，也需要具体的代码实现，该类称为抽象类，不能实例化对象
+//	virtual ~Animal() = 0;//纯虚析构类内声明，类外实现
+//	virtual void speak() = 0;
+//};
+//Animal::~Animal()//纯虚析构类外实现
+//{
+//	cout << "animal析构函数的调用" << endl;
+//}
+//class Cat :public Animal
+//{
+//public:
+//	virtual void speak()
+//	{
+//		cout << *Name << "小猫在说话" << endl;
+//	}
+//	Cat(string name)
+//	{
+//		cout << "Cat构造函数的调用" << endl;
+//		Name = new string(name);
+//	}
+//	~Cat()
+//	{
+//		cout << "Cat析构函数的调用" << endl;
+//		if (Name != NULL)
+//		{
+//			delete Name;
+//			Name = NULL;
+//		}
+//	}
+//	string* Name;
+//};
+//void test()
+//{
+//	Animal* animal = new Cat("Tom");
+//	animal->speak();
+//	delete animal;//父类指针不会走子类的析构函数，会导致子类中在堆区开辟的内存出现泄露，解决办法就是将父类中的析构函数更改为虚析构
+//}
+//int main()
+//{
+//	test();
+//	system("pause");
+//	return 0;
+//}
+
+//多态应用实例
+//电脑零件
+class CPU
 {
 public:
-	int m_Age;
+	virtual void calculate() = 0;
+};
+class GPU
+{
+public:
+	virtual void display() = 0;
+};
+class MemeryCard
+{
+public:
+	virtual void store() = 0;
+};
+//厂商
+class InterCPU:public CPU
+{
+public:
+	virtual void calculate()
+	{
+		cout << "InterCPU working..." << endl;
+	}
+};
+class InterGPU :public GPU
+{
+public:
+	virtual void display()
+	{
+		cout << "InterGPU working..." << endl;
+	}
+};
+class InterMemery :public MemeryCard
+{
+public:
+	virtual void store()
+	{
+		cout << "InterMemery working..." << endl;
+	}
 };
 
-class sheep:public animal{};
-
-class tuo:public animal{};
-
-class sheeptuo:public sheep,public tuo{};
-
-void test1()
+class LenovoCPU :public CPU
 {
-	sheeptuo st;
-	st.sheep::m_Age = 8;
-	st.tuo::m_Age = 10;
-	//可以解决二义性的问题，但是存在两个年龄，两份数据终究是不合理的。
-	cout << "st.sheep::m_Age=" << st.sheep::m_Age << endl;
-	cout << "st.tuo::m_Age=" << st.tuo::m_Age << endl;
-}
-//采用关键字virtual，虚继承来解决问题，animal称为虚基类
-class yang:virtual public animal{};
-
-class tuoo:virtual public animal{};
-
-class shtuo:public yang,public tuoo{};
-
-void test2()
+public:
+	virtual void calculate()
+	{
+		cout << "LenovoCPU working..." << endl;
+	}
+};
+class LenovoGPU :public GPU
 {
-	shtuo sto;
-	sto.yang::m_Age = 8;
-	sto.tuoo::m_Age = 10;
-	//原理是虚拟继承，分别继承虚拟基类指针，该指针指向虚拟基类表格，表格记录着对应的偏移量，使能够准确地找到唯一的m_Age并进行修改
-	cout << "sp.yang::m_Age=" << sto.yang::m_Age << endl;
-	cout << "sp.tuo0::m_Age=" << sto.tuoo::m_Age << endl;
-	//故无论是通过yang还是tuoo，都只是对同一个m_Age修改，输出的结果也是一样的
+public:
+	virtual void display()
+	{
+		cout << "LenovoGPU working..." << endl;
+	}
+};
+class LenovoMemery :public MemeryCard
+{
+public:
+	virtual void store()
+	{
+		cout << "LenovoMemery working..." << endl;
+	}
+};
+//电脑类
+class Compter
+{
+public:
+	Compter(CPU* cpu, GPU* gpu, MemeryCard* mem)
+	{
+		m_cpu = cpu;
+		m_gpu = gpu;
+		m_mem = mem;
+	}
+	~Compter()
+	{
+		cout << "Compter析构函数调用" << endl;
+		if (m_cpu != NULL)
+		{
+			delete m_cpu;
+			m_cpu = NULL;
+		}
+		if (m_gpu != NULL)
+		{
+			delete m_gpu;
+			m_gpu = NULL;
+		}
+		if (m_mem != NULL)
+		{
+			delete m_mem;
+			m_mem = NULL;
+		}
+	}
+	void running()
+	{
+		m_cpu->calculate();
+		m_gpu->display();
+		m_mem->store();
+	}
+private:
+	CPU* m_cpu;
+	GPU* m_gpu;
+	MemeryCard* m_mem;
+};
+//测试
+void test()
+{
+	//组装Inter电脑
+	cout << "---------------" << endl;
+	Compter* compter1 = new Compter(new InterCPU(), new InterGPU(), new InterMemery());
+	compter1->running();
+	cout << "---------------" << endl;
+	//组装Lenovo电脑
+	Compter* compter2 = new Compter(new LenovoCPU(), new LenovoGPU(), new LenovoMemery());
+	compter2->running();
+	cout << "---------------" << endl;
 }
 int main()
 {
-	test2();
+	test();
 	system("pause");
 	return 0;
 }
