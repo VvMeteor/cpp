@@ -2662,127 +2662,271 @@ using namespace std;
 
 //多态应用实例
 //电脑零件
-class CPU
-{
-public:
-	virtual void calculate() = 0;
-};
-class GPU
-{
-public:
-	virtual void display() = 0;
-};
-class MemeryCard
-{
-public:
-	virtual void store() = 0;
-};
-//厂商
-class InterCPU:public CPU
-{
-public:
-	virtual void calculate()
-	{
-		cout << "InterCPU working..." << endl;
-	}
-};
-class InterGPU :public GPU
-{
-public:
-	virtual void display()
-	{
-		cout << "InterGPU working..." << endl;
-	}
-};
-class InterMemery :public MemeryCard
-{
-public:
-	virtual void store()
-	{
-		cout << "InterMemery working..." << endl;
-	}
-};
+//class CPU
+//{
+//public:
+//	virtual void calculate() = 0;
+//};
+//class GPU
+//{
+//public:
+//	virtual void display() = 0;
+//};
+//class MemeryCard
+//{
+//public:
+//	virtual void store() = 0;
+//};
+////厂商
+//class InterCPU:public CPU
+//{
+//public:
+//	virtual void calculate()
+//	{
+//		cout << "InterCPU working..." << endl;
+//	}
+//};
+//class InterGPU :public GPU
+//{
+//public:
+//	virtual void display()
+//	{
+//		cout << "InterGPU working..." << endl;
+//	}
+//};
+//class InterMemery :public MemeryCard
+//{
+//public:
+//	virtual void store()
+//	{
+//		cout << "InterMemery working..." << endl;
+//	}
+//};
+//
+//class LenovoCPU :public CPU
+//{
+//public:
+//	virtual void calculate()
+//	{
+//		cout << "LenovoCPU working..." << endl;
+//	}
+//};
+//class LenovoGPU :public GPU
+//{
+//public:
+//	virtual void display()
+//	{
+//		cout << "LenovoGPU working..." << endl;
+//	}
+//};
+//class LenovoMemery :public MemeryCard
+//{
+//public:
+//	virtual void store()
+//	{
+//		cout << "LenovoMemery working..." << endl;
+//	}
+//};
+////电脑类
+//class Compter
+//{
+//public:
+//	Compter(CPU* cpu, GPU* gpu, MemeryCard* mem)
+//	{
+//		m_cpu = cpu;
+//		m_gpu = gpu;
+//		m_mem = mem;
+//	}
+//	~Compter()
+//	{
+//		cout << "Compter析构函数调用" << endl;
+//		if (m_cpu != NULL)
+//		{
+//			delete m_cpu;
+//			m_cpu = NULL;
+//		}
+//		if (m_gpu != NULL)
+//		{
+//			delete m_gpu;
+//			m_gpu = NULL;
+//		}
+//		if (m_mem != NULL)
+//		{
+//			delete m_mem;
+//			m_mem = NULL;
+//		}
+//	}
+//	void running()
+//	{
+//		m_cpu->calculate();
+//		m_gpu->display();
+//		m_mem->store();
+//	}
+//private:
+//	CPU* m_cpu;
+//	GPU* m_gpu;
+//	MemeryCard* m_mem;
+//};
+////测试
+//void test()
+//{
+//	//组装Inter电脑
+//	cout << "---------------" << endl;
+//	Compter* compter1 = new Compter(new InterCPU(), new InterGPU(), new InterMemery());
+//	compter1->running();
+//	cout << "---------------" << endl;
+//	//组装Lenovo电脑
+//	Compter* compter2 = new Compter(new LenovoCPU(), new LenovoGPU(), new LenovoMemery());
+//	compter2->running();
+//	cout << "---------------" << endl;
+//}
+//int main()
+//{
+//	test();
+//	system("pause");
+//	return 0;
+//}
 
-class LenovoCPU :public CPU
-{
-public:
-	virtual void calculate()
-	{
-		cout << "LenovoCPU working..." << endl;
-	}
-};
-class LenovoGPU :public GPU
-{
-public:
-	virtual void display()
-	{
-		cout << "LenovoGPU working..." << endl;
-	}
-};
-class LenovoMemery :public MemeryCard
-{
-public:
-	virtual void store()
-	{
-		cout << "LenovoMemery working..." << endl;
-	}
-};
-//电脑类
-class Compter
-{
-public:
-	Compter(CPU* cpu, GPU* gpu, MemeryCard* mem)
-	{
-		m_cpu = cpu;
-		m_gpu = gpu;
-		m_mem = mem;
-	}
-	~Compter()
-	{
-		cout << "Compter析构函数调用" << endl;
-		if (m_cpu != NULL)
-		{
-			delete m_cpu;
-			m_cpu = NULL;
-		}
-		if (m_gpu != NULL)
-		{
-			delete m_gpu;
-			m_gpu = NULL;
-		}
-		if (m_mem != NULL)
-		{
-			delete m_mem;
-			m_mem = NULL;
-		}
-	}
-	void running()
-	{
-		m_cpu->calculate();
-		m_gpu->display();
-		m_mem->store();
-	}
-private:
-	CPU* m_cpu;
-	GPU* m_gpu;
-	MemeryCard* m_mem;
-};
-//测试
-void test()
-{
-	//组装Inter电脑
-	cout << "---------------" << endl;
-	Compter* compter1 = new Compter(new InterCPU(), new InterGPU(), new InterMemery());
-	compter1->running();
-	cout << "---------------" << endl;
-	//组装Lenovo电脑
-	Compter* compter2 = new Compter(new LenovoCPU(), new LenovoGPU(), new LenovoMemery());
-	compter2->running();
-	cout << "---------------" << endl;
-}
-int main()
-{
-	test();
-	system("pause");
-	return 0;
-}
+//文件操作
+//文本文件-ASCII码值的形式存储
+//二进制文件-二进制形式存储
+#include<fstream>
+//ofstream - 写操作
+//ifstream - 读操作
+//fstream - 读写操作
+
+//1.写文件
+//一、包含头文件
+//#include<fstream>
+//二、创建流对象
+//ofstream ofs
+//三、打开文件
+//ofs.open("文件路径",打开方式)
+//四、写数据
+//ofs<<"写入的数据";
+//五、关闭文件
+//ofs.close();
+//文本文件写文件
+//int main()
+//{
+//	ofstream ofs;
+//	ofs.open("text.txt", ios::out);//没有写完整路径，默认创建到与本文件同级处
+//	ofs << "zhansgan" << endl;
+//	ofs << "nan" << endl;
+//	ofs << "18" << endl;
+//  system("pause");
+//	return 0;
+//}
+//2.读文件
+//一、包含头文件
+//#include<fstream>
+//二、创建流对象
+//ifstream ifs
+//三、打开文件并判断文件是否打开成功
+//ifs.open("文件路径",打开方式)
+//四、读数据
+//四种方式
+//五、关闭文件
+//ifs.close();
+//文本文件读文件
+
+//int main()
+//{
+//	ifstream ifs;
+//	ifs.open("text.txt", ios::in);
+//	if (!ifs.is_open())
+//	{
+//		cout << "文件打开失败！" << endl;
+//		return 1;
+//	}
+//	//第一种读数据
+//	char buf[1024] = { 0 };
+//	while (ifs.getline(buf,sizeof(buf)))
+//	{
+//		cout << buf << endl;
+//	}
+//	//ifs.close();//要想多次读取，要么关闭重新打开，要么把文件指针移到开头
+//	//第二种读数据
+//	char arr[1024] = { 0 };
+//	while (ifs >> arr)
+//	{
+//		cout << arr << endl;
+//	}
+//	//第三种读数
+//	string s;
+//	while (getline(ifs, s))
+//	{
+//		cout << s << endl;
+//	}
+//	//第四种读数
+//	ifs.clear();    // 清除流的状态标志
+//	ifs.seekg(0);   // 将文件指针移动到文件开头
+//	ifstream ifs1;
+//	ifs1.open("text.txt", ios::in);
+//	char c;
+//	while ((c = ifs1.get())!=EOF)//EOF - end of file文件的末尾
+//	{
+//		cout << c;
+//	}
+//	ifs1.close();
+//	system("pause");
+//	return 0;
+//}
+
+//二进制文件写文件wirte
+//打开方式要加上ios::binary
+//二进制方式写文件主要利用流对象调用成员函数write
+//函数原型:ostream& write(const char* buffer, int len); 
+//参数解释:字符指针buffer指向内存中一段存储空间。len是读写的字节数
+
+//class person
+//{
+//public:
+//	char m_name[64];
+//	int m_age;
+//};
+//void test()
+//{
+//	person p = { "张三",18 };
+//	ofstream ofs("person.txt", ios::out | ios::binary);
+//	ofs.write((const char*)&p, sizeof(p));
+//	ofs.close();
+//}
+//int main()
+//{
+//	test();
+//	system("pause");
+//	return 0;
+//}
+
+//二进制文件读文件
+//二进制方式读文件主要利用流对象调用成员函数read
+//函数原型:istream& read(char* buffer, int len);
+//参数解释:字符指针buffer指向内存中一段存储空间。len是读写的字节数
+
+//class person
+//{
+//public:
+//	char m_name[64];
+//	int m_age;
+//};
+//void test()
+//{
+//	person p;
+//	ifstream ifs("person.txt", ios::out | ios::binary);
+//	if (!(ifs.is_open()))
+//	{
+//		cout << "文件打开失败！" << endl;
+//		return;
+//	}
+//	ifs.read((char*)&p, sizeof(p));
+//	cout << p.m_name << endl;
+//	cout << p.m_age << endl;
+//	ifs.close();
+//}
+//int main()
+//{
+//	test();
+//	system("pause");
+//	return 0;
+//}
