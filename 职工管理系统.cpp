@@ -27,6 +27,7 @@ int main()
 		}
 		case 1://增加职工信息
 		{
+			wm.addworker();
 			break;
 		}
 		case 2://显示职工信息

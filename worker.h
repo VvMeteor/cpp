@@ -19,5 +19,5 @@ public:
 	string m_name;
 
 	//部门编号
-	int m_bmid;
+	int m_bmid;//1为普通员工，2为经理，3为老板
 };
