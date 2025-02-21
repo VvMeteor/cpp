@@ -32,10 +32,12 @@ int main()
 		}
 		case 2://显示职工信息
 		{
+			wm.show_worker();
 			break;
 		}
 		case 3://删除职工信息
 		{
+			wm.del_worker();
 			break;
 		}
 		case 4://修改职工信息

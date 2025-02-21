@@ -2,6 +2,18 @@
 using namespace std;
 #include"worker.h"
 
+//统计文件打开时的人数
+int WorkerManager::get_num()
+{
+	ifstream ifs(FILENAME, ios::in);
+	string s;
+	int num = 0;
+	while (getline(ifs, s))
+	{
+		num++;
+	}
+	return num;
+}
 WorkerManager::WorkerManager()
 {
 	ifstream ifs(FILENAME, ios::in);
@@ -28,7 +40,44 @@ WorkerManager::WorkerManager()
 		ifs.close();
 		return;
 	}
+	//文件不为空
+	m_num = get_num();
+	//cout << "职工人数为" << m_num << "人" << endl;
+	//开辟空间并导入数据
+	this->m_arry = new worker* [m_num];
+	this->init_arry();
+
 }
+//初始化文件不为空时的数据
+void WorkerManager::init_arry()
+{
+	ifstream ifs(FILENAME, ios::in);
+	int id;
+	string name;
+	int did;
+
+	int i = 0;
+	while (ifs >> id && ifs >> name && ifs >> did)
+	{
+		worker* w = NULL;
+		if (did == 1)
+		{
+			w = new emplyee(id, name, 1);
+		}
+		else if (did == 2)
+		{
+			w = new manager(id, name, 2);
+		}
+		else if (did == 3)
+		{
+			w = new boss(id, name, 3);
+		}
+		this->m_arry[i] = w;
+		i++;
+	}
+	ifs.close();
+}
+
 //展示菜单
 void WorkerManager::show_menu()
 {
@@ -136,6 +185,72 @@ void WorkerManager::save()
 			<< m_arry[i]->m_bmid << " " << endl;
 	}
 	ofs.close();
+}
+//显示职工
+void WorkerManager::show_worker()
+{
+	if (this->m_fileisempty)
+	{
+		cout << "文件不存在或数据为空" << endl;
+	}
+	else
+	{
+		for (int i = 0; i < m_num; i++)
+		{
+			m_arry[i]->show_info();
+		}
+	}
+	//按任意键清屏
+	system("pause");
+	system("cls");
+}
+//删除职工
+void WorkerManager::del_worker()
+{
+	if (m_fileisempty)
+	{
+		cout << "文件不存在或数据为空，删除失败" << endl;
+	}
+	else
+	{
+		cout << "请输入要删除的职工编号：" << endl;
+		int id = 0;
+		cin >> id;
+		if (is_exist(id) != -1)
+		{
+			for (int i = is_exist(id); i < m_num - 1; i++)
+			{
+				//数据前移
+				m_arry[i] = m_arry[i + 1];
+			}
+			cout << "删除成功" << endl;
+			//更新人数
+			m_num--;
+			this->save();
+		}
+		else
+		{
+			cout << "无法找到该职工，删除失败" << endl;
+		}
+		//按任意键清屏
+		system("pause");
+		system("cls");
+	}
+}
+
+//判断职工是否存在
+int WorkerManager::is_exist(int id)
+{
+	int index = -1;
+	for (int i = 0; i < m_num; i++)
+	{
+		if (m_arry[i]->m_id == id)
+		{
+			index = i;
+			break;
+		}
+	}
+	return index;
 }
 //退出系统
 void WorkerManager::exit_system()
