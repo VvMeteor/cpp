@@ -141,12 +141,12 @@ void WorkerManager::addworker()
 			}
 			case 2:
 			{
-				w = new emplyee(id, name, 2);
+				w = new manager(id, name, 2);
 				break;
 			}
 			case 3:
 			{
-				w = new emplyee(id, name, 3);
+				w = new boss(id, name, 3);
 				break;
 			}
 			default:
@@ -189,7 +189,7 @@ void WorkerManager::save()
 //显示职工
 void WorkerManager::show_worker()
 {
-	if (this->m_fileisempty)
+	if (this->m_fileisempty || m_num == 0)
 	{
 		cout << "文件不存在或数据为空" << endl;
 	}
@@ -232,12 +232,252 @@ void WorkerManager::del_worker()
 		{
 			cout << "无法找到该职工，删除失败" << endl;
 		}
-		//按任意键清屏
-		system("pause");
-		system("cls");
 	}
+	//按任意键清屏
+	system("pause");
+	system("cls");
 }
+//修改职工信息
+void WorkerManager::mod_worker()
+{
+	if (m_fileisempty)
+	{
+		cout << "文件不存在或数据为空" << endl;
+	}
+	else
+	{
+		cout << "请输入要修改的职工编号：" << endl;
+		int input;
+		cin >> input;
 
+		int ret = is_exist(input);
+		if (ret != -1)
+		{
+			delete m_arry[ret];
+			int id;
+			string name;
+			int bid;
+			cout << "请输入修改后的职工编号：" << endl;
+			cin >> id;
+			cout << "请输入修改后的职工姓名：" << endl;
+			cin >> name;
+			cout << "请输入修改后的职工岗位：" << endl;
+			cout << "1.普通员工" << endl;
+			cout << "2.经理" << endl;
+			cout << "3.老板" << endl;
+			cin >> bid;
+
+			worker* w = NULL;
+			switch (bid)
+			{
+			case 1:
+			{
+				w = new emplyee(id, name, 1);
+				break;
+			}
+			case 2:
+			{
+				w = new manager(id, name, 2);
+				break;
+			}
+			case 3:
+			{
+				w = new boss(id, name, 3);
+				break;
+			}
+		    default:
+			{
+				break;
+			}
+			}
+			m_arry[ret] = w;
+			cout << "修改成功" << endl;
+			this->save();
+		}
+		else
+		{
+			cout << "无法找到该职工，修改失败" << endl;
+		}
+	}
+	//按任意键清屏
+	system("pause");
+	system("cls");
+}
+//查找职工
+void WorkerManager::find_worker()
+{
+	if (m_fileisempty || m_num == 0)
+	{
+		cout << "文件不存在或数据为空" << endl;
+	}
+	else
+	{
+		int input = 0;
+		do
+		{
+			cout << "请输入要查找方式：" << endl;
+			cout << "1.按编号查找" << endl;
+			cout << "2.按姓名查找" << endl;
+			cin >> input;
+			bool isfind = false;
+			if (input == 1)
+			{
+				cout << "请输入要查询的职工编号：" << endl;
+				int id;
+				cin >> id;
+				int ret = is_exist(id);
+				if (ret != -1)
+				{
+					cout << "查询到的职工信息如下：" << endl;
+					m_arry[ret]->show_info();
+					isfind = true;
+					break;
+				}
+				else
+				{
+					if (!isfind)
+					{
+						cout << "未找到该职工" << endl;
+						break;
+					}
+				}
+			}
+			else if (input == 2)
+			{
+				cout << "请输入要查询的职工姓名：" << endl;
+				string name;
+				cin >> name;
+				int count = 0;
+				for (int i = 0; i < m_num; i++)
+				{
+					if (m_arry[i]->m_name == name)
+					{
+						if (count == 0)
+						{
+							cout << "查询到的职工信息如下：" << endl;
+							count++;
+						}
+						m_arry[i]->show_info();
+						isfind = true;
+					}
+				}
+				if (!isfind)
+				{
+					cout << "未找到该职工" << endl;
+					break;
+				}
+				break;
+			}
+			else
+			{
+				cout << "输入有误，请重新输入" << endl;
+			}
+		} while (input != 1 && input != 2);
+	}
+	//按任意键清屏
+	system("pause");
+	system("cls");
+}
+//按编号排序
+void WorkerManager::sort_worker()
+{
+	if (m_fileisempty || m_num == 0)
+	{
+		cout << "文件不存在或数据为空" << endl;
+	}
+	else
+	{
+		int input = 0;
+		do
+		{
+			cout << "请输入排序方式：" << endl;
+			cout << "1.按升序排序：" << endl;
+			cout << "2.按降序排序：" << endl;
+			cin >> input;
+			
+			for (int i = 0; i < m_num; i++)
+			{
+				int MinorMax = i;
+				if (input == 1)
+				{
+					for (int j = i + 1; j < m_num; j++)
+					{
+						if (m_arry[i]->m_id > m_arry[j]->m_id)
+						{
+							MinorMax = j;
+						}
+					}
+				}
+				else if (input == 2)
+				{
+					for (int j = i + 1; j < m_num; j++)
+					{
+						if (m_arry[i]->m_id < m_arry[j]->m_id)
+						{
+							MinorMax = j;
+						}
+					}
+				}
+				if (i != MinorMax)
+				{
+					worker* tmp = m_arry[i];
+					m_arry[i] = m_arry[MinorMax];
+					m_arry[MinorMax] = tmp;
+				}
+			}
+			if (input != 1 && input != 2)
+			{
+				cout << "输入有误，请重新输入" << endl;
+			}
+			else
+			{
+				cout << "排序后的职工信息如下：" << endl;
+				this->save();
+				this->show_worker();
+			}
+		} while (input != 1 && input != 2);
+	}
+	//按任意键清屏
+	system("pause");
+	system("cls");
+}
+//清空文档
+void WorkerManager::clean_worker()
+{
+	int input = 0;
+	do
+	{
+		cout << "是否清空文档？" << endl;
+		cout << "1.是" << endl;
+		cout << "2.否" << endl;
+		cin >> input;
+		if (input == 1)
+		{
+			ofstream ofs(FILENAME, ios::trunc);//清除文档并创建一个新文档
+			ofs.close();
+
+			if (m_arry != NULL)
+			{
+				for (int i = 0; i < m_num; i++)
+				{
+					if (m_arry[i] != NULL)
+					{
+						delete m_arry[i];
+						m_arry[i] = NULL;
+					}
+				}
+				m_num = 0;
+				delete[] m_arry;
+				m_arry = NULL;
+				cout << "清除成功" << endl;
+				break;
+			}
+		}
+		cout << "输入有误，请重新选择" << endl;
+	} while (input != 1 && input != 2);
+	system("pause");
+	system("cls");
+}
 //判断职工是否存在
 int WorkerManager::is_exist(int id)
 {
@@ -264,6 +504,14 @@ WorkerManager::~WorkerManager()
 {
 	if (m_arry != NULL)
 	{
+		for (int i = 0; i < m_num; i++)
+		{
+			if (m_arry[i] != NULL)
+			{
+				delete m_arry[i];
+				m_arry[i] = NULL;
+			}
+		}
 		delete[] m_arry;
 		m_arry = NULL;
 	}

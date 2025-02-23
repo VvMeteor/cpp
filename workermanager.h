@@ -44,9 +44,21 @@ public:
 	//删除职工
 	void del_worker();
 
+	//修改职工
+	void mod_worker();
+
+	//查找职工
+	void find_worker();
+
+	//编号排序
+	void sort_worker();
+
+	//清空文档
+	void clean_worker();
+
 	//判断职工是否存在(存在返回位置，否则返回-1)
 	int is_exist(int id);
-	
+
 	//退出系统
 	void exit_system();
 

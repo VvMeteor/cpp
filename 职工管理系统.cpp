@@ -42,18 +42,22 @@ int main()
 		}
 		case 4://修改职工信息
 		{
+			wm.mod_worker();
 			break;
 		}
 		case 5://查找职工信息
 		{
+			wm.find_worker();
 			break;
 		}
 		case 6://排序
 		{
+			wm.sort_worker();
 			break;
 		}
 		case 7://清除文档
 		{
+			wm.clean_worker();
 			break;
 		}
 		default:
