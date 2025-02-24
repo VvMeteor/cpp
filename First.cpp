@@ -2930,3 +2930,88 @@ using namespace std;
 //	system("pause");
 //	return 0;
 //}
+
+//C++模板：面向泛式编程，大大提高复用率
+//不能直接使用，模板只是一个框架，也不是万能的
+
+//模板分函数模板和类模板
+
+//1.函数模板
+//建立一个通用函数，其函数返回值类型和形参类型可以不具体制定，用一个虚拟的类型来代表。
+//语法:
+//template<typename T>
+//函数声明或定义
+//template - 声明创建模板
+//typename - 表面其后面的符号是一种数据类型，可以用class代替通用的数据类型
+//T - 名称可以替换，通常为大写字母
+
+//应用场景（数据交换）
+//void exchange(int &a, int& b)
+//{
+//	int tmp = a;
+//	a = b;
+//	b = tmp;
+//}
+//void Exchange(double& a, double& b)
+//{
+//	double tmp = a;
+//	a = b;
+//	b = tmp;
+//}
+//很麻烦，每次不同的数据类型都要换一个函数，实际上函数内的操作逻辑完全一致
+//采用模板
+//template<typename T>
+//void myexchange(T& a, T& b)
+//{
+//	T tmp = a;
+//	a = b;
+//	b = tmp;
+//}
+//void test()
+//{
+//	int a = 10;
+//	int b = 20;
+//	//1.自动类型推导
+//	myexchange(a, b);
+//	//2.显示指定类型
+//	myexchange<int>(a, b);
+//	cout << "a=" << a << endl;
+//	cout << "b=" << b << endl;
+//}
+//int main()
+//{
+//	test();
+//	system("pause");
+//	return 0;
+//}
+
+//模板使用注意事项
+template<typename T>
+void myexchange(T& a, T& b)
+{
+	T tmp = a;
+	a = b;
+	b = tmp;
+}
+void test1()
+{
+	int a = 10;
+	char b = 'b';
+	//myexchange(a, b);错误，自动类型推导必须推导出同一类型
+}
+template<typename T>
+void func()
+{
+	cout << "func()的调用" << endl;
+}
+void test2()
+{
+	//func();错误，模板使用必须指定T的类型
+	func<int>();//显示指定，正确做法
+}
+int main()
+{
+	test2();
+	system("pause");
+	return 0;
+}
