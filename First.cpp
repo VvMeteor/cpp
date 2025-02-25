@@ -2986,32 +2986,127 @@ using namespace std;
 //}
 
 //模板使用注意事项
-template<typename T>
-void myexchange(T& a, T& b)
+//template<typename T>
+//void myexchange(T& a, T& b)
+//{
+//	T tmp = a;
+//	a = b;
+//	b = tmp;
+//}
+//void test1()
+//{
+//	int a = 10;
+//	char b = 'b';
+//	//myexchange(a, b);错误，自动类型推导必须推导出同一类型
+//}
+//template<typename T>
+//void func()
+//{
+//	cout << "func()的调用" << endl;
+//}
+//void test2()
+//{
+//	//func();错误，模板使用必须指定T的类型
+//	func<int>();//显示指定，正确做法
+//}
+//int main()
+//{
+//	test2();
+//	system("pause");
+//	return 0;
+//}
+
+//函数模板案例
+//降序排序
+//template<class T>
+//void exchange(T& a, T& b)
+//{
+//	T tmp = a;
+//	a = b;
+//	b = tmp;
+//}
+//
+//template<class T>
+//void printf(T arr[], int len)
+//{
+//	for (int i = 0; i < len; i++)
+//	{
+//		cout << arr[i]<<" ";
+//	}
+//}
+//
+//template<class T>
+//void sort(T arr[], int len)
+//{
+//	//选择排序法
+//	for (int i = 0; i < len; i++)
+//	{
+//		int max = i;
+//		for (int j = i + 1; j < len; j++)
+//		{
+//			if (arr[max] < arr[j])
+//			{
+//				max = j;
+//			}
+//		}
+//		if (max != i)
+//		{
+//			exchange(arr[max], arr[i]);
+//		}
+//	}
+//}
+//
+//void test()
+//{
+//	char charr[] = "afecdb";
+//	int intarr[] = { 9,7,8,1,2,3,5,4,6 };
+//	
+//	int len1 = sizeof(charr) / sizeof(char);
+//	int len2 = sizeof(intarr) / sizeof(int);
+//
+//	sort(charr, len1);
+//	sort(intarr, len2);
+//
+//	printf(charr, len1);
+//	printf(intarr, len2);
+//}
+//
+//int main()
+//{
+//	test();
+//	system("pause");
+//	return 0;
+//}
+
+//模板和普通函数的区别
+//1、普通函数调用可以发生隐式类型转换
+//2、函数模板用自动类型推导，不可以发生隐式类型转换
+//3、函数模板用显示指定类型，可以发生隐式类型转换
+//普通函数
+int add(int a, int b)
 {
-	T tmp = a;
-	a = b;
-	b = tmp;
+	return a + b;
 }
-void test1()
+//模板
+template<class T>
+T myadd(T a, T b)
+{
+	return a + b;
+}
+void test()
 {
 	int a = 10;
-	char b = 'b';
-	//myexchange(a, b);错误，自动类型推导必须推导出同一类型
-}
-template<typename T>
-void func()
-{
-	cout << "func()的调用" << endl;
-}
-void test2()
-{
-	//func();错误，模板使用必须指定T的类型
-	func<int>();//显示指定，正确做法
+	int b = 20;
+	char c = 'c';
+	add(a, b);
+	cout << add(a, c) << endl;//自动隐式转换
+	//myadd(a, c);//模板自动推导类型推导不出一致类型
+	cout << myadd<int>(a, c) << endl;//使用显示指定可以
 }
 int main()
 {
-	test2();
+	test();
 	system("pause");
 	return 0;
 }
+                                                                                                                                                                                                                                                                                                     
