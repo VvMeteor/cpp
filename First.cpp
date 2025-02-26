@@ -3083,30 +3083,158 @@ using namespace std;
 //2、函数模板用自动类型推导，不可以发生隐式类型转换
 //3、函数模板用显示指定类型，可以发生隐式类型转换
 //普通函数
-int add(int a, int b)
-{
-	return a + b;
-}
-//模板
-template<class T>
-T myadd(T a, T b)
-{
-	return a + b;
-}
-void test()
-{
-	int a = 10;
-	int b = 20;
-	char c = 'c';
-	add(a, b);
-	cout << add(a, c) << endl;//自动隐式转换
-	//myadd(a, c);//模板自动推导类型推导不出一致类型
-	cout << myadd<int>(a, c) << endl;//使用显示指定可以
-}
-int main()
-{
-	test();
-	system("pause");
-	return 0;
-}
-                                                                                                                                                                                                                                                                                                     
+//int add(int a, int b)
+//{
+//	return a + b;
+//}
+////模板
+//template<class T>
+//T myadd(T a, T b)
+//{
+//	return a + b;
+//}
+//void test()
+//{
+//	int a = 10;
+//	int b = 20;
+//	char c = 'c';
+//	add(a, b);
+//	cout << add(a, c) << endl;//自动隐式转换
+//	//myadd(a, c);//模板自动推导类型推导不出一致类型
+//	cout << myadd<int>(a, c) << endl;//使用显示指定可以
+//}
+//int main()
+//{
+//	test();
+//	system("pause");
+//	return 0;
+//}
+
+//普通函数和函数模板的调用规则
+//1.如果函数模板和普通函数都可以调用，优先调用普通函数
+//2.可以通过空模板参数列表 强制调用 函数模板
+//3.函数模板可以发生函数重载
+//4.如果函数模板可以产生更好的匹配，优先调用函数模板
+//5.提供了函数模板，就不要再写同名普通函数了，避免二义性
+
+//1.如果函数模板和普通函数都可以调用，优先调用普通函数
+//void print(int a, int b)
+//{
+//	cout << "普通函数的调用" << endl;
+//}
+//template<class T>
+//void print(T a, T b)
+//{
+//	cout << "函数模板的调用" << endl;
+//}
+//void test1()
+//{
+//	print(10, 20);
+//}
+////2.可以通过空模板参数列表 强制调用 函数模板
+//void test2()
+//{
+//	print<>(10, 20);
+//}
+////3.函数模板可以发生函数重载
+//template<class T>
+//void print(T a, T b,T c)
+//{
+//	cout << "函数模板重载的调用" << endl;
+//}
+//void test3()
+//{
+//	print(10, 20, 30);
+//}
+////4.如果函数模板可以产生更好的匹配，优先调用函数模板
+//void test4()
+//{
+//	char a = 'a';
+//	char b = 'b';
+//	print(a, b);//这里如果调用普通函数就会涉及隐式类型转换，而函数模板不用，匹配度高优先调用函数模板
+//}
+//int main()
+//{
+//	test4();
+//	system("pause");
+//	return 0;
+//}
+
+//函数模板的具体化
+//class person
+//{
+//public:
+//	person(string name, int age)
+//	{
+//		m_name = name;
+//		m_age = age;
+//	}
+//	string m_name;
+//	int m_age;
+//};
+//
+//template<class T>
+//bool f(T &a, T &b);//没有具体化的函数模板是不能够比较自定义类型的数据的
+//template<> bool f(person &p1, person &p2)
+//{
+//	if (p1.m_name == p2.m_name && p1.m_age == p2.m_age)
+//	{
+//		return true;
+//	}
+//	else
+//	{
+//		return false;
+//	}
+//}
+//void test()
+//{
+//	person p1("Tom", 10);
+//	person p2("Tom", 11);
+//	bool ret = f(p1, p2);
+//	if (ret)
+//	{
+//		cout << "=" << endl;
+//	}
+//	else
+//	{
+//		cout << "!=" << endl;
+//	}
+//}
+//int main()
+//{
+//	test();
+//	system("pause");
+//	return 0;
+//}
+
+
+//2.类模板
+//建立一个通用类，类中的成员,数据类型可以不具体制定，用一个虚拟的类型来代表。
+//template<class T1,class T2>
+//class person
+//{
+//public:
+//	person(T1 name, T2 age)
+//	{
+//		m_name = name;
+//		m_age = age;
+//	}
+//	T1 m_name;
+//	T2 m_age;
+//	void show()
+//	{
+//		cout << m_name << endl;
+//		cout << m_age << endl;
+//	}
+//};
+//void test()
+//{
+//	person<string, int> p1("Tom", 10);
+//	p1.show();
+//}
+//int main()
+//{
+//	test();
+//	system("pause");
+//	return 0;
+//}
