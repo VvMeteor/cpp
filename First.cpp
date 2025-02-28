@@ -3238,3 +3238,154 @@ using namespace std;
 //	system("pause");
 //	return 0;
 //}
+
+//类模板和函数模板的区别
+
+//template<class T1, class T2 = int>//类模板可以有默认参数
+//class person
+//{
+//public:
+//	person(T1 name, T2 age)
+//	{
+//		m_name = name;
+//		m_age = age;
+//	}
+//	T1 m_name;
+//	T2 m_age;
+//	void show()
+//	{
+//		cout << m_name << endl;
+//		cout << m_age << endl;
+//	}
+//};
+//void test1()
+//{
+//	//1.类模板不能使用自动类型推导
+//	//person p1("Tom", 10);error
+//	person <string, int>p1("Tom", 10);
+//	p1.show();
+//}
+//void test2()
+//{
+//	//2.类模板可以有默认参数
+//	person <string>p2("jerry", 20);
+//	p2.show();
+//}
+//int main()
+//{
+//	test1();
+//	test2();
+//
+//	system("pause");
+//	return 0;
+//}
+
+//类模板中成员函数的创建时机
+//类模板和普通类的成员函数不同，类模板只有在调用成员函数的时候创建
+//class person1
+//{
+//public:
+//	void showperson1()
+//	{
+//		cout << "person1" << endl;
+//	}
+//};
+//class person2
+//{
+//public:
+//	void showperson2()
+//	{
+//		cout << "person2" << endl;
+//	}
+//};
+//template<class T>
+//class person
+//{
+//public:
+//	T p;
+//	void showp1()
+//	{
+//		p.showperson1();
+//	}
+//	void showp2()
+//	{
+//		p.showperson2();
+//	}
+//};
+//void test()
+//{
+//	person<person1>p1;
+//	p1.showp1();
+//	//p1.showp2();//注释这一行代码时，showp2()没有被调用，所以也不会被创建，那么也不会报错
+//}
+//int main()
+//{
+//	test();
+//
+//	system("pause");
+//	return 0;
+//}
+
+//类模板对象做函数参数
+//有三种方式
+template<class T1 = string, class T2 = int>
+class person
+{
+public:
+	person(T1 name, T2 age)
+	{
+		m_name = name;
+		m_age = age;
+	}
+	T1 m_name;
+	T2 m_age;
+	void show()
+	{
+		cout << m_name << endl;
+		cout << m_age << endl;
+	}
+};
+//1.直接指定传入类型
+void print1(person<string, int>& p)
+{
+	p.show();
+}
+void test1()
+{
+	person<string, int>p1("孙悟空", 100);
+	print1(p1);
+}
+//2.函数参数模板化
+template<class T1,class T2>
+void print2(person<T1, T2>& p)
+{
+	p.show();
+	cout << "T1=" << typeid(T1).name() << endl;
+	cout << "T2=" << typeid(T2).name() << endl;
+
+}
+void test2()
+{
+	person<string, int>p2("猪八戒", 80);
+	print2(p2);
+}
+//3.整个类模板化
+template<class T>
+void print3(T& p)
+{
+	p.show();
+	cout << "T=" << typeid(T).name() << endl;
+
+}
+void test3()
+{
+	person<string, int>p3("唐僧", 30);
+	print3(p3);
+}
+int main()
+{
+	test3();
+
+	system("pause");
+	return 0;
+}
