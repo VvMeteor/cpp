@@ -3328,63 +3328,196 @@ using namespace std;
 
 //类模板对象做函数参数
 //有三种方式
-template<class T1 = string, class T2 = int>
+//template<class T1 = string, class T2 = int>
+//class person
+//{
+//public:
+//	person(T1 name, T2 age)
+//	{
+//		m_name = name;
+//		m_age = age;
+//	}
+//	T1 m_name;
+//	T2 m_age;
+//	void show()
+//	{
+//		cout << m_name << endl;
+//		cout << m_age << endl;
+//	}
+//};
+////1.直接指定传入类型
+//void print1(person<string, int>& p)
+//{
+//	p.show();
+//}
+//void test1()
+//{
+//	person<string, int>p1("孙悟空", 100);
+//	print1(p1);
+//}
+////2.函数参数模板化
+//template<class T1,class T2>
+//void print2(person<T1, T2>& p)
+//{
+//	p.show();
+//	cout << "T1=" << typeid(T1).name() << endl;
+//	cout << "T2=" << typeid(T2).name() << endl;
+//
+//}
+//void test2()
+//{
+//	person<string, int>p2("猪八戒", 80);
+//	print2(p2);
+//}
+////3.整个类模板化
+//template<class T>
+//void print3(T& p)
+//{
+//	p.show();
+//	cout << "T=" << typeid(T).name() << endl;
+//
+//}
+//void test3()
+//{
+//	person<string, int>p3("唐僧", 30);
+//	print3(p3);
+//}
+//int main()
+//{
+//	test3();
+//
+//	system("pause");
+//	return 0;
+//}
+
+//类模板和继承
+//template<class T>
+//class base
+//{
+//public:
+//	T m;
+//};
+//1.子类继承的父类是一个类模板时，需要在声明时指明父类中T的类型
+//class son:public base<int>
+//{
+//	;
+//};
+//void test1()
+//{
+//	son s1;
+//}
+
+//2.如果想灵活指定父类中T的类型，子类也需要变成类模板
+//template<class T1,class T2>
+//class son1 :public base<T2>
+//{
+//public:
+//	son1()
+//	{
+//		cout << "T1:" << typeid(T1).name() << endl;
+//		cout << "T2:" << typeid(T2).name() << endl;
+//
+//	}
+//	T1 n;
+//};
+//void test2()
+//{
+//	son1<char,int> s2;
+//}
+//int main()
+//{
+//	test2();
+//
+//	system("pause");
+//	return 0;
+//}
+
+//类模板成员函数的类外实现
+
+//template<class T1, class T2>
+//class person
+//{
+//public:
+	//person(T1 name, T2 age);
+	//T1 m_name;
+	//T2 m_age;
+	//void show();
+//};
+//类外实现，首先声明模板，声明作用域并加上模板参数即可
+//template<class T1, class T2>
+//person<T1, T2>::person(T1 name, T2 age)
+//{
+//	m_name = name;
+//    m_age = age;
+//}
+//template<class T1, class T2>
+//void person<T1, T2>::show()
+//{
+//    cout << m_name << endl;
+//    cout << m_age << endl;
+//}
+//void test()
+//{
+//	person<string, int> p1("张三", 18);
+//	p1.show();
+//}
+//int main()
+//{
+//	test();
+//
+//	system("pause");
+//	return 0;
+//}
+
+//类模板的分文件编写
+//会遇到的问题：类模板中成员函数创建时机是在调用阶段，导致分文件编写时链接不到
+//解决办法1：直接包含.cpp源文件
+//解决办法2：将声明和实现写到同一个文件中，并更改后缀名为.hpp，hpp是约定的名称，并不是强制
+
+//类模板友元
+//全局函数的类内实现和类外实现
+//类外实现全局函数
+template<class T1, class T2>
+class person;//提前让编译器知道person类的存在
+template<class T1, class T2>
+void show1(person< T1, T2 > p)//
+{
+	cout << p.m_name << endl;
+	cout << p.m_age << endl;
+}
+template<class T1, class T2>
 class person
 {
+	//类内实现全局函数
+	friend void show(person< T1, T2 > p)
+	{
+		cout << p.m_name << endl;
+		cout << p.m_age << endl;
+	}
+	//类外实现全局函数
+	//如果是类外实现，要让编译器先知道它的存在，不然在类内被识别为普通函数，类外实现又是类模板成员函数
+	friend void show1<>(person< T1, T2 > p);//这里加<>的空模板的参数列表就是告诉编译器这里是一个类模板函数
 public:
 	person(T1 name, T2 age)
 	{
 		m_name = name;
 		m_age = age;
 	}
+private:
 	T1 m_name;
 	T2 m_age;
-	void show()
-	{
-		cout << m_name << endl;
-		cout << m_age << endl;
-	}
 };
-//1.直接指定传入类型
-void print1(person<string, int>& p)
-{
-	p.show();
-}
-void test1()
-{
-	person<string, int>p1("孙悟空", 100);
-	print1(p1);
-}
-//2.函数参数模板化
-template<class T1,class T2>
-void print2(person<T1, T2>& p)
-{
-	p.show();
-	cout << "T1=" << typeid(T1).name() << endl;
-	cout << "T2=" << typeid(T2).name() << endl;
 
-}
-void test2()
+void test()
 {
-	person<string, int>p2("猪八戒", 80);
-	print2(p2);
-}
-//3.整个类模板化
-template<class T>
-void print3(T& p)
-{
-	p.show();
-	cout << "T=" << typeid(T).name() << endl;
+	person<string, int>p1("Tom", 18);
+	show(p1);
+	show1(p1);
 
-}
-void test3()
-{
-	person<string, int>p3("唐僧", 30);
-	print3(p3);
 }
 int main()
 {
-	test3();
+	test();
 
 	system("pause");
 	return 0;
