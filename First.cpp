@@ -3477,47 +3477,196 @@ using namespace std;
 //类模板友元
 //全局函数的类内实现和类外实现
 //类外实现全局函数
-template<class T1, class T2>
-class person;//提前让编译器知道person类的存在
-template<class T1, class T2>
-void show1(person< T1, T2 > p)//
+//template<class T1, class T2>
+//class person;//提前让编译器知道person类的存在
+//template<class T1, class T2>
+//void show1(person< T1, T2 > p)//
+//{
+//	cout << p.m_name << endl;
+//	cout << p.m_age << endl;
+//}
+//template<class T1, class T2>
+//class person
+//{
+//	//类内实现全局函数
+//	friend void show(person< T1, T2 > p)
+//	{
+//		cout << p.m_name << endl;
+//		cout << p.m_age << endl;
+//	}
+//	//类外实现全局函数
+//	//如果是类外实现，要让编译器先知道它的存在，不然在类内被识别为普通函数，类外实现又是类模板成员函数
+//	friend void show1<>(person< T1, T2 > p);//这里加<>的空模板的参数列表就是告诉编译器这里是一个类模板函数
+//public:
+//	person(T1 name, T2 age)
+//	{
+//		m_name = name;
+//		m_age = age;
+//	}
+//private:
+//	T1 m_name;
+//	T2 m_age;
+//};
+//
+//void test()
+//{
+//	person<string, int>p1("Tom", 18);
+//	show(p1);
+//	show1(p1);
+//
+//}
+//int main()
+//{
+//	test();
+//
+//	system("pause");
+//	return 0;
+//}
+
+//类模板案例
+template<class T>
+class myarr
 {
-	cout << p.m_name << endl;
-	cout << p.m_age << endl;
-}
-template<class T1, class T2>
-class person
-{
-	//类内实现全局函数
-	friend void show(person< T1, T2 > p)
-	{
-		cout << p.m_name << endl;
-		cout << p.m_age << endl;
-	}
-	//类外实现全局函数
-	//如果是类外实现，要让编译器先知道它的存在，不然在类内被识别为普通函数，类外实现又是类模板成员函数
-	friend void show1<>(person< T1, T2 > p);//这里加<>的空模板的参数列表就是告诉编译器这里是一个类模板函数
 public:
-	person(T1 name, T2 age)
+	//有参构造
+	myarr(int capacity)
 	{
-		m_name = name;
-		m_age = age;
+		m_capacity = capacity;
+		m_size = 0;
+		this->address = new T[m_capacity];
+	}
+	//深拷贝
+	myarr(const myarr& arr)
+	{
+		m_capacity = arr.m_capacity;
+		m_size = arr.m_size;
+		this->address = new T[m_capacity];
+		for (int i = 0; i < m_size; i++)
+		{
+			this->address[i] = arr.address[i];
+		}
+	}
+	//重载=
+	myarr& operator=(const myarr& arr)
+	{
+		if (this->address != NULL)
+		{
+			delete[] this->address;
+			this->address = NULL;
+		}
+		m_capacity = arr.m_capacity;
+		m_size = arr.m_size;
+		this->address = new T[m_capacity];
+		for (int i = 0; i < m_size; i++)
+		{
+			this->address[i] = arr.address[i];
+		}
+		return *this;
+	}
+	//尾插法
+	void push_back(T& val)
+	{
+		if (m_capacity == m_size)
+		{
+			return;
+		}
+		this->address[m_size] = val;
+		m_size++;
+	}
+	//尾删法
+	void del_back(myarr& arr)
+	{
+		if (m_size == 0)
+		{
+			return;
+		}
+		m_size--;
+	}
+	//通过下标获取内容
+	T& operator[](int index)
+	{
+		return this->address[index];
+	}
+	//获取容量
+	int getcapacity()
+	{
+		return m_capacity;
+	}
+	//获取数组大小
+	int getsize()
+	{
+		return m_size;
+	}
+	//析构函数
+	~myarr()
+	{
+		if (this->address != NULL)
+		{
+			delete[] this->address;
+			this->address = NULL;
+		}
 	}
 private:
-	T1 m_name;
-	T2 m_age;
+	//数组
+	T* address;
+	//容量
+	int m_capacity;
+	//数组大小
+	int m_size;
 };
-
+class person
+{
+public:
+	person() {};//存在的意义在于3655行，需要使用到默认构造函数，即不进行初始化内容，只是创建
+	person(string name, int age)
+	{
+		this->m_name = name;
+		this->m_age = age;
+	}
+	string m_name;
+	int m_age;
+};
+void print(myarr<int>& arr)
+{
+	for (int i = 0; i < arr.getsize(); i++)
+	{
+		cout << arr[i] << endl;
+	}
+}
 void test()
 {
-	person<string, int>p1("Tom", 18);
-	show(p1);
-	show1(p1);
+	myarr<int> arr1(5);
+	for (int i = 0; i < 5; i++)
+	{
+		arr1.push_back(i);
+	}
+	print(arr1);
+	cout << arr1.getcapacity() << endl;;
+	cout << arr1.getsize() << endl;
+	myarr<int> arr2(arr1);
+	arr2.del_back(arr2);
+	cout << arr2.getcapacity() << endl;;
+	cout << arr2.getsize() << endl;
 
+	print(arr2);
+}
+void test1()
+{
+	myarr<person> arr(5);
+	person p1("zhanfei", 35);
+	person p2("libai", 25);
+	arr.push_back(p1);
+	arr.push_back(p2);
+	for (int i = 0; i < arr.getsize(); i++)
+	{
+		cout << arr[i].m_name << " " << arr[i].m_age << endl;
+	}
+	cout << arr.getcapacity() << endl;;
+	cout << arr.getsize() << endl;
 }
 int main()
 {
-	test();
+	test1();
 
 	system("pause");
 	return 0;
