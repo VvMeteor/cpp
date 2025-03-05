@@ -3524,150 +3524,297 @@ using namespace std;
 //}
 
 //类模板案例
-template<class T>
-class myarr
-{
-public:
-	//有参构造
-	myarr(int capacity)
-	{
-		m_capacity = capacity;
-		m_size = 0;
-		this->address = new T[m_capacity];
-	}
-	//深拷贝
-	myarr(const myarr& arr)
-	{
-		m_capacity = arr.m_capacity;
-		m_size = arr.m_size;
-		this->address = new T[m_capacity];
-		for (int i = 0; i < m_size; i++)
-		{
-			this->address[i] = arr.address[i];
-		}
-	}
-	//重载=
-	myarr& operator=(const myarr& arr)
-	{
-		if (this->address != NULL)
-		{
-			delete[] this->address;
-			this->address = NULL;
-		}
-		m_capacity = arr.m_capacity;
-		m_size = arr.m_size;
-		this->address = new T[m_capacity];
-		for (int i = 0; i < m_size; i++)
-		{
-			this->address[i] = arr.address[i];
-		}
-		return *this;
-	}
-	//尾插法
-	void push_back(T& val)
-	{
-		if (m_capacity == m_size)
-		{
-			return;
-		}
-		this->address[m_size] = val;
-		m_size++;
-	}
-	//尾删法
-	void del_back(myarr& arr)
-	{
-		if (m_size == 0)
-		{
-			return;
-		}
-		m_size--;
-	}
-	//通过下标获取内容
-	T& operator[](int index)
-	{
-		return this->address[index];
-	}
-	//获取容量
-	int getcapacity()
-	{
-		return m_capacity;
-	}
-	//获取数组大小
-	int getsize()
-	{
-		return m_size;
-	}
-	//析构函数
-	~myarr()
-	{
-		if (this->address != NULL)
-		{
-			delete[] this->address;
-			this->address = NULL;
-		}
-	}
-private:
-	//数组
-	T* address;
-	//容量
-	int m_capacity;
-	//数组大小
-	int m_size;
-};
-class person
-{
-public:
-	person() {};//存在的意义在于3655行，需要使用到默认构造函数，即不进行初始化内容，只是创建
-	person(string name, int age)
-	{
-		this->m_name = name;
-		this->m_age = age;
-	}
-	string m_name;
-	int m_age;
-};
-void print(myarr<int>& arr)
-{
-	for (int i = 0; i < arr.getsize(); i++)
-	{
-		cout << arr[i] << endl;
-	}
-}
-void test()
-{
-	myarr<int> arr1(5);
-	for (int i = 0; i < 5; i++)
-	{
-		arr1.push_back(i);
-	}
-	print(arr1);
-	cout << arr1.getcapacity() << endl;;
-	cout << arr1.getsize() << endl;
-	myarr<int> arr2(arr1);
-	arr2.del_back(arr2);
-	cout << arr2.getcapacity() << endl;;
-	cout << arr2.getsize() << endl;
+//template<class T>
+//class myarr
+//{
+//public:
+//	//有参构造
+//	myarr(int capacity)
+//	{
+//		m_capacity = capacity;
+//		m_size = 0;
+//		this->address = new T[m_capacity];
+//	}
+//	//深拷贝
+//	myarr(const myarr& arr)
+//	{
+//		m_capacity = arr.m_capacity;
+//		m_size = arr.m_size;
+//		this->address = new T[m_capacity];
+//		for (int i = 0; i < m_size; i++)
+//		{
+//			this->address[i] = arr.address[i];
+//		}
+//	}
+//	//重载=
+//	myarr& operator=(const myarr& arr)
+//	{
+//		if (this->address != NULL)
+//		{
+//			delete[] this->address;
+//			this->address = NULL;
+//		}
+//		m_capacity = arr.m_capacity;
+//		m_size = arr.m_size;
+//		this->address = new T[m_capacity];
+//		for (int i = 0; i < m_size; i++)
+//		{
+//			this->address[i] = arr.address[i];
+//		}
+//		return *this;
+//	}
+//	//尾插法
+//	void push_back(T& val)
+//	{
+//		if (m_capacity == m_size)
+//		{
+//			return;
+//		}
+//		this->address[m_size] = val;
+//		m_size++;
+//	}
+//	//尾删法
+//	void del_back(myarr& arr)
+//	{
+//		if (m_size == 0)
+//		{
+//			return;
+//		}
+//		m_size--;
+//	}
+//	//通过下标获取内容
+//	T& operator[](int index)
+//	{
+//		return this->address[index];
+//	}
+//	//获取容量
+//	int getcapacity()
+//	{
+//		return m_capacity;
+//	}
+//	//获取数组大小
+//	int getsize()
+//	{
+//		return m_size;
+//	}
+//	//析构函数
+//	~myarr()
+//	{
+//		if (this->address != NULL)
+//		{
+//			delete[] this->address;
+//			this->address = NULL;
+//		}
+//	}
+//private:
+//	//数组
+//	T* address;
+//	//容量
+//	int m_capacity;
+//	//数组大小
+//	int m_size;
+//};
+//class person
+//{
+//public:
+//	person() {};//存在的意义在于3655行，需要使用到默认构造函数，即不进行初始化内容，只是创建
+//	person(string name, int age)
+//	{
+//		this->m_name = name;
+//		this->m_age = age;
+//	}
+//	string m_name;
+//	int m_age;
+//};
+//void print(myarr<int>& arr)
+//{
+//	for (int i = 0; i < arr.getsize(); i++)
+//	{
+//		cout << arr[i] << endl;
+//	}
+//}
+//void test()
+//{
+//	myarr<int> arr1(5);
+//	for (int i = 0; i < 5; i++)
+//	{
+//		arr1.push_back(i);
+//	}
+//	print(arr1);
+//	cout << arr1.getcapacity() << endl;;
+//	cout << arr1.getsize() << endl;
+//	myarr<int> arr2(arr1);
+//	arr2.del_back(arr2);
+//	cout << arr2.getcapacity() << endl;;
+//	cout << arr2.getsize() << endl;
+//
+//	print(arr2);
+//}
+//void test1()
+//{
+//	myarr<person> arr(5);
+//	person p1("zhanfei", 35);
+//	person p2("libai", 25);
+//	arr.push_back(p1);
+//	arr.push_back(p2);
+//	for (int i = 0; i < arr.getsize(); i++)
+//	{
+//		cout << arr[i].m_name << " " << arr[i].m_age << endl;
+//	}
+//	cout << arr.getcapacity() << endl;;
+//	cout << arr.getsize() << endl;
+//}
+//int main()
+//{
+//	test1();
+//
+//	system("pause");
+//	return 0;
+//}
 
-	print(arr2);
-}
-void test1()
-{
-	myarr<person> arr(5);
-	person p1("zhanfei", 35);
-	person p2("libai", 25);
-	arr.push_back(p1);
-	arr.push_back(p2);
-	for (int i = 0; i < arr.getsize(); i++)
-	{
-		cout << arr[i].m_name << " " << arr[i].m_age << endl;
-	}
-	cout << arr.getcapacity() << endl;;
-	cout << arr.getsize() << endl;
-}
-int main()
-{
-	test1();
+//STL六大组件
+//STL大体分为六大组件，分别是:容器、算法、迭代器、仿函数、适配器(配接器)、空间配置器
+//1.容器 : 各种数据结构，如vector、list、deque、set、map等, 用来存放数据
+//2.算法 : 各种常用的算法，如sort、find、copy、for_each等
+//3.迭代器 : 扮演了容器与算法之间的胶合剂。
+//4. 仿函数 : 行为类似函数，可作为算法的某种策略。
+//5.适配器 : 一种用来修饰容器或者仿的数或迭代器接口的东西,
+//6.空间配置器 : 负责空间的配置与管理。
 
-	system("pause");
-	return 0;
-}
+//1.容器
+//STL容器就是将运用最广泛的一些数据结构实现出来常用的数据结构:数组,链表,树,栈,队列,集合,映射表等
+//这些容器分为序列式容器和关联式容器两种:
+//序列式容器:强调值的排序，序列式容器中的每个元素均有固定的位置。
+//关联式容器:二叉树结构，各元素之间没有严格的物理上的顺序关系
+
+//2.算法
+//有限的步骤，解决逻辑或数学上的问题，这一门学科我们叫做算法(Algorithms)
+//算法分为:质变算法和非质变算法。
+//质变算法: 是指运算过程中会更改区间内的元素的内容。例如拷贝，替换工删除等等
+//非质变算法:是指运算过程中不会更改区间内的元素内容，例如查找、计数、遍历、寻找极值等等
+
+//3.迭代器:容器和算法之间粘合剂
+//提供一种方法，使之能够依序寻访某个容器所含的各个元素，而又无需暴露该容器的内部表示方式每个容器都有自己专属的迭代器
+//迭代器使用非常类似于指针，初学阶段我们可以先理解迭代器为指针
+
+//vector存放内置数据类型
+#include<vector>
+#include<algorithm>
+//
+//void print(int val)
+//{
+//	cout << val << endl;
+//}
+//void test()
+//{
+//	//创建名为v的容器，类似数组
+//	vector<int> v;
+//	//尾插法填入数据
+//	v.push_back(10);
+//	v.push_back(20);
+//	v.push_back(30);
+//	v.push_back(40);
+//	//通过迭代器来访问容器中的数据
+//	vector<int>::iterator itbegin = v.begin();//起始迭代器 指向容器中的第一个元素
+//	vector<int>::iterator itend = v.end();//结束迭代器 指向容器中的最后一个元素的下一位
+//	//1.while遍历
+//	while (itbegin != itend)
+//	{
+//		cout << *itbegin << endl;
+//		itbegin++;
+//	}
+//	//2.for循环遍历
+//	for (vector<int>::iterator it = v.begin(); it != v.end(); it++)
+//	{
+//		cout << *it << endl;
+//	}
+//	//3.STL提供的遍历算法
+//	for_each(v.begin(), v.end(), print);
+//}
+//int main()
+//{
+//	test();
+//	system("pause");
+//	return 0;
+//}
+
+//vector容器存放自定义数据类型
+
+//class person
+//{
+//public:
+//	person(string name, int age)
+//	{
+//		this->m_name = name;
+//		this->m_age = age;
+//	}
+//	string m_name;
+//	int m_age;
+//};
+//void test()
+//{
+//	vector<person> v;
+//	person p1("a", 11);
+//	person p2("b", 12);
+//	person p3("c", 14);
+//
+//	v.push_back(p1);
+//	v.push_back(p2);
+//	v.push_back(p3);
+//	
+//	for (vector<person>::iterator it = v.begin(); it != v.end(); it++)
+//	{
+//		cout << it->m_name << " " << it->m_age << endl;
+//	}
+//	vector<person*> v1;
+//	person p4("aa", 11);
+//	person p5("bb", 12);
+//	person p6("cc", 14);
+//
+//	v1.push_back(&p4);
+//	v1.push_back(&p5);
+//	v1.push_back(&p6);
+//	for (vector<person*>::iterator it1 = v1.begin(); it1 != v1.end(); it1++)
+//	{
+//		cout << (*it1)->m_name << " " << (*it1)->m_age << endl;
+//	}
+//}
+//int main()
+//{
+//	test();
+//	system("pause");
+//	return 0;
+//}
+
+//容器嵌套容器
+
+//void test()
+//{
+//	vector<vector<int>> v;
+//	vector<int> v1;
+//	vector<int> v2;
+//	vector<int> v3;
+//	for (int i = 0; i < 3; i++)
+//	{
+//		v1.push_back(i + 1);
+//		v2.push_back(i + 2);
+//		v3.push_back(i + 3);
+//	}
+//	v.push_back(v1);
+//	v.push_back(v2);
+//	v.push_back(v3);
+//
+//	for (vector<vector<int>>::iterator it = v.begin(); it != v.end(); it++)
+//	{
+//		for (vector<int>::iterator its = it->begin(); its != it->end(); its++)
+//		{
+//			cout << *its << " ";
+//		}
+//	}
+//}
+//int main()
+//{
+//	test();
+//	system("pause");
+//	return 0;
+//}
