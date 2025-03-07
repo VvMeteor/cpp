@@ -3818,3 +3818,33 @@ using namespace std;
 //	system("pause");
 //	return 0;
 //}
+
+//string
+//string是一个类，内部封装了char* 指针来管理字符串
+//string 类内部封装了很多成员方法
+//例如 : 查找find，拷贝copy，删除delete替换replace，插入insert
+//string管理char* 所分配的内存，不用担心复制越界和取值越界等，由类内部进行负责
+
+//1.string的构造函数
+//str1ng()
+//string(const char* s) :
+//string(const string& str) :
+//string(int n, char c) :
+
+void test()
+{
+	string s1;
+	string s2("hello world");
+	string s3(s2);
+	string s4(10, 'a');
+	cout << s2 << endl;
+	cout << s3 << endl;
+	cout << s4 << endl;
+
+}
+int main()
+{
+	test();
+	system("pause");
+	return 0;
+}
