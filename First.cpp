@@ -3894,19 +3894,99 @@ using namespace std;
 
 //string中的查找和替代
 
+//int main()
+//{
+//	string str = "helloworldlo";
+//	int op = str.find("lo");//找到就返回下标，找不到就返回-1
+//	cout << op << endl;
+//
+//	//rfind和find的区别在于find是从左至右找，rfind是从右至左
+//	int op1 = str.rfind("lo");
+//	cout << op1 << endl;
+//
+//	//从下标为1的位置开始的三个字符替换为1111
+//	str.replace(1, 3, "1111");
+//
+//	system("pause");
+//	return 0;
+//}
+
+//string中的比较compare
+//字符串比较实际上是看它们是不是相同，比较大小没有很大意义
+//比较方式：逐个字母比较ASCII值
+//=:相同；>:前字符串大；<:后字符串大
+//int main()
+//{
+//	string str1 = "hello";
+//	string str2 = "xello";
+//	
+//	if (str1.compare(str2) == 0)
+//	{
+//		cout << "str1=str2" << endl;
+//	}
+//	else if (str1.compare(str2) > 0)
+//	{
+//		cout << "str1>str2" << endl;
+//	}
+//	else
+//	{
+//		cout << "str1<str2" << endl;
+//	}
+//	return 0;
+//}
+
+//string字符串的读写
+
+//int main()
+//{
+//	string str = "hello";
+//	//两种访问方式：[]和at
+//	//1.读
+//	for (int i = 0; i < str.size(); i++)
+//	{
+//		cout << str[i] << " ";
+//	}
+//	cout << endl;
+//	for (int i = 0; i < str.size(); i++)
+//	{
+//		cout << str.at(i) << " ";
+//	}
+//	cout << endl;
+//	//2.写
+//	str[0] = 'x';
+//	str.at(1) = 'x';
+//	cout << str << endl;
+//	system("pause");
+//	return 0;
+//}
+
+//string字符串的插入和删除
+
+//int main()
+//{
+//	string str = "hello";
+//	//1.插入
+//	str.insert(1, "222");//第一个参数是插入位置
+//	cout << str << endl;
+//	//2.删除
+//	str.erase(1, 3);//第一个参数是擦除开始位置，第二个参数是要擦除的个数
+//	cout << str << endl;
+//	system("pause");
+//	return 0;
+//}
+
+//string的字串获取
+
 int main()
 {
-	string str = "helloworldlo";
-	int op = str.find("lo");//找到就返回下标，找不到就返回-1
-	cout << op << endl;
-
-	//rfind和find的区别在于find是从左至右找，rfind是从右至左
-	int op1 = str.rfind("lo");
-	cout << op1 << endl;
-
-	//从下标为1的位置开始的三个字符替换为1111
-	str.replace(1, 3, "1111");
-
+	string str = "hello";
+	string str1 = str.substr(1, 2);//第一个参数是获取起始的位置，第二个参数是要获取的个数
+	cout << str1 << endl;
+	//实际应用
+	string str2 = "liaozhengwu@qq.com";
+	int ops = str2.find('@');
+	string str3 = str2.substr(0, ops);
+	cout << str3 << endl;
 	system("pause");
 	return 0;
 }
