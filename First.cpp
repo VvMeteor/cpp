@@ -3977,16 +3977,56 @@ using namespace std;
 
 //string的字串获取
 
+//int main()
+//{
+//	string str = "hello";
+//	string str1 = str.substr(1, 2);//第一个参数是获取起始的位置，第二个参数是要获取的个数
+//	cout << str1 << endl;
+//	//实际应用
+//	string str2 = "liaozhengwu@qq.com";
+//	int ops = str2.find('@');
+//	string str3 = str2.substr(0, ops);
+//	cout << str3 << endl;
+//	system("pause");
+//	return 0;
+//}
+
+//vector容器-构造函数
+
+//vector的数据结构和数组非常相似，支持尾端插入和删除，被称为单端数组
+//不同之处在于，数组是静态空间，而vector是动态空间，可以根据需求动态扩展
+//动态扩展：并不是在原空间之后续接新空间，而是找更大的内存空间，然后将原数据拷贝新空间，释放原空间
+void print(vector<int>& v)
+{
+	for (vector<int>::iterator it = v.begin(); it < v.end(); it++)
+	{
+		cout << *it << " ";
+	}
+}
 int main()
 {
-	string str = "hello";
-	string str1 = str.substr(1, 2);//第一个参数是获取起始的位置，第二个参数是要获取的个数
-	cout << str1 << endl;
-	//实际应用
-	string str2 = "liaozhengwu@qq.com";
-	int ops = str2.find('@');
-	string str3 = str2.substr(0, ops);
-	cout << str3 << endl;
+	//默认构造
+	vector<int> v1;
+	int i = 0;
+	for (int i = 0; i < 10; i++)
+	{
+		v1.push_back(i);
+	}
+	print(v1);
+	cout << endl;
+	//通过区间的形式构造
+	vector<int> v2(v1.begin(), v1.end());
+	print(v2);
+	cout << endl;
+	//n个elm构造
+	vector<int> v3(10, 100);//第一个参数是个数，第二个参数是元素
+	print(v3);
+	cout << endl;
+	//拷贝构造
+	vector<int> v4(v3);//第一个参数是个数，第二个参数是元素
+	print(v4);
+	cout << endl;
+
 	system("pause");
 	return 0;
 }
