@@ -3996,37 +3996,282 @@ using namespace std;
 //vector的数据结构和数组非常相似，支持尾端插入和删除，被称为单端数组
 //不同之处在于，数组是静态空间，而vector是动态空间，可以根据需求动态扩展
 //动态扩展：并不是在原空间之后续接新空间，而是找更大的内存空间，然后将原数据拷贝新空间，释放原空间
-void print(vector<int>& v)
-{
-	for (vector<int>::iterator it = v.begin(); it < v.end(); it++)
-	{
-		cout << *it << " ";
-	}
-}
+//void print(vector<int>& v)
+//{
+//	for (vector<int>::iterator it = v.begin(); it < v.end(); it++)
+//	{
+//		cout << *it << " ";
+//	}
+//}
+//int main()
+//{
+//	//默认构造
+//	vector<int> v1;
+//	int i = 0;
+//	for (int i = 0; i < 10; i++)
+//	{
+//		v1.push_back(i);
+//	}
+//	print(v1);
+//	cout << endl;
+//	//通过区间的形式构造
+//	vector<int> v2(v1.begin(), v1.end());
+//	print(v2);
+//	cout << endl;
+//	//n个elm构造
+//	vector<int> v3(10, 100);//第一个参数是个数，第二个参数是元素
+//	print(v3);
+//	cout << endl;
+//	//拷贝构造
+//	vector<int> v4(v3);//第一个参数是个数，第二个参数是元素
+//	print(v4);
+//	cout << endl;
+//
+//	system("pause");
+//	return 0;
+//}
+
+//vector的赋值
+
+//void print(vector<int>& v)
+//{
+//	for (vector<int>::iterator it = v.begin(); it < v.end(); it++)
+//	{
+//		cout << *it << " ";
+//	}
+//	cout << endl;
+//}
+//
+//int main()
+//{
+//	vector<int> v1;
+//	for (int i = 0; i < 10; i++)
+//	{
+//		v1.push_back(i);
+//	}
+//	print(v1);
+//	//1
+//	vector<int> v2;
+//	v2 = v1;
+//	print(v2);
+//	//2
+//	vector<int> v3;
+//	v3.assign(v1.begin(), v1.end());
+//	print(v3);
+//	//3
+//	vector<int> v4;
+//	v4.assign(10, 100);
+//	print(v4);
+//
+//	system("pause");
+//	return 0;
+//}
+
+//vector容器的容量和大小
+//empty()判断是否为空
+//size()元素个数
+//capacity()容器总容量
+//resize()重新指定元素长度：超过则默认补0，也可以设置补充的元素；少于则删除多余元素
+
+//void print(vector<int>& v)
+//{
+//	for (vector<int>::iterator it = v.begin(); it < v.end(); it++)
+//	{
+//		cout << *it << " ";
+//	}
+//	cout << endl;
+//}
+//
+//int main()
+//{
+//	vector<int> v1;
+//	for (int i = 0; i < 10; i++)
+//	{
+//		v1.push_back(i);
+//	}
+//	print(v1);
+//	if (v1.empty())
+//	{
+//		cout << "容器为空" << endl;
+//	}
+//
+//	else
+//	{
+//		cout << "容器不为空" << endl;
+//		cout << "容器中元素个数:" << v1.size() << endl;
+//		cout << "容器容量:" << v1.capacity() << endl;
+//
+//	}
+//	v1.resize(13);
+//	print(v1);
+//	v1.resize(15,100);
+//	print(v1);
+//	v1.resize(5);
+//	print(v1);
+//
+//	system("pause");
+//	return 0;
+//}
+
+//vector的插入和删除
+//push back(ele);//尾部插入元素ele
+//pop_back();//删除最后一个元素
+//insert(const iterator pos, ele)//迭代器指向位置pos插入元素ele
+//insert(const_iterator pos，int count, ele);//迭代器指向位置pos插入count个元索ele
+//erase(const iterator pos);//删除迭代器指向的元素
+//erase(const_iterator start, const iterator end);//删除选代器从start到end之间的元素
+//clear();//删除容器中所有元素
+
+//void print(vector<int>& v)
+//{
+//	for (vector<int>::iterator it = v.begin(); it < v.end(); it++)
+//	{
+//		cout << *it << " ";
+//	}
+//	cout << endl;
+//}
+//
+//int main()
+//{
+//	vector<int> v1;
+//	for (int i = 0; i < 10; i++)
+//	{
+//		v1.push_back(i);
+//	}
+//	print(v1);
+//	//尾删
+//	v1.pop_back();
+//	print(v1);
+//	//插入元素
+//	v1.insert(v1.begin(), 100);
+//	print(v1);
+//	v1.insert(v1.begin(), 2, 100);
+//	print(v1);
+//	//删除元素
+//	v1.erase(v1.begin());
+//	print(v1);
+//	v1.erase(v1.begin(), v1.end() - 1);
+//	print(v1);
+//	//清空容器
+//	v1.clear();
+//	print(v1);
+//
+//	system("pause");
+//	return 0;
+//}
+
+//vector内容的存取
+
+//void print(vector<int>& v)
+//{
+//	for (vector<int>::iterator it = v.begin(); it < v.end(); it++)
+//	{
+//		cout << *it << " ";
+//	}
+//	cout << endl;
+//}
+//
+//int main()
+//{
+//	vector<int> v1;
+//	for (int i = 0; i < 10; i++)
+//	{
+//		v1.push_back(i);
+//	}
+//	print(v1);
+//	//[]访问
+//	for (int i = 0; i < v1.size(); i++)
+//	{
+//		cout << v1[i] <<" ";
+//	}
+//	cout << endl;
+//	//at()访问
+//	for (int i = 0; i < v1.size(); i++)
+//	{
+//		cout << v1.at(i) << " ";
+//	}
+//	cout << endl;
+//	cout << "容器第一个元素：" << v1.front() << endl;
+//	cout << "容器最后一个元素：" << v1.back() << endl;
+//
+//	system("pause");
+//	return 0;
+//}
+
+//vector互换容器
+
+//void print(vector<int>& v)
+//{
+//	for (vector<int>::iterator it = v.begin(); it < v.end(); it++)
+//	{
+//		cout << *it << " ";
+//	}
+//	cout << endl;
+//}
+//
+//int main()
+//{
+//	vector<int> v1;
+//	for (int i = 0; i < 10; i++)
+//	{
+//		v1.push_back(i);
+//	}
+//	cout << "交换前：" << endl;
+//	print(v1);
+//	vector<int> v2;
+//	for (int i = 1; i < 11; i++)
+//	{
+//		v2.push_back(i);
+//	}
+//	print(v2);
+//	//swap()互换元素
+//	cout << "互换后：" << endl;
+//	v1.swap(v2);
+//	print(v1);
+//	print(v2);
+//
+//	//实际应用：收缩内存效果
+//	vector<int> v3;
+//	for (int i = 1; i < 10000; i++)
+//	{
+//		v3.push_back(i);
+//	}
+//	cout << "容量：" << v3.capacity() << endl;
+//	cout << "元素个数：" << v3.size() << endl;
+//	v3.resize(3);//当进行缩减操作时，元素个数是减少了，但是容器容量不变，占用空间过大
+//	cout << "容量：" << v3.capacity() << endl;
+//	cout << "元素个数：" << v3.size() << endl;
+//	//利用匿名对象和swap()来解决
+//	vector<int>(v3).swap(v3);//这行代码前半部分是匿名对象，括号里面v3意思是按照v3的个数来创建并初始化一个匿名对象，
+//	//后部分是让匿名对象容器和v3进行容器交换，交换完以后v3这个对象实际上就指向了匿名对象容器，之前大容量的容器被匿名对象容器管理，
+//	//而匿名对象的特点是过了这一行，对象立马释放，也就达到了空间释放的目的
+//	cout << "容量：" << v3.capacity() << endl;
+//	cout << "元素个数：" << v3.size() << endl;
+//
+//	system("pause");
+//	return 0;
+//}
+
+//vector的预留空间
+//减少vector在动态扩展容量时的扩展次数
+//reserve(int 1en);//容器预留len个元素长度，预留位置不初始化，元素不可访问。
+
 int main()
 {
-	//默认构造
 	vector<int> v1;
-	int i = 0;
-	for (int i = 0; i < 10; i++)
+	v1.reserve(10000);//让系统提前知道，预留这么大的空间，可以有效减少扩展次数
+	int num = 0;
+	int* p = NULL;
+	for (int i = 0; i < 10000; i++)//因为要存储的数据量过大，系统要不断的寻求新的更大空间
 	{
 		v1.push_back(i);
+		if (p != &v1[0])
+		{
+			p = &v1[0];
+			num++;
+		}
 	}
-	print(v1);
-	cout << endl;
-	//通过区间的形式构造
-	vector<int> v2(v1.begin(), v1.end());
-	print(v2);
-	cout << endl;
-	//n个elm构造
-	vector<int> v3(10, 100);//第一个参数是个数，第二个参数是元素
-	print(v3);
-	cout << endl;
-	//拷贝构造
-	vector<int> v4(v3);//第一个参数是个数，第二个参数是元素
-	print(v4);
-	cout << endl;
-
+	cout << num << endl;
 	system("pause");
 	return 0;
 }
