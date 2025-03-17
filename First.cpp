@@ -4417,23 +4417,245 @@ void print(const deque<int>& d)
 //deque容器的排序
 //sort对于支持随机访问的迭代器的容器，都支持排序
 //默认排序方式，升序
-#include<algorithm>
-int main()
-{
-	deque<int> d1;
-	d1.push_back(10);
-	d1.push_back(20);
-	d1.push_back(30);
-	d1.push_back(40);
-	d1.push_back(50);
-	d1.push_back(60);
-	d1.push_front(100);
-	cout << "未排序：" << endl;
-	print(d1);
-	cout << "排序后：" << endl;
-	sort(d1.begin(), d1.end());
-	print(d1);
+//#include<algorithm>
+//int main()
+//{
+//	deque<int> d1;
+//	d1.push_back(10);
+//	d1.push_back(20);
+//	d1.push_back(30);
+//	d1.push_back(40);
+//	d1.push_back(50);
+//	d1.push_back(60);
+//	d1.push_front(100);
+//	cout << "未排序：" << endl;
+//	print(d1);
+//	cout << "排序后：" << endl;
+//	sort(d1.begin(), d1.end());
+//	print(d1);
+//
+//	system("pause");
+//	return 0;
+//}
 
-	system("pause");
-	return 0;
-}
+//容器实用案例
+#include<ctime>
+//class person
+//{
+//public:
+//	person(string name,int score)
+//	{
+//		this->m_name = name;
+//		this->m_score = score;
+//	}
+//	string m_name;
+//	int m_score;
+//};
+//void createplayer(vector<person>& v)
+//{
+//	string str = "ABCDE";
+//	for (int i = 0; i < 5; i++)
+//	{
+//		string name = "选手";
+//		name += str[i];
+//		int score = 0;
+//		v.push_back(person(name, score));//person类构造函数初始化姓名和得分
+//	}
+//}
+//void setscore(vector<person>& v)
+//{
+//	srand((unsigned int)time(NULL));//设计随机数种子
+//	for (vector<person>::iterator it = v.begin(); it != v.end(); it++)//遍历每一个选手
+//	{
+//		deque<int> d;
+//		for (int i = 0; i < 10; i++)//为每个选手打分
+//		{
+//			d.push_back(rand() % 41 + 60);//60-100
+//		}
+//		//删除最高和最低分
+//		d.pop_back();
+//		d.pop_front();
+//		//取平均分
+//		int sum = 0;
+//		for (deque<int>::iterator dit = d.begin(); dit != d.end(); dit++)
+//		{
+//			sum += *dit;
+//		}
+//		int avg = sum / d.size();
+//		//赋值给每一个选手
+//		it->m_score = avg;
+//	}
+//}
+//void showscore(vector<person>& v)
+//{
+//	for (vector<person>::iterator it = v.begin(); it != v.end(); it++)
+//	{
+//		cout << "姓名：" << it->m_name << " " << "得分：" << it->m_score << endl;
+//	}
+//}
+//int main()
+//{
+//	//创建5名选手
+//	vector<person> v;
+//	createplayer(v);
+//	//测试
+//	//for (vector<person>::iterator it = v.begin(); it != v.end(); it++)
+//	//{
+//	//	cout << "姓名：" << it->m_name << "得分" << it->m_score << endl;
+//	//}
+//	//为选手打分
+//	setscore(v);
+//
+//	//展示分数
+//	showscore(v);
+//
+//	system("pause");
+//	return 0;
+//}
+
+//栈stack容器
+//先进后出，不能遍历，支持empty，size，top，
+//出栈pop，入栈push
+#include<stack>
+//int main()
+//{
+//	stack<int> s;
+//	s.push(10);
+//	s.push(20);
+//	s.push(30);
+//	s.push(40);
+//	s.push(50);
+//	cout << "栈的大小：" << s.size() << endl;
+//	while (!empty(s))
+//	{
+//		cout << "栈顶元素为：" << s.top() << endl;
+//		s.pop();
+//	}
+//	cout << "栈的大小：" << s.size() << endl;
+//
+//	system("pause");
+//	return 0;
+//}
+
+//队列queue容器
+//先进先出，可以访问队首队尾，不能遍历
+//支持pop，push，front，back
+
+//#include<queue>
+//class person
+//{
+//public:
+//	person(string name,int age)
+//	{
+//		this->m_name = name;
+//		this->m_age = age;
+//	}
+//	string m_name;
+//	int m_age;
+//};
+//int main()
+//{
+//	queue<person> q;
+//	person p1("唐僧", 30);
+//	person p2("孙悟空", 300);
+//	person p3("猪八戒", 100);
+//	person p4("沙僧", 200);
+//	person p5("小白龙", 80);
+//
+//	q.push(p1);
+//	q.push(p2);
+//	q.push(p3);
+//	q.push(p4);
+//	q.push(p5);
+//
+//	cout << "队列大小：" << q.size() << endl;
+//
+//	while (!empty(q))
+//	{
+//		cout << "队首：" << q.front().m_name << " " << q.front().m_age << endl;
+//		cout << "队尾：" << q.back().m_name << " " << q.back().m_age << endl;
+//		q.pop();
+//	}
+//
+//	cout << "队列大小：" << q.size() << endl;
+//
+//	system("pause");
+//	return 0;
+//}
+
+//list链表
+//功能:将数据进行链式存储
+//链表(list)是一种物理存储单元上非连续的存储结构，数据元素的逻辑顺序是通过链表中的指针链接实现的
+//链表的组成 : 链表由一系列结点组成
+//结点的组成 : 一个是存储数据元素的数据域，另一个是存储下一个结点地址的指针域
+//由于链表的存储方式并不是连续的内存空间，因此链表list中的迭代器只支持前移和后移，属于双向迭代器
+//list的优点:
+//1.采用动态存储分配，不会造成内存浪费和溢出
+//2.链表执行插入和删除操作十分方便，修改指针即可，不需要移动大量元素list的
+//缺点 :
+//1.链表灵活，但是空间(指针域)和 时间(遍历)额外耗费较大
+//List有一个重要的性质，插入操作和删除操作都不会造成原有list迭代器的失效，这在vector是不成立的
+//总结 : STL中List和vector是两个最常被使用的容器，各有优缺点
+
+//list构造函数以及赋值，交换
+#include<list>
+//void printlist(list<int>& L)
+//{
+//	for (list<int>::iterator it = L.begin(); it != L.end(); it++)
+//	{
+//		cout << *it << " ";
+//	}
+//	cout << endl;
+//}
+//int main()
+//{
+//	list<int> L1;
+//	L1.push_back(10);
+//	L1.push_back(20);
+//	L1.push_back(30);
+//	L1.push_back(40);
+//	L1.push_back(50);
+//	printlist(L1);
+//
+//	list<int> L2(L1.begin(), L1.end());
+//	printlist(L2);
+//
+//	list<int> L3(L1);
+//	printlist(L3);
+//
+//	list<int> L4(5,100);
+//	printlist(L4);
+//
+//	list<int> L5;
+//	L5 = L1;
+//	printlist(L5);
+//
+//	list<int> L6;
+//	L6.assign(L1.begin(), L1.end());
+//	printlist(L6);
+//
+//	list<int> L7;
+//	L7.assign(10, 1);
+//	printlist(L7);
+//
+//	list<int> L8;
+//	L8.push_back(1);
+//	L8.push_back(2);
+//	L8.push_back(3);
+//	L8.push_back(4);
+//	L8.push_back(5);
+//
+//	cout << "交换前：" << endl;
+//	printlist(L8);
+//	printlist(L1);
+//
+//	L8.swap(L1);
+//	cout << "交换后：" << endl;
+//	printlist(L8);
+//	printlist(L1);
+//
+//	system("pause");
+//	return 0;
+//}
+
+//list的大小操作和之前的容器没有区别
