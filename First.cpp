@@ -4256,22 +4256,184 @@ using namespace std;
 //减少vector在动态扩展容量时的扩展次数
 //reserve(int 1en);//容器预留len个元素长度，预留位置不初始化，元素不可访问。
 
+//int main()
+//{
+//	vector<int> v1;
+//	v1.reserve(10000);//让系统提前知道，预留这么大的空间，可以有效减少扩展次数
+//	int num = 0;
+//	int* p = NULL;
+//	for (int i = 0; i < 10000; i++)//因为要存储的数据量过大，系统要不断的寻求新的更大空间
+//	{
+//		v1.push_back(i);
+//		if (p != &v1[0])
+//		{
+//			p = &v1[0];
+//			num++;
+//		}
+//	}
+//	cout << num << endl;
+//	system("pause");
+//	return 0;
+//}
+
+//deque容器
+//双端数组，可在头部和尾部进行插删，迭代器支持随机访问
+
+//和vector的区别：
+//vector对于头部的插入速度没有deque快
+//vector访问元素的速度要比deque快，和实现原理有关（中控器）
+#include<deque>
+//
+//void print(const deque<int>& d)//限定只读权限
+//{
+//	for (deque<int>::const_iterator it = d.begin(); it != d.end(); it++)
+//	{
+//		cout << *it << " ";
+//	}
+//	cout << endl;
+//}
+//int main()
+//{
+//	deque<int>d1;
+//	for (int i = 0; i < 10; i++)
+//	{
+//		d1.push_back(i);
+//	}
+//	print(d1);
+//	//构造函数
+//	deque<int> d2(d1.begin(), d1.end());
+//	print(d2);
+//	deque<int> d3(10, 100);
+//	print(d3);
+//	deque<int> d4(d3);
+//	print(d4);
+//	//赋值
+//	deque<int> d5;
+//	d5 = d1;
+//	print(d5);
+//
+//	deque<int> d6;
+//	d6.assign(d1.begin(), d1.end());
+//	print(d6);
+//
+//	deque<int> d7;
+//	d7.assign(10, 100);
+//	print(d7);
+//
+//	system("pause");
+//	return 0;
+//}
+
+//deque容器的大小操作
+
+//deque容器没有容量的概念，因为它能一直开辟下去
+//size,resize,empty和vector完全一致
+
+//deque容器的插入和删除
+
+void print(const deque<int>& d)
+{
+	for (deque<int>::const_iterator it = d.begin(); it != d.end(); it++)
+	{
+		cout << *it << " ";
+	}
+	cout << endl;
+}
+//int main()
+//{
+//	//1.插入
+//	deque<int> d1;
+//	d1.push_back(10);
+//	d1.push_back(100);
+//	d1.push_front(200);
+//	print(d1);
+//
+//	d1.insert(d1.begin(), 1);
+//	print(d1);
+//
+//	d1.insert(d1.begin(), 2, 3);
+//	print(d1);
+//
+//	deque<int> d2;
+//	d2.insert(d2.begin(), d1.begin(), d1.end());
+//	print(d2);
+//
+//	//2.删除
+//	deque<int> d3;
+//	d3.push_back(1);
+//	d3.push_back(2);
+//	d3.push_back(4);
+//	d3.push_back(3);
+//	d3.push_back(3);
+//
+//
+//	print(d3);
+//	d3.pop_back();
+//	d3.pop_front();
+//	print(d3);
+//
+//	d3.erase(d3.begin());
+//	print(d3);
+//
+//	d3.erase(d3.begin(),d3.end());
+//	print(d3);
+//
+//	d3.clear();
+//	print(d3);
+//	system("pause");
+//	return 0;
+//}
+
+//deque容器的数据存取
+
+//int main()
+//{
+//	deque<int> d1;
+//	d1.push_back(10);
+//	d1.push_back(20);
+//	d1.push_back(30);
+//	d1.push_back(40);
+//	d1.push_back(50);
+//	d1.push_back(60);
+//
+//	for (int i = 0; i < 6; i++)
+//	{
+//		cout << d1[i] << " ";
+//	}
+//	cout << endl;
+//	for (int i = 0l; i < 6; i++)
+//	{
+//		cout << d1.at(i) << " ";
+//	}
+//	cout << endl;
+//
+//	cout << "容器的第一个元素：" << d1.front() << endl;
+//	cout << "容器最后一个元素：" << d1.back() << endl;
+//
+//	system("pause");
+//	return 0;
+//}
+
+//deque容器的排序
+//sort对于支持随机访问的迭代器的容器，都支持排序
+//默认排序方式，升序
+#include<algorithm>
 int main()
 {
-	vector<int> v1;
-	v1.reserve(10000);//让系统提前知道，预留这么大的空间，可以有效减少扩展次数
-	int num = 0;
-	int* p = NULL;
-	for (int i = 0; i < 10000; i++)//因为要存储的数据量过大，系统要不断的寻求新的更大空间
-	{
-		v1.push_back(i);
-		if (p != &v1[0])
-		{
-			p = &v1[0];
-			num++;
-		}
-	}
-	cout << num << endl;
+	deque<int> d1;
+	d1.push_back(10);
+	d1.push_back(20);
+	d1.push_back(30);
+	d1.push_back(40);
+	d1.push_back(50);
+	d1.push_back(60);
+	d1.push_front(100);
+	cout << "未排序：" << endl;
+	print(d1);
+	cout << "排序后：" << endl;
+	sort(d1.begin(), d1.end());
+	print(d1);
+
 	system("pause");
 	return 0;
 }
