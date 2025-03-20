@@ -5118,36 +5118,102 @@ void printmap(map<int, int>mp)
 
 //map容器的插入和删除
 
+//int main()
+//{
+//	map<int, int> mp;
+//	//1.
+//	mp.insert(pair<int, int>(1, 10));
+//	//2.
+//	mp.insert(make_pair(2, 100));
+//	//3.
+//	mp.insert(map<int,int>::value_type(3, 101));
+//	//4.
+//	mp[4]=40;//一般不建议用这种[]括号的形式来插入，怕不注意创建不存在的键值对，一般用来用key值快速找到对应的值
+//
+//	printmap(mp);
+//
+//	cout << "-------------" << endl;
+//	mp.erase(mp.begin());
+//	printmap(mp);
+//
+//	cout << "-------------" << endl;
+//	mp.erase(3);
+//	printmap(mp);
+//
+//	cout << "-------------" << endl;
+//	mp.erase(++mp.begin(),mp.end());
+//	printmap(mp);
+//
+//	cout << "-------------" << endl;
+//	mp.clear();
+//	printmap(mp);
+//
+//	system("pause");
+//	return 0;
+//}
+
+//map查找和统计
+
+//int main()
+//{
+//	map<int, int> mp;
+//	mp.insert(pair<int, int>(1, 10));
+//	mp.insert(pair<int, int>(2, 100));
+//	mp.insert(pair<int, int>(3, 101));
+//	mp.insert(pair<int, int>(4, 103));
+//	//查找
+//	map<int, int>::iterator pos = mp.find(3);
+//	if (pos != mp.end())
+//	{
+//		cout << "找到元素：" << "key=" << pos->first << "value=" << pos->second << endl;
+//	}
+//	else
+//	{
+//		cout << "未找到元素" << endl;
+//	}
+//	//统计
+//	int count = mp.count(3);
+//	cout << "个数：" << count << endl;
+//	system("pause");
+//	return 0;
+//}
+
+//map排序
+
+class person
+{
+public:
+	person(string name, int age)
+	{
+		this->m_name = name;
+		this->m_age = age;
+	}
+	int m_age;
+	string m_name;
+};
+class compare
+{
+public:
+	bool operator()(const person& p1, const person& p2)const
+	{
+		return p1.m_age > p2.m_age;
+	}
+};
 int main()
 {
-	map<int, int> mp;
-	//1.
-	mp.insert(pair<int, int>(1, 10));
-	//2.
-	mp.insert(make_pair(2, 100));
-	//3.
-	mp.insert(map<int,int>::value_type(3, 101));
-	//4.
-	mp[4]=40;//一般不建议用这种[]括号的形式来插入，怕不注意创建不存在的键值对，一般用来用key值快速找到对应的值
+	map<person,int,compare>mp;
+	person p1("刘备", 45);
+	person p2("张飞", 35);
+	person p3("关羽", 40);
 
-	printmap(mp);
+	mp.insert(pair<person,int>(p1,1));
+	mp.insert(pair<person, int>(p2, 1));
+	mp.insert(pair<person, int>(p3, 1));
 
-	cout << "-------------" << endl;
-	mp.erase(mp.begin());
-	printmap(mp);
-
-	cout << "-------------" << endl;
-	mp.erase(3);
-	printmap(mp);
-
-	cout << "-------------" << endl;
-	mp.erase(++mp.begin(),mp.end());
-	printmap(mp);
-
-	cout << "-------------" << endl;
-	mp.clear();
-	printmap(mp);
-
+	for (map<person,int>::iterator it = mp.begin(); it != mp.end(); it++)
+	{
+		cout << "姓名：" << (it->first).m_name << " 年龄：" << (it->first).m_age << endl;
+	}
 	system("pause");
 	return 0;
 }
