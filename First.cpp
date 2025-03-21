@@ -5180,40 +5180,434 @@ void printmap(map<int, int>mp)
 
 //map排序
 
-class person
+//class person
+//{
+//public:
+//	person(string name, int age)
+//	{
+//		this->m_name = name;
+//		this->m_age = age;
+//	}
+//	int m_age;
+//	string m_name;
+//};
+//class compare
+//{
+//public:
+//	bool operator()(const person& p1, const person& p2)const
+//	{
+//		return p1.m_age > p2.m_age;
+//	}
+//};
+//int main()
+//{
+//	map<person,int,compare>mp;
+//	person p1("刘备", 45);
+//	person p2("张飞", 35);
+//	person p3("关羽", 40);
+//
+//	mp.insert(pair<person,int>(p1,1));
+//	mp.insert(pair<person, int>(p2, 1));
+//	mp.insert(pair<person, int>(p3, 1));
+//
+//	for (map<person,int>::iterator it = mp.begin(); it != mp.end(); it++)
+//	{
+//		cout << "姓名：" << (it->first).m_name << " 年龄：" << (it->first).m_age << endl;
+//	}
+//	system("pause");
+//	return 0;
+//}
+
+//函数对象--仿函数
+
+//重载函数调用操作符的类，其对象常称为函数对象
+//函数对象使用重载的()时，行为类似函数调用，也叫仿函数
+//函数对象本质是一个类，不是函数
+
+//1.函数对象在使用时，可以像普通的数那样调用,可以有参数，可以有返回值
+//2.函数对象超出普通函数的概念，函数对象可以有自己的状态
+//3.函数对象可以作为参数传递
+
+//class add
+//{
+//public:
+//	add()
+//	{
+//		count = 0;
+//	}
+//	int operator()(int v1, int v2)
+//	{
+//		count++;
+//		return v1 + v2;
+//	}
+//	int count;//对应第二点，可以有自己的状态，进行记录
+//};
+//void myprint(add& ad, int v1, int v2)
+//{
+//	cout << ad(v1, v2) << endl;
+//}
+//int main()
+//{
+//	add myadd;
+//	cout << myadd(1, 2) << endl;//对应第一点，可以有参数和返回值，以及形式类似于函数调用
+//
+//	myprint(myadd, 1, 2);//对应第三点，函数对象可以作为参数传递
+//
+//	system("pause");
+//	return 0;
+//}
+
+//谓词
+//返回bool类型的仿函数称为谓词
+//如果operator()接受一个参数，那么叫做一元谓词
+//如果operator()接受两个参数，那么叫做二元谓词
+#include<algorithm>
+//class greaterfive
+//{
+//public:
+//	bool operator()(int val)//一元谓词
+//	{
+//		return 5 < val;
+//	}
+//};
+//class mysort
+//{
+//public:
+//	bool operator()(int v1, int v2)
+//	{
+//		return v1 > v2;
+//	}
+//};
+//int main()
+//{
+//	vector<int>v;
+//	for (int i = 0; i < 10; i++)
+//	{
+//		v.push_back(i);
+//	}
+//	vector<int>::iterator it = find_if(v.begin(), v.end(), greaterfive());
+//	if (it != v.end())
+//	{
+//		cout << "找到了大于5的数：" << *it << endl;
+//	}
+//	else
+//	{
+//		cout << "未找到" << endl;
+//	}
+//
+//	vector<int> v1;
+//	v1.push_back(5);
+//	v1.push_back(8);
+//	v1.push_back(3);
+//	v1.push_back(1);
+//
+//	sort(v1.begin(), v1.end(), mysort());
+//	for (vector<int>::iterator it = v1.begin(); it != v1.end(); it++)
+//	{
+//		cout << *it << " ";
+//	}
+//	cout << endl;
+//	system("pause");
+//	return 0;
+//}
+
+//内建函数对象
+//1.算术仿函数
+//其中negate是一元运算，其他的都是二元运算
+//template<class T>T plus<T>//加法仿函数
+//template<class T>T minus<T>//减法仿函数
+//template<class T>T multiplies<T>//乘法仿函数
+//template<class T>T divides<T>//除法仿函数
+//template<class T>T modulus<T>//取模仿函数
+//template<class T>T negate<T>//取反仿函数
+
+#include<functional>
+//int main()
+//{
+//	negate<int>n;//类模板创建一个对象
+//	cout << n(10) << endl;
+//	plus<int> p;
+//	cout << p(10, 20) << endl;
+//
+//	system("pause");
+//	return 0;
+//}
+
+//2.关系仿函数
+//template<class T> bool equal to<T>//等于
+//template<class T> bool not_equal to<T>//等于
+//template<class T> bool greater<T>//大于
+//template<class T> bool greater equal<T>//大于等于
+//template<class T> bool less<T>//小于
+//template<class T> bool less_equal<T>//小于等于
+//其中大于是最常用的
+
+//int main()
+//{
+//	
+//	vector<int> v1;
+//	v1.push_back(5);
+//	v1.push_back(8);
+//	v1.push_back(3);
+//	v1.push_back(1);
+//
+//	sort(v1.begin(), v1.end(), greater<int>());
+//	for (vector<int>::iterator it = v1.begin(); it != v1.end(); it++)
+//	{
+//		cout << *it << " ";
+//	}
+//	cout << endl;
+//
+//	system("pause");
+//	return 0;
+//}
+
+//3.逻辑仿函数
+//template<class T> bool logical _and<T>//逻辑与
+//template<class T> bool logical_or<T>//逻辑或
+//template<class T> bool logical not<T>//逻辑非
+
+//int main()
+//{
+//	
+//	vector<bool> v1;
+//	v1.push_back(false);
+//	v1.push_back(true);
+//	v1.push_back(true);
+//	v1.push_back(false);
+//
+//	for (vector<bool>::iterator it = v1.begin(); it != v1.end(); it++)
+//	{
+//		cout << *it << " ";
+//	}
+//	cout << endl;
+//	vector<bool>v2;
+//	v2.resize(v1.size());
+//	transform(v1.begin(), v1.end(), v2.begin(), logical_not<bool>());
+//	for (vector<bool>::iterator it = v2.begin(); it != v2.end(); it++)
+//	{
+//		cout << *it << " ";
+//	}
+//	cout << endl;
+//	system("pause");
+//	return 0;
+//}
+
+//常用算法
+//常用遍历算法
+//1.for_each
+void myprint(int val)
+{
+	cout << val << " ";
+}
+class print1
 {
 public:
-	person(string name, int age)
+	void operator()(int val)
 	{
-		this->m_name = name;
-		this->m_age = age;
-	}
-	int m_age;
-	string m_name;
-};
-class compare
-{
-public:
-	bool operator()(const person& p1, const person& p2)const
-	{
-		return p1.m_age > p2.m_age;
+		cout << val << " ";
 	}
 };
+//int main()
+//{
+//	vector<int>v;
+//	for (int i = 0; i < 10; i++)
+//	{
+//		v.push_back(i);
+//	}
+//	for_each(v.begin(), v.end(), myprint);
+//	cout << endl;
+//	for_each(v.begin(), v.end(), print1());
+//	cout << endl;
+//
+//	system("pause");
+//	return 0;
+//}
+
+//2.transform
+//四个参数
+//transform(iteratorbeg1, iterator end1, iterator beg2, _func);
+//beg1 源容器开始迭代器
+//end1 源容器结束迭代器
+//beg2 目标容器开始迭代器
+//_func 函数或者函数对象
+//class trans
+//{
+//public:
+//	int operator()(int val)
+//	{
+//		return val + 100;
+//	}
+//};
+//int main()
+//{
+//	vector<int>v;
+//	for (int i = 0; i < 10; i++)
+//	{
+//		v.push_back(i);
+//	}
+//	vector<int>v1;
+//	v1.resize(v.size());//必须记得提前开辟空间
+//	transform(v.begin(), v.end(), v1.begin(),trans());
+//	for_each(v1.begin(), v1.end(), myprint);
+//	cout << endl;
+//
+//	system("pause");
+//	return 0;
+//}
+
+//常用查找算法
+//find//查找元素
+//find if//按条件查找元素
+//adjacent find//查找相邻重复元素
+//binary search//二分查找法
+//count//统计元素个数
+//count if//按条件统计元素个数
+//class person
+//{
+//public:
+//	person(string name,int age)
+//	{
+//		this->m_name = name;
+//		this->m_age = age;
+//	}
+//	bool operator==(const person& p)
+//	{
+//		if (p.m_name == this->m_name && p.m_age == this->m_age)
+//		{
+//			return true;
+//		}
+//		else
+//		{
+//			return false;
+//		}
+//	}
+//	string m_name;
+//	int m_age;
+//};
+//class greaterfive
+//{
+//public:
+//	bool operator()(int val)
+//	{
+//		return val > 5;
+//	}
+//};
+//class greater20
+//{
+//public:
+//	bool operator()(const person& p)
+//	{
+//		return p.m_age > 20;
+//	}
+//};
+//int main()
+//{
+//	//内置数据类型
+//	vector<int>v;
+//	for (int i = 0; i < 10; i++)
+//	{
+//		v.push_back(i);
+//	}
+//	vector<int>::iterator it = find(v.begin(), v.end(), 5);
+//	if (it != v.end())
+//	{
+//		cout << "找到元素：" << *it << endl;
+//	}
+//	else
+//	{
+//		cout << "没有找到" << endl;
+//	}
+//	vector<int>::iterator it1 = find_if(v.begin(), v.end(), greaterfive());
+//	if (it1 != v.end())
+//	{
+//		cout << "找到元素：" << *it1 << endl;
+//	}
+//	else
+//	{
+//		cout << "没有找到" << endl;
+//	}
+//	//自定义数据类型
+//	vector<person>v1;
+//	person p1("aaa", 10);
+//	person p2("bbb", 20);
+//	person p3("ccc", 30);
+//	person p4("ddd", 40);
+//	
+//	v1.push_back(p1);
+//	v1.push_back(p2);
+//	v1.push_back(p3);
+//	v1.push_back(p4);
+//
+//	person p("bbb", 20);
+//	vector<person>::iterator vit = find(v1.begin(), v1.end(), p);
+//	if (vit != v1.end())
+//	{
+//		cout << "找到元素：" << vit->m_name << " " << vit->m_age << endl;
+//	}
+//	else
+//	{
+//		cout << "没有找到" << endl;
+//	}
+//	vector<person>::iterator vit1 = find_if(v1.begin(), v1.end(), greater20());
+//	if (vit1 != v1.end())
+//	{
+//		cout << "找到元素：" << vit1->m_name << " " << vit1->m_age << endl;
+//	}
+//	else
+//	{
+//		cout << "没有找到" << endl;
+//	}
+//	system("pause");
+//	return 0;
+//}
+
+//adjacent_find查找相邻重复元素
+
+//int main()
+//{
+//	vector<int>v;
+//	v.push_back(1);
+//	v.push_back(2);
+//	v.push_back(0);
+//	v.push_back(4);
+//	v.push_back(4);
+//	v.push_back(1);
+//	vector<int>::iterator it = adjacent_find(v.begin(), v.end());
+//	if (it != v.end())
+//	{
+//		cout << "找到元素：" << *it << endl;
+//	}
+//	else
+//	{
+//		cout << "没有找到" << endl;
+//	}
+//
+//	system("pause");
+//	return 0;
+//}
+
+//binary_search二分查找
+//仅用于有序序列,无序的结果未知
+//返回false或者true
+
 int main()
 {
-	map<person,int,compare>mp;
-	person p1("刘备", 45);
-	person p2("张飞", 35);
-	person p3("关羽", 40);
-
-	mp.insert(pair<person,int>(p1,1));
-	mp.insert(pair<person, int>(p2, 1));
-	mp.insert(pair<person, int>(p3, 1));
-
-	for (map<person,int>::iterator it = mp.begin(); it != mp.end(); it++)
+	vector<int>v;
+	for (int i = 0; i < 10; i++)
 	{
-		cout << "姓名：" << (it->first).m_name << " 年龄：" << (it->first).m_age << endl;
+		v.push_back(i);
 	}
+	bool ret = binary_search(v.begin(), v.end(), 4);
+	if (ret)
+	{
+		cout << "找到了" << endl;
+	}
+	else
+	{
+		cout << "未找到" << endl;
+	}
+
 	system("pause");
 	return 0;
 }
