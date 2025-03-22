@@ -5591,23 +5591,235 @@ public:
 //仅用于有序序列,无序的结果未知
 //返回false或者true
 
+//int main()
+//{
+//	vector<int>v;
+//	for (int i = 0; i < 10; i++)
+//	{
+//		v.push_back(i);
+//	}
+//	bool ret = binary_search(v.begin(), v.end(), 4);
+//	if (ret)
+//	{
+//		cout << "找到了" << endl;
+//	}
+//	else
+//	{
+//		cout << "未找到" << endl;
+//	}
+//
+//	system("pause");
+//	return 0;
+//}
+
+//常用查找算法count
+
+//class person
+//{
+//public:
+//	person(string name,int age)
+//	{
+//		this->m_name = name;
+//		this->m_age = age;
+//	}
+//	bool operator==(const person& p)
+//	{
+//		if (p.m_age == this->m_age)
+//		{
+//			return true;
+//		}
+//		else
+//		{
+//			return false;
+//		}
+//	}
+//	string m_name;
+//	int m_age;
+//};
+//
+//int main()
+//{
+//	vector<int>v;
+//	v.push_back(10);
+//	v.push_back(20);
+//	v.push_back(10);
+//	v.push_back(50);
+//	//内置数据类型
+//	cout << "元素10的个数为：" << count(v.begin(), v.end(), 10) << endl;
+//	//自定义数据类型
+//	vector<person> v1;
+//	person p1("aaa", 10);
+//	person p2("bbb", 20);
+//	person p3("ccc", 20);
+//	person p4("ddd", 30);
+//	person p5("eee", 40);
+//
+//	v1.push_back(p1);
+//	v1.push_back(p2);
+//	v1.push_back(p3);
+//	v1.push_back(p4);
+//	v1.push_back(p5);
+//
+//	person p("fff", 20);
+//
+//	cout << "和fff年龄一样大的人数：" << count(v1.begin(), v1.end(), p) << endl;;
+//
+//	system("pause");
+//	return 0;
+//}
+
+//常用查找算法count_if
+
+//class person
+//{
+//public:
+//	person(string name,int age)
+//	{
+//		this->m_name = name;
+//		this->m_age = age;
+//	}
+//	bool operator==(const person& p)
+//	{
+//		if (p.m_age == this->m_age)
+//		{
+//			return true;
+//		}
+//		else
+//		{
+//			return false;
+//		}
+//	}
+//	string m_name;
+//	int m_age;
+//};
+//class greater20
+//{
+//public:
+//	bool operator()(int v)
+//	{
+//		return v > 20;
+//	}
+//};
+//class agegreater20
+//{
+//public:
+//	bool operator()(const person& p)
+//	{
+//		return p.m_age > 20;
+//	}
+//};
+//int main()
+//{
+//	vector<int>v;
+//	v.push_back(10);
+//	v.push_back(20);
+//	v.push_back(10);
+//	v.push_back(50);
+//	//内置数据类型
+//	cout << "元素大于10的个数为：" << count_if(v.begin(), v.end(), greater20()) << endl;
+//	//自定义数据类型
+//	vector<person> v1;
+//	person p1("aaa", 10);
+//	person p2("bbb", 20);
+//	person p3("ccc", 20);
+//	person p4("ddd", 30);
+//	person p5("eee", 40);
+//
+//	v1.push_back(p1);
+//	v1.push_back(p2);
+//	v1.push_back(p3);
+//	v1.push_back(p4);
+//	v1.push_back(p5);
+//
+//
+//	cout << "年龄大于20的人数：" << count_if(v1.begin(), v1.end(), agegreater20()) << endl;;
+//
+//	system("pause");
+//	return 0;
+//}
+
+//常用排序算法
+//random _shuffle//洗牌,指定范围内的元素随机调整次序
+//sort//对容器内元素进行排序
+//merge//容器元素合并，并存储到另一容器中
+//reverse//反转指定范围的元素
+// 
+//sort
+//int main()
+//{
+//	vector<int>v;
+//	v.push_back(5);
+//	v.push_back(6);
+//	v.push_back(8);
+//	v.push_back(2);
+//	v.push_back(1);
+//	sort(v.begin(), v.end());//默认升序
+//	for_each(v.begin(), v.end(), myprint);
+//	cout << endl;
+//
+//	sort(v.begin(), v.end(),greater<int>());//改成降序
+//	for_each(v.begin(), v.end(), myprint);
+//	cout << endl;
+//}
+
+//random_shuffle
+
+//int main()
+//{
+//	srand((unsigned int)time(NULL));
+//	vector<int> v;
+//	for (int i = 0; i < 10; i++)
+//	{
+//		v.push_back(i);
+//	}
+//	random_shuffle(v.begin(), v.end());
+//	for_each(v.begin(), v.end(), myprint);
+//	cout << endl;
+//	system("pause");
+//	return 0;
+//}
+
+//merge
+//必须是两个有序序列
+
+//int main()
+//{
+//	vector<int> v1;
+//	vector<int> v2;
+//	for (int i = 0; i < 10; i++)
+//	{
+//		v1.push_back(i);
+//		v2.push_back(i+1);
+//
+//	}
+//	vector<int>v3;
+//	v3.resize(v1.size() + v2.size());
+//	merge(v1.begin(), v1.end(), v2.begin(), v2.end(), v3.begin());
+//	for_each(v3.begin(), v3.end(), myprint);
+//	cout << endl;
+//	system("pause");
+//	return 0;
+//}
+
+//reverse
+//元素反转
+
 int main()
 {
-	vector<int>v;
+	vector<int> v1;
 	for (int i = 0; i < 10; i++)
 	{
-		v.push_back(i);
-	}
-	bool ret = binary_search(v.begin(), v.end(), 4);
-	if (ret)
-	{
-		cout << "找到了" << endl;
-	}
-	else
-	{
-		cout << "未找到" << endl;
-	}
+		v1.push_back(i);
 
+	}
+	cout << "before:" << endl;
+	for_each(v1.begin(), v1.end(), myprint);
+	cout << endl;
+
+	cout << "after:" << endl;
+	reverse(v1.begin(), v1.end());
+	for_each(v1.begin(), v1.end(), myprint);
+	cout << endl;
 	system("pause");
 	return 0;
 }
