@@ -5804,22 +5804,246 @@ public:
 //reverse
 //元素反转
 
-int main()
-{
-	vector<int> v1;
-	for (int i = 0; i < 10; i++)
-	{
-		v1.push_back(i);
+//int main()
+//{
+//	vector<int> v1;
+//	for (int i = 0; i < 10; i++)
+//	{
+//		v1.push_back(i);
+//
+//	}
+//	cout << "before:" << endl;
+//	for_each(v1.begin(), v1.end(), myprint);
+//	cout << endl;
+//
+//	cout << "after:" << endl;
+//	reverse(v1.begin(), v1.end());
+//	for_each(v1.begin(), v1.end(), myprint);
+//	cout << endl;
+//	system("pause");
+//	return 0;
+//}
 
-	}
-	cout << "before:" << endl;
-	for_each(v1.begin(), v1.end(), myprint);
-	cout << endl;
+//常见的拷贝和替换算法
+//copy//容器内指定范围的元素拷贝到另一容器中
+//replace//将容器内指定范围的旧元素修改为新元素
+//replace_if//容器内指定范围满足条件的元素替换为新元素
+//swap//互换两个容器的元素
 
-	cout << "after:" << endl;
-	reverse(v1.begin(), v1.end());
-	for_each(v1.begin(), v1.end(), myprint);
-	cout << endl;
-	system("pause");
-	return 0;
-}
+//copy
+
+//int main()
+//{
+//	vector<int> v1;
+//	for (int i = 0; i < 10; i++)
+//	{
+//		v1.push_back(i);
+//
+//	}
+//	vector<int>v2;
+//	v2.resize(v1.size());
+//	copy(v1.begin(), v1.end(), v2.begin());
+//	for_each(v2.begin(), v2.end(), myprint);
+//	cout << endl;
+//	system("pause");
+//	return 0;
+//}
+
+//replace
+//replace(iterator beg, iterator end, oldvalue, newvalue);//替换所有旧元素
+//int main()
+//{
+//	vector<int> v1;
+//	v1.push_back(10);
+//	v1.push_back(20);
+//	v1.push_back(30);
+//	v1.push_back(20);
+//	v1.push_back(40);
+//	v1.push_back(10);
+//	v1.push_back(10);
+//
+//	replace(v1.begin(), v1.end(), 10, 1000);
+//	for_each(v1.begin(), v1.end(), myprint);
+//	cout << endl;
+//	system("pause");
+//	return 0;
+//}
+
+//replace
+//replace if(iterator beg,iterator end,_pred, newvalue);
+//class greater10
+//{
+//public:
+//	bool operator()(int v)
+//	{
+//		return v > 10;
+//	}
+//};
+//int main()
+//{
+//	vector<int> v1;
+//	v1.push_back(10);
+//	v1.push_back(20);
+//	v1.push_back(30);
+//	v1.push_back(20);
+//	v1.push_back(40);
+//	v1.push_back(10);
+//	v1.push_back(10);
+//
+//	replace_if(v1.begin(), v1.end(), greater10(), 1000);
+//	for_each(v1.begin(), v1.end(), myprint);
+//	cout << endl;
+//	system("pause");
+//	return 0;
+//}
+
+//swap
+//必须是相同类型的容器
+
+//int main()
+//{
+//	vector<int> v1;
+//	vector<int> v2;
+//
+//	for (int i = 0; i < 10; i++)
+//	{
+//		v1.push_back(i);
+//		v2.push_back(i+100);
+//
+//	}
+//	cout << "交换前：" << endl;
+//	for_each(v1.begin(), v1.end(), myprint);
+//	cout << endl;
+//	for_each(v2.begin(), v2.end(), myprint);
+//	cout << endl;
+//
+//	swap(v1, v2);
+//	cout << "交换后：" << endl;
+//	for_each(v1.begin(), v1.end(), myprint);
+//	cout << endl;
+//	for_each(v2.begin(), v2.end(), myprint);
+//	cout << endl;
+//	system("pause");
+//	return 0;
+//}
+
+//常用的算术生成算法
+//算术生成算法属于小型算法，使用时包含的头文件为#include<numeric>
+//accumulate//计算容器元素累计总和
+//fill//向容器中添加元素
+
+//accumulate
+#include<numeric>
+//int main()
+//{
+//	vector<int> v1;
+//	for (int i = 0; i <= 100; i++)
+//	{
+//		v1.push_back(i);
+//
+//	}
+//	int sum = accumulate(v1.begin(), v1.end(), 1000);//第三个参数是起始累加值
+//	cout << sum << endl;
+//	system("pause");
+//	return 0;
+//}
+
+//fill
+
+//int main()
+//{
+//	vector<int> v1;
+//	v1.resize(10);
+//	fill(v1.begin(), v1.end(), 10);
+//	for_each(v1.begin(), v1.end(), myprint);
+//	cout << endl;
+//	system("pause");
+//	return 0;
+//}
+
+//常用的集合算法
+//set_intersection//求两个容器的交集
+//set_union//求两个容器的并集
+//set_difference//求两个容器的差集
+
+//set_intersection
+//求交集的两个集合必须的有序序列
+//目标容器开辟空间需要从两个容器中取小值
+//set intersection返回值既是交集中最后一个元素的位置
+
+//int main()
+//{
+//	vector<int> v1;
+//	vector<int> v2;
+//
+//	for (int i = 0; i < 10; i++)
+//	{
+//		v1.push_back(i);
+//		v2.push_back(i+5);
+//	}
+//	vector<int> v3;
+//	v3.resize(min(v1.size(), v2.size()));
+//	vector<int>::iterator itend = set_intersection(v1.begin(), v1.end(), v2.begin(), v2.end(), v3.begin());//返回最后一个交集元素在v3的迭代器位置
+//	for_each(v3.begin(), itend, myprint);//这里如果用v3.end()的话，由于之前开辟空间偏大，会有0输出
+//	cout << endl;
+//	system("pause");
+//	return 0;
+//}
+
+//set_union
+//求并集的两个集合必须的有序序列
+//目标容器开辟空间需要两个容器相加
+//set_union返回值既是并集中最后一个元素的位置
+
+//int main()
+//{
+//	vector<int> v1;
+//	vector<int> v2;
+//
+//	for (int i = 0; i < 10; i++)
+//	{
+//		v1.push_back(i);
+//		v2.push_back(i + 5);
+//	}
+//	vector<int> v3;
+//	v3.resize(v1.size() + v2.size());
+//	vector<int>::iterator itend = set_union(v1.begin(), v1.end(), v2.begin(), v2.end(), v3.begin());
+//	for_each(v3.begin(), itend, myprint);//这里如果用v3.end()的话，由于之前开辟空间偏大，会有0输出
+//	cout << endl;
+//	system("pause");
+//	return 0;
+//}
+
+//set_difference
+//求差集的两个集合必须的有序序列
+//目标容器开辟空间需要从两个容器取较大值
+//set_difference返回值既是差集中最后一个元素的位置
+
+//int main()
+//{
+//	vector<int> v1;
+//	vector<int> v2;
+//
+//	for (int i = 0; i < 10; i++)
+//	{
+//		v1.push_back(i);
+//		v2.push_back(i + 5);
+//	}
+//	vector<int> v3;
+//	v3.resize(max(v1.size(), v2.size()));
+//
+//	cout << "v1和v2的差集：" << endl;
+//	vector<int>::iterator itend = set_difference(v1.begin(), v1.end(), v2.begin(), v2.end(), v3.begin());
+//	for_each(v3.begin(), itend, myprint);
+//	cout << endl;
+//
+//	cout << "v2和v1的差集：" << endl;
+//	vector<int> v4;
+//	v4.resize(max(v1.size(), v2.size()));
+//	vector<int>::iterator _itend = set_difference(v2.begin(), v2.end(), v1.begin(), v1.end(), v4.begin());
+//	for_each(v4.begin(), _itend, myprint);
+//
+//	cout << endl;
+//	system("pause");
+//	return 0;
+//}
