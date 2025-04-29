@@ -128,3 +128,75 @@
 # print(eval(input('请输入你的身高:')))
 # hello='北京欢迎你'
 # print(eval('hello'))
+
+#运算符
+# print('+:',1+1)
+# print('-:',5-1)
+# print('/:',10/2)
+# print('//:',10//3)
+# print('%:',7%3)
+# print('**:',2**3)
+
+#运算符扩展
+# a=10
+# a/=2
+# print('/=:',a)
+
+#链式赋值
+# a=b=c=100
+# print(a,b,c)
+
+#系列解包赋值
+# a,b=10,20
+# print(a,b)
+# a,b=b,a
+# print(a,b)
+
+#逻辑运算符
+# print(8>7 and 1>0)
+# print(8>7 or 1<0)
+# print(not (1>0))
+
+#位运算符
+
+#分支结构
+# num=eval(input("请输入幸运数字:"))
+# if num==1:
+#     print("you are the best")
+# elif num>1 and num<10:
+#     print("just keep on")
+# elif num==0:
+#     print("stoic calm")
+# else:
+#     print("never give up")
+
+#模式匹配(仅支持3.10版本以上)
+# score=input("请输入你的成绩:")
+# match score:
+#     case 'A':
+#         print("excellent")
+#     case 'B':
+#         print("good")
+#     case 'C':
+#         print("common")
+
+#遍历循环for
+# for i in "hello":
+#     print(i)
+# for i in range(1,10):#内置函数range产生包含1，但不含10的数组
+#     print(i)
+
+#100-999的水仙花数查找
+# for i in range(100,1000):
+#     if (i%10)**3+(i//10%10)**3+(i//100%10)**3==i:
+#         print(i,"是水仙花数字",sep='')
+#     else:
+#         pass
+
+#while循环
+# i=0
+# sum=0
+# while i<=100:
+#     sum+=i
+#     i+=1
+# print(sum)
