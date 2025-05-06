@@ -200,3 +200,81 @@
 #     sum+=i
 #     i+=1
 # print(sum)
+
+#嵌套循环输出图形
+#1.矩形
+# for i in range(0,4):
+#     for j in range(0,5):
+#         print('*',end='')
+#     print()
+
+#2.直角三角形
+# for i in range(0,5):
+#     for j in range(0,i):
+#         print('*',end='')
+#     print()
+
+#3.倒直三角形
+# for i in range(0,6):
+#     for j in range(0,6-i):
+#         print('*',end='')
+#     print()
+
+#4.一般三角形
+# for i in range(0,5):
+#     for j in range(0,4-i):
+#         print(' ',end='')
+#     for k in range(0,2*i+1):
+#         print('*',end='')
+#     print()
+
+#5.菱形
+# for i in range(0,5):
+#     for j in range(0,4-i):
+#         print(' ',end='')
+#     for k in range(0,2*i+1):
+#         print('*',end='')
+#     print()
+# for i in range(0,4):
+#     for j in range(0,i+1):
+#         print(' ',end='')
+#     for k in range(0,9-2*(i+1)):
+#         print('*',end='')
+#     print()
+
+#6.空心菱形加低配爱心
+# for i in range(0,5):
+#     if i<3:
+#         continue
+#     for j in range(0,4-i):
+#         print(' ',end='')
+#     for k in range(0,2*i+1):
+#         if k==0 or k==2*i or (j==4-i and k==4):
+#             print('*', end='')
+#         else:
+#             print(' ',end='')
+#     print()
+# for i in range(0,4):
+#     for j in range(0,i+1):
+#         print(' ',end='')
+#     for k in range(0,9-2*(i+1)):
+#         if k == 0 or k == 8-2*(i+1):
+#             print('*', end='')
+#         else:
+#             print(' ', end='')
+#     print()
+
+#保留字pass
+# for i in range(10):
+#     pass
+
+#切片操作
+s='hello world'
+print(s[0:11:1])#默认步长为1，默认起始位置为0，默认结束位置为末尾
+print(s[::])
+print(s[5::])
+print(s[:5:])
+print(s[::2])
+print(s[::-1])
+print(s[-1:-12:-1])
+
